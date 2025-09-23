@@ -143,7 +143,7 @@
     }
     </script>
     
-    <!-- FAQ Schema -->
+    <!-- FAQ Schema - Complete -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -154,15 +154,15 @@
           "name": "What makes The Gold Blessing different?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We offer 18K gold starting at ₱5,899 per gram with direct factory pricing. We also carry 21K gold and Hong Kong settings. Every piece is tested and guaranteed real gold with flexible layaway options."
+            "text": "We sell authentic gold jewelry by the gram with transparent pricing, flexible layaway options, and exciting monthly raffles for straight-payment buyers. Every piece is tested and guaranteed real gold."
           }
         },
         {
           "@type": "Question",
-          "name": "What gold options do you offer?",
+          "name": "What karats do you offer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The Gold Blessing offers 18K gold (starts at ₱5,899/gram), 21K gold, and Hong Kong settings - all at direct factory prices."
+            "text": "We mainly carry 18k gold jewelry with Hong Kong settings at direct factory prices. Selected 21k and 22k pieces are also available."
           }
         },
         {
@@ -520,6 +520,23 @@
             line-height: 1.8;
         }
         
+        .faq-answer a {
+            color: var(--gold-dark);
+            text-decoration: underline;
+        }
+        
+        .layaway-calculator-box {
+            background: var(--emerald-900);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .layaway-calculator-box p {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
         /* Live Selling Section */
         .live-selling {
             padding: 80px 0;
@@ -745,7 +762,7 @@
         <section id="home" class="hero">
             <div class="container">
                 <h1>The Gold Blessing - Best Gold Jewelry Store in the Philippines</h1>
-                <p>18K from ₱5,899/gram • 21K Gold • Hong Kong Settings • Direct Factory Prices</p>
+                <p>18K from ₱5,899/gram • 21K & 22K Gold • Hong Kong Settings • Direct Factory Prices</p>
                 
                 <div class="trust-badges">
                     <span>⭐ 4.9/5 Rating</span>
@@ -777,6 +794,7 @@
                             <p style="color: var(--emerald-900); font-weight: bold; font-size: 20px; margin-bottom: 15px;">The Gold Blessing Also Offers:</p>
                             <p style="font-size: 18px;">✓ 18K Gold Jewelry</p>
                             <p style="font-size: 18px;">✓ 21K Gold Jewelry</p>
+                            <p style="font-size: 18px;">✓ 22K Gold Jewelry</p>
                             <p style="font-size: 18px;">✓ Hong Kong Settings</p>
                             <p style="font-size: 16px; margin-top: 15px; font-weight: bold;">All at Direct Factory Prices</p>
                         </div>
@@ -797,7 +815,7 @@
                 <div class="section-header">
                     <h2>Premium Gold Collections</h2>
                     <div class="gold-divider"></div>
-                    <p>18K, 21K, and Hong Kong Settings - Direct Factory Prices</p>
+                    <p>18K, 21K, 22K, and Hong Kong Settings - Direct Factory Prices</p>
                 </div>
                 
                 <div class="products-grid">
@@ -822,7 +840,7 @@
                     <div class="product-card">
                         <div class="product-image">👂</div>
                         <div class="product-info">
-                            <span class="price-per-gram">18K & 21K Available</span>
+                            <span class="price-per-gram">18K, 21K, 22K Available</span>
                             <h3>Gold Earrings</h3>
                             <p>Factory Direct</p>
                         </div>
@@ -831,7 +849,7 @@
                     <div class="product-card">
                         <div class="product-image">📿</div>
                         <div class="product-info">
-                            <span class="price-per-gram">21K Gold</span>
+                            <span class="price-per-gram">21K & 22K Gold</span>
                             <h3>Gold Bracelets</h3>
                             <p>Best Prices</p>
                         </div>
@@ -858,7 +876,7 @@
             </div>
         </section>
         
-        <!-- Interactive FAQ Section -->
+        <!-- Complete FAQ Section with ALL 20 FAQs -->
         <section id="faq" style="padding: 80px 0; background: var(--white);">
             <div class="container">
                 <div class="section-header">
@@ -868,49 +886,56 @@
                 </div>
                 
                 <div style="max-width: 900px; margin: 0 auto;">
-                    <!-- General FAQs -->
-                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px;">🏷️ General</h3>
+                    
+                    <!-- 🏷 General -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">🏷️ General</h3>
                     
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFAQ(this)">
-                            <span>What makes The Gold Blessing different?</span>
+                            <span>1. What makes The Gold Blessing different?</span>
                             <span class="arrow">▼</span>
                         </button>
                         <div class="faq-answer">
-                            We offer 18K gold starting at ₱5,899 per gram with direct factory pricing. We also carry 21K gold and Hong Kong settings. Every piece is tested and guaranteed real gold with flexible layaway options and exciting monthly raffles for straight-payment buyers.
+                            We sell authentic gold jewelry by the gram with transparent pricing, flexible layaway options, and exciting monthly raffles for straight-payment buyers. Every piece is tested and guaranteed real gold.
                         </div>
                     </div>
                     
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFAQ(this)">
-                            <span>What gold options do you offer?</span>
+                            <span>2. How do you price your jewelry?</span>
                             <span class="arrow">▼</span>
                         </button>
                         <div class="faq-answer">
-                            The Gold Blessing offers:<br><br>
-                            • 18K Gold (starts at ₱5,899/gram)<br>
-                            • 21K Gold<br>
-                            • Hong Kong Settings<br><br>
-                            All at direct factory prices with transparent per-gram pricing.
+                            All items are priced per gram, based on the current market rate plus minimal craftsmanship. Whether you're buying a chain or a ring, you pay fairly for the actual gold content.
                         </div>
                     </div>
                     
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFAQ(this)">
-                            <span>How do you price your jewelry?</span>
+                            <span>3. Is your gold authentic?</span>
                             <span class="arrow">▼</span>
                         </button>
                         <div class="faq-answer">
-                            All items are priced per gram, based on the current market rate plus minimal craftsmanship. Whether you're buying a chain or a ring, you pay fairly for the actual gold content. Our direct factory pricing ensures you get the best value.
+                            <strong>Yes.</strong> Every piece is 100% genuine gold and tested before release.
                         </div>
                     </div>
                     
-                    <!-- Layaway FAQs -->
-                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px;">💳 Layaway</h3>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>4. What karats do you offer?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We mainly carry 18k gold jewelry with Hong Kong settings at direct factory prices. Selected 21k and 22k pieces are also available.
+                        </div>
+                    </div>
+                    
+                    <!-- 💳 Layaway -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">💳 Layaway</h3>
                     
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFAQ(this)">
-                            <span>Do you offer layaway?</span>
+                            <span>5. Do you offer layaway?</span>
                             <span class="arrow">▼</span>
                         </button>
                         <div class="faq-answer">
@@ -919,7 +944,180 @@
                             • Pay the balance over time with no fixed monthly deadline<br>
                             • Minimum installment: ₱500<br>
                             • If no payments are made for 3 months, the layaway is automatically forfeited<br><br>
-                            Payments are accepted via GCash, BDO, BPI, PayMaya, or cash in-store.
+                            
+                            <div class="layaway-calculator-box">
+                                <p>🟢 <strong>Check here: TGB Layaway Calculator</strong> 👈🏼</p>
+                                <p style="color: var(--gold-light); font-size: 14px;">At The Gold Blessing, your convenience is our priority. 💛 Use this tool to compute balances, deposits, and other details instantly. It's designed to give you faster and smoother transactions. ✨</p>
+                            </div>
+                            
+                            Payments are accepted via GCash, BDO, BPI, PayMaya, or cash in-store. Once fully paid, your item is released.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>6. What if I can't continue my layaway?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Layaways with no payment for 3 months are forfeited. Deposits and payments made are non-refundable, except if covered under a promo or special arrangement.
+                        </div>
+                    </div>
+                    
+                    <!-- 🚚 Shipping & Delivery -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">🚚 Shipping & Delivery</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>7. Do you ship orders?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes, we ship nationwide via LBC (insured with tracking).<br><br>
+                            • <strong>Metro Manila:</strong> 3–5 business days<br>
+                            • <strong>Provincial areas:</strong> 5–7 business days<br><br>
+                            You'll receive a tracking email with your expected delivery date.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>8. Do you offer Cash on Delivery (COD) or Cash on Pickup (COP)?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <strong>Yes! We offer COD and COP.</strong><br><br>
+                            For COD, we collect the shipping fee first before sending out your jewelry. The balance is paid upon delivery.
+                        </div>
+                    </div>
+                    
+                    <!-- 🎉 Promos & Resellers -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">🎉 Promos & Resellers</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>9. How do I join the raffle promos?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Every straight-payment order is automatically entered in our monthly raffle. Prizes include staycations at <a href="https://luntian.net" target="_blank">Luntian Log Cabin</a>, shawls, and more.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>10. Do you accept resellers?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes. We offer a reseller program with special packages. Send us an email to receive full details and requirements.
+                        </div>
+                    </div>
+                    
+                    <!-- 📦 Orders & Confirmation -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">📦 Orders & Confirmation</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>11. How do I know if my order is confirmed?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <strong>You'll receive:</strong><br><br>
+                            • An invoice email with order details<br>
+                            • A tracking email once shipped<br>
+                            • Updates via Messenger/phone as needed
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>12. Can I see the jewelry before buying?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes. You may visit our shop or request a video call preview. Online buyers also receive detailed photos, weights, and descriptions.
+                        </div>
+                    </div>
+                    
+                    <!-- 📜 Policies -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">📜 Policies</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>13. Do you accept returns or exchanges?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            For hygiene and value protection, we do not accept returns once released. Exchanges may only be allowed if the wrong item was sent.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>14. How do you handle damaged or missing items during shipping?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            All parcels are sealed, insured, and tracked. If lost or damaged, we coordinate directly with LBC for claims. Full value refunds are only given if the customer declared the shipment value when paying for insurance.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>15. How do I know my payment is secure?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Every payment is issued a receipt and verified in our system. You'll always get a confirmation email.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>16. Do you buy back gold?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes. We may accept buy-back or trade-in depending on the item's condition and weight, based on the day's market rate.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>17. Do you customize jewelry?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We mainly offer ready-to-wear jewelry. For custom requests, sourcing may be possible with extra lead time and cost.
+                        </div>
+                    </div>
+                    
+                    <!-- 📢 Updates & Contact -->
+                    <h3 style="color: var(--emerald-900); margin: 40px 0 20px; font-size: 24px;">📢 Updates & Contact</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>18. How can I stay updated with new items?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <strong>Follow us and join our channels:</strong><br><br>
+                            📱 <strong>Messenger:</strong> <a href="https://messenger.com/channel/thegoldblessingofficial" target="_blank">messenger.com/channel/thegoldblessingofficial</a><br>
+                            💬 <strong>WhatsApp:</strong> <a href="https://whatsapp.com/channel/0029VbAeWqS6WaKlx1sbq917" target="_blank">whatsapp.com/channel/0029VbAeWqS6WaKlx1sbq917</a><br>
+                            📘 <strong>Facebook & Instagram:</strong> @thegoldblessing
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>19. How can I contact you?</span>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            📞 <strong>0967-400-0040</strong><br>
+                            📧 <a href="mailto:thegoldblessingofficial@gmail.com">thegoldblessingofficial@gmail.com</a><br>
+                            📱 <strong>FB/IG:</strong> @thegoldblessing
                         </div>
                     </div>
                     
@@ -936,7 +1134,7 @@
                     <p style="font-size: 24px; margin: 20px 0;">📱 Facebook Live</p>
                     <p style="font-size: 28px; color: var(--gold);">8:00 PM Daily</p>
                     <p style="margin-top: 20px;">Exclusive deals • Limited pieces • Special discounts</p>
-                    <p style="margin-top: 15px; font-size: 18px;">18K • 21K • Hong Kong Settings</p>
+                    <p style="margin-top: 15px; font-size: 18px;">18K • 21K • 22K • Hong Kong Settings</p>
                 </div>
             </div>
         </section>
@@ -971,6 +1169,12 @@
                         <div style="font-size: 36px; margin-bottom: 10px;">📘</div>
                         <div>Facebook Main</div>
                         <div style="font-size: 12px; margin-top: 5px;">@thegoldblessingofficial</div>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/jewelryforyouofficial" target="_blank" class="social-link" style="background: #1877f2;">
+                        <div style="font-size: 36px; margin-bottom: 10px;">📘</div>
+                        <div>Facebook Jewelry</div>
+                        <div style="font-size: 12px; margin-top: 5px;">@jewelryforyouofficial</div>
                     </a>
                     
                     <a href="https://www.instagram.com/the_gold_blessing" target="_blank" class="social-link" style="background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);">
