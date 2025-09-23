@@ -5,21 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://thegoldblessing.com/">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="TGB_LOGO.png">
     
     <!-- Primary Meta Tags -->
-    <title>The Gold Blessing - Luxury Gold Jewelry | 18K 21K Hong Kong Settings | Cavite Philippines</title>
-    <meta name="title" content="The Gold Blessing - Luxury Gold Jewelry Store Cavite | 18K 21K Hong Kong Settings Philippines">
-    <meta name="description" content="Premium gold jewelry store in Philippines. 18K gold starts at ₱5,899/gram. 21K, 22K and Hong Kong settings available. Direct factory prices. Live selling daily.">
-    <meta name="keywords" content="luxury gold jewelry philippines, ginto jewelry Amadeo, alahas na ginto Cavite, per gramo presyo ginto, live selling ginto Philippines, 18k gold Philippines, 21k gold, hong kong settings, tunay na ginto, gold jewelry installment Philippines, singsing kasal presyo, cheapest gold jewelry cavite, gold price today philippines, the gold blessing, TGB jewelry">
+    <title>The Gold Blessing - Authentic Gold Jewelry | 18K 21K Hong Kong Settings | Amadeo Cavite Since 2016</title>
+    <meta name="title" content="The Gold Blessing - Authentic Gold Jewelry Store | Hong Kong Settings | Amadeo Cavite">
+    <meta name="description" content="Trusted since 2016. 18K gold from ₱5,899/gram. Hong Kong settings, layaway available, COD nationwide. 100% authentic gold guaranteed. Daily live selling 8PM.">
+    <meta name="keywords" content="gold jewelry cavite, ginto amadeo, authentic gold philippines, hong kong settings, layaway jewelry, per gram pricing, the gold blessing, TGB jewelry">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://maldipia.github.io/thegoldblessing/">
-    <meta property="og:title" content="The Gold Blessing - Luxury Gold Jewelry Philippines">
-    <meta property="og:description" content="18K gold starts at ₱5,899/gram. Hong Kong settings. Direct factory prices.">
-    <meta property="og:image" content="https://maldipia.github.io/thegoldblessing/TGB_LOGO.png">
+    <meta property="og:url" content="https://thegoldblessing.com/">
+    <meta property="og:title" content="The Gold Blessing - Authentic Gold Jewelry Philippines">
+    <meta property="og:description" content="18K gold from ₱5,899/gram. Hong Kong settings. Layaway available. COD nationwide.">
+    <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "JewelryStore",
+      "name": "The Gold Blessing",
+      "image": "https://thegoldblessing.com/TGB_LOGO.png",
+      "@id": "https://thegoldblessing.com",
+      "url": "https://thegoldblessing.com",
+      "telephone": "+639674000040",
+      "priceRange": "₱₱₱",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Daang Luma, Brgy. Loma",
+        "addressLocality": "Amadeo",
+        "addressRegion": "Cavite",
+        "addressCountry": "PH"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "09:00",
+        "closes": "19:00"
+      },{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "10:00",
+        "closes": "17:00"
+      }],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "150"
+      }
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,23 +144,8 @@
                 opacity: 0;
             }
         }
-
-        @keyframes shimmer {
-            0%, 100% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .gold-particle:nth-child(odd) {
-            animation-name: fall, shimmer;
-            animation-duration: 10s, 2s;
-            animation-iteration-count: infinite, infinite;
-        }
         
-        /* Luxury Loading Animation */
+        /* Loading Animation */
         .loader {
             position: fixed;
             top: 0;
@@ -156,7 +181,7 @@
             50% { transform: rotate(45deg) scale(1.2); }
         }
         
-        /* Luxury Header */
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-teal) 100%);
             padding: 15px 0;
@@ -210,7 +235,7 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 30px;
         }
         
         .nav-menu a {
@@ -258,7 +283,7 @@
             transition: 0.3s;
         }
         
-        /* Hero Section - Luxury Style */
+        /* Hero Section with CTAs */
         .hero {
             min-height: 100vh;
             background: linear-gradient(135deg, var(--dark-teal) 0%, var(--luxury-teal) 50%, var(--deep-teal) 100%);
@@ -268,21 +293,6 @@
             justify-content: center;
             overflow: hidden;
             margin-top: 80px;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,40 70,90 30,90 10,40" fill="none" stroke="gold" stroke-width="0.5" opacity="0.1"/></svg>');
-            background-size: 100px 100px;
-            animation: float-pattern 20s linear infinite;
-        }
-        
-        @keyframes float-pattern {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, 100px); }
         }
         
         .hero-content {
@@ -317,81 +327,65 @@
             letter-spacing: 3px;
         }
         
-        .luxury-badges {
+        .trust-badges {
             display: flex;
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
-        
-        .luxury-badge {
+
+        .trust-badge {
             background: rgba(212, 175, 55, 0.1);
             border: 1px solid var(--gold);
             color: var(--gold-light);
             padding: 12px 25px;
             font-size: 14px;
             letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
-        .luxury-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .luxury-badge:hover::before {
-            left: 100%;
-        }
-        
-        .luxury-badge:hover {
-            background: rgba(212, 175, 55, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        /* Animated Diamond */
-        .diamond-container {
-            margin-top: 50px;
-            perspective: 1000px;
-        }
-        
-        .diamond {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotate-diamond 10s linear infinite;
-        }
-        
-        @keyframes rotate-diamond {
-            0% { transform: rotateY(0) rotateX(0); }
-            100% { transform: rotateY(360deg) rotateX(360deg); }
-        }
-        
-        .diamond-face {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
-            opacity: 0.9;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        }
-        
-        .diamond-face:nth-child(1) { transform: rotateY(0deg) translateZ(30px); }
-        .diamond-face:nth-child(2) { transform: rotateY(90deg) translateZ(30px); }
-        .diamond-face:nth-child(3) { transform: rotateY(180deg) translateZ(30px); }
-        .diamond-face:nth-child(4) { transform: rotateY(270deg) translateZ(30px); }
 
-        /* About Us Section */
+        /* Hero CTAs */
+        .hero-cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .hero-cta {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-cta-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--deep-teal);
+        }
+
+        .hero-cta-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* About Section */
         .about-section {
             padding: 100px 0;
             background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-teal) 100%);
@@ -422,17 +416,6 @@
             border: 1px solid var(--gold);
         }
 
-        .achievement-badge-number {
-            font-size: 36px;
-            color: var(--gold);
-            font-weight: bold;
-        }
-
-        .achievement-badge-label {
-            color: var(--gold-light);
-            font-size: 14px;
-        }
-
         .mission-box {
             margin-bottom: 40px;
             padding: 30px;
@@ -461,19 +444,8 @@
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
             border-color: var(--gold);
         }
-
-        .why-choose-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
         
-        /* Price Section - Luxury Cards */
-        .price-section {
-            padding: 100px 0;
-            background: linear-gradient(180deg, var(--deep-teal) 0%, var(--dark-teal) 100%);
-            position: relative;
-        }
-        
+        /* Section Title */
         .section-title {
             text-align: center;
             margin-bottom: 60px;
@@ -483,8 +455,6 @@
             font-size: 48px;
             color: var(--gold);
             margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
         }
         
         .luxury-divider {
@@ -494,102 +464,12 @@
             margin: 30px auto;
         }
         
-        .price-showcase {
-            max-width: 700px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-            border: 2px solid var(--gold);
-            padding: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .price-showcase::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--gold), transparent, var(--gold));
-            animation: glow 3s linear infinite;
-            opacity: 0.5;
-        }
-        
-        @keyframes glow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .price-showcase h3 {
-            font-size: 36px;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .price-highlight {
-            font-size: 48px;
-            color: var(--gold-bright);
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 30px;
-            text-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
-        }
-        
-        .price-features {
-            text-align: center;
-        }
-        
-        .price-features p {
-            font-size: 18px;
-            color: var(--gold-light);
-            margin: 10px 0;
-            letter-spacing: 1px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            color: var(--deep-teal);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .cta-button:hover::before {
-            left: 100%;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-        
-        /* Products Grid - Luxury Style */
+        /* Products Grid */
         .products-section {
             padding: 100px 0;
             background: var(--deep-teal);
         }
-        
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -603,22 +483,6 @@
             overflow: hidden;
             transition: all 0.5s;
             position: relative;
-        }
-        
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 40%, rgba(212, 175, 55, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .product-card:hover::before {
-            opacity: 1;
         }
         
         .product-card:hover {
@@ -636,20 +500,6 @@
             font-size: 80px;
             position: relative;
             overflow: hidden;
-        }
-        
-        .product-image::after {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
-            animation: pulse 3s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.2); opacity: 1; }
         }
         
         .product-info {
@@ -680,8 +530,189 @@
             font-size: 18px;
             letter-spacing: 1px;
         }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 30px;
+            position: relative;
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .testimonial-text {
+            color: var(--gold-light);
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .testimonial-date {
+            color: var(--gold-light);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .testimonial-verified {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--gold);
+        }
+
+        /* Policies Section */
+        .policies-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
+        }
+
+        .policy-card {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid var(--gold);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .policy-title {
+            color: var(--gold);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .policy-content {
+            color: var(--gold-light);
+            line-height: 1.8;
+        }
+
+        .policy-content ul {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        .policy-content li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .policy-content li::before {
+            content: '✓';
+            position: absolute;
+            left: -20px;
+            color: var(--gold);
+        }
+
+        .cod-notice {
+            background: var(--gold);
+            color: var(--deep-teal);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .layaway-calculator-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--deep-teal);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        .layaway-calculator-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background: var(--deep-teal);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .contact-title {
+            color: var(--gold);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            color: var(--gold-light);
+            line-height: 1.8;
+        }
+
+        .contact-info a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: var(--gold-bright);
+        }
+
+        /* Map Container */
+        .map-container {
+            margin-top: 60px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
         
-        /* FAQ Section - Luxury Accordion */
+        /* FAQ Section */
         .faq-section {
             padding: 100px 0;
             background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
@@ -712,11 +743,6 @@
             transition: all 0.3s;
         }
         
-        .faq-item:hover {
-            border-color: var(--gold);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.1);
-        }
-        
         .faq-question {
             width: 100%;
             padding: 20px 25px;
@@ -733,11 +759,6 @@
             transition: all 0.3s;
         }
         
-        .faq-question:hover {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold);
-        }
-        
         .faq-arrow {
             transition: transform 0.3s;
             color: var(--gold);
@@ -748,90 +769,14 @@
             padding: 0 25px 20px 25px;
             color: var(--gold-light);
             line-height: 1.8;
-            animation: slideDown 0.3s ease;
         }
         
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Live Selling Section */
-        .live-section {
-            padding: 100px 0;
-            background: var(--deep-teal);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .live-section::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
-            top: -150px;
-            right: -150px;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-50px, 50px); }
-        }
-        
-        .live-box {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-            border: 2px solid var(--gold);
-            padding: 60px;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .live-box h3 {
-            color: var(--gold);
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .live-time {
-            font-size: 32px;
-            color: var(--gold-bright);
-            font-weight: 600;
-            margin: 20px 0;
-            text-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
-        }
-        
-        .live-badge {
-            display: inline-block;
-            background: #ff0000;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            animation: pulse-live 2s infinite;
-            margin-top: 20px;
-        }
-        
-        @keyframes pulse-live {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Social Media Grid */
+        /* Social Grid */
         .social-section {
             padding: 100px 0;
             background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
         }
-        
+
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -848,23 +793,6 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: rgba(212, 175, 55, 0.05);
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.2));
-            transition: top 0.3s;
-        }
-        
-        .social-card:hover::before {
-            top: 0;
         }
         
         .social-card:hover {
@@ -872,78 +800,13 @@
             border-color: var(--gold);
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
         }
-        
-        .social-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .social-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .social-handle {
-            font-size: 12px;
-            color: var(--gold-light);
-        }
-        
+
         /* Footer */
         footer {
             background: var(--deep-teal);
             padding: 80px 0 40px;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
             text-align: center;
-        }
-        
-        .footer-logo {
-            margin-bottom: 30px;
-        }
-        
-        .footer-logo img {
-            width: 80px;
-            height: 80px;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
-        }
-        
-        .footer-info h4 {
-            color: var(--gold);
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-info p {
-            color: var(--gold-light);
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        
-        .footer-links {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: var(--gold-light);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-        
-        .copyright {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--gold-light);
-            font-size: 14px;
         }
         
         /* Floating Action Button */
@@ -971,7 +834,19 @@
             50% { transform: scale(1.1); }
         }
         
-        /* Responsive Design */
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -997,30 +872,23 @@
                 font-size: 36px;
             }
             
-            .about-grid {
-                grid-template-columns: 1fr;
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-cta {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
             
+            .about-grid,
             .products-grid,
-            .social-grid {
+            .testimonials-grid,
+            .contact-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .price-showcase {
-                padding: 40px 20px;
-            }
-        }
-        
-        /* Scroll Animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        
-        .scroll-reveal.active {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -1033,7 +901,7 @@
         <div class="loader-diamond"></div>
     </div>
     
-    <!-- Luxury Header -->
+    <!-- Header -->
     <header id="header">
         <div class="container">
             <nav>
@@ -1045,8 +913,8 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#collections">Collections</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#policies">Policies</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="mobile-menu" onclick="toggleMenu()">
@@ -1058,171 +926,118 @@
         </div>
     </header>
     
-    <!-- Hero Section -->
+    <!-- Hero Section with Strong CTAs -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>THE GOLD BLESSING</h1>
-                <p class="tagline">LUXURY GOLD JEWELRY • CAVITE</p>
+                <p class="tagline">AUTHENTIC GOLD JEWELRY • SINCE 2016</p>
                 
-                <div class="luxury-badges">
-                    <div class="luxury-badge">⭐ 100% Reviews Rating</div>
-                    <div class="luxury-badge">💎 Since 2016</div>
-                    <div class="luxury-badge">📍 Amadeo</div>
-                </div>
-                
-                <div class="diamond-container">
-                    <div class="diamond">
-                        <div class="diamond-face"></div>
-                        <div class="diamond-face"></div>
-                        <div class="diamond-face"></div>
-                        <div class="diamond-face"></div>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <span>✓</span>
+                        <span>100% Authentic Gold</span>
                     </div>
+                    <div class="trust-badge">
+                        <span>🛡️</span>
+                        <span>Insured Shipping</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span>💎</span>
+                        <span>Since 2016</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta-group">
+                    <a href="https://m.me/thegoldblessingofficial" class="hero-cta hero-cta-primary" target="_blank">
+                        <span>💬</span>
+                        <span>Message Us</span>
+                    </a>
+                    <a href="https://wa.me/639674000040" class="hero-cta hero-cta-secondary" target="_blank">
+                        <span>📱</span>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="https://calculator.thegoldblessing.com" class="hero-cta hero-cta-secondary" target="_blank">
+                        <span>🧮</span>
+                        <span>Layaway Calculator</span>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Us Section -->
+    <!-- About Section -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="section-title scroll-reveal">
-                <h2>OUR STORY</h2>
+                <h2>ABOUT THE GOLD BLESSING</h2>
                 <div class="luxury-divider"></div>
             </div>
             
             <div class="about-grid">
-                <!-- Left Content -->
                 <div class="scroll-reveal">
                     <h3 style="color: var(--gold); font-size: 32px; margin-bottom: 30px;">Trusted Since 2016</h3>
                     <p style="color: var(--gold-light); font-size: 18px; line-height: 1.8; margin-bottom: 25px;">
-                        The Gold Blessing has been Cavite's premier destination for authentic gold jewelry for nearly a decade. What started as a family passion for fine jewelry has grown into a trusted name in the Philippine gold industry.
-                    </p>
-                    <p style="color: var(--gold-light); font-size: 18px; line-height: 1.8; margin-bottom: 25px;">
-                        Located in the heart of Amadeo, Cavite, we've built our reputation on transparency, authenticity, and exceptional service that has earned us a perfect 100% customer satisfaction rating.
+                        The Gold Blessing has been Cavite's premier destination for authentic gold jewelry for nearly a decade. Located in Amadeo, we specialize in Hong Kong settings with transparent per-gram pricing.
                     </p>
                     
                     <div class="achievement-badges">
                         <div class="achievement-badge">
-                            <div class="achievement-badge-number">9+</div>
-                            <div class="achievement-badge-label">Years of Excellence</div>
+                            <div style="font-size: 36px; color: var(--gold); font-weight: bold;">9+</div>
+                            <div style="color: var(--gold-light); font-size: 14px;">Years of Excellence</div>
                         </div>
                         <div class="achievement-badge">
-                            <div class="achievement-badge-number">100%</div>
-                            <div class="achievement-badge-label">Customer Satisfaction</div>
+                            <div style="font-size: 36px; color: var(--gold); font-weight: bold;">100%</div>
+                            <div style="color: var(--gold-light); font-size: 14px;">Satisfaction</div>
                         </div>
                         <div class="achievement-badge">
-                            <div class="achievement-badge-number">1000+</div>
-                            <div class="achievement-badge-label">Happy Customers</div>
+                            <div style="font-size: 36px; color: var(--gold); font-weight: bold;">1000+</div>
+                            <div style="color: var(--gold-light); font-size: 14px;">Happy Customers</div>
                         </div>
                         <div class="achievement-badge">
-                            <div class="achievement-badge-number">Daily</div>
-                            <div class="achievement-badge-label">Live Selling</div>
+                            <div style="font-size: 36px; color: var(--gold); font-weight: bold;">Daily</div>
+                            <div style="color: var(--gold-light); font-size: 14px;">Live Selling</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Right Content -->
                 <div class="scroll-reveal">
                     <div class="mission-box">
                         <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 15px;">Our Mission</h4>
                         <p style="color: var(--gold-light); line-height: 1.8;">
-                            To provide authentic, high-quality gold jewelry at transparent, factory-direct prices, making luxury accessible to every Filipino family.
+                            To provide authentic, high-quality gold jewelry at transparent, factory-direct prices with flexible payment options.
                         </p>
                     </div>
                     
                     <div class="mission-box">
-                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 15px;">Our Vision</h4>
+                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 15px;">Our Promise</h4>
                         <p style="color: var(--gold-light); line-height: 1.8;">
-                            To be the most trusted name in Philippine gold jewelry, known for our authenticity, transparency, and dedication to customer satisfaction.
+                            Every piece is tested and guaranteed genuine gold. Transparent pricing, no hidden charges.
                         </p>
                     </div>
                     
                     <div class="mission-box">
-                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">Our Values</h4>
+                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">Why Choose Us</h4>
                         <ul style="list-style: none; color: var(--gold-light); line-height: 2;">
-                            <li>✓ Authenticity in Every Piece</li>
-                            <li>✓ Transparent Per-Gram Pricing</li>
-                            <li>✓ Customer-First Service</li>
-                            <li>✓ Family Values & Trust</li>
-                            <li>✓ Community Engagement</li>
+                            <li>✓ Direct Factory Prices</li>
+                            <li>✓ Hong Kong Settings</li>
+                            <li>✓ Flexible Layaway</li>
+                            <li>✓ COD Nationwide</li>
+                            <li>✓ 100% Authentic</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            
-            <!-- Why Choose Us -->
-            <div style="margin-top: 80px; text-align: center;" class="scroll-reveal">
-                <h3 style="color: var(--gold); font-size: 36px; margin-bottom: 40px;">Why Choose The Gold Blessing?</h3>
-                
-                <div class="why-choose-grid">
-                    <div class="why-choose-card">
-                        <div class="why-choose-icon">🏆</div>
-                        <h4 style="color: var(--gold); margin-bottom: 15px;">Direct Factory Prices</h4>
-                        <p style="color: var(--gold-light);">Cut out the middleman with our direct factory connections</p>
-                    </div>
-                    
-                    <div class="why-choose-card">
-                        <div class="why-choose-icon">💎</div>
-                        <h4 style="color: var(--gold); margin-bottom: 15px;">Guaranteed Authentic</h4>
-                        <p style="color: var(--gold-light);">Every piece tested and certified genuine gold</p>
-                    </div>
-                    
-                    <div class="why-choose-card">
-                        <div class="why-choose-icon">💳</div>
-                        <h4 style="color: var(--gold); margin-bottom: 15px;">Flexible Layaway</h4>
-                        <p style="color: var(--gold-light);">Reserve now, pay at your own pace</p>
-                    </div>
-                    
-                    <div class="why-choose-card">
-                        <div class="why-choose-icon">🎁</div>
-                        <h4 style="color: var(--gold); margin-bottom: 15px;">Monthly Raffles</h4>
-                        <p style="color: var(--gold-light);">Win amazing prizes with every straight payment</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Call to Action -->
-            <div style="text-align: center; margin-top: 60px;" class="scroll-reveal">
-                <p style="color: var(--gold-light); font-size: 20px; margin-bottom: 30px;">
-                    Experience the Gold Blessing difference today
-                </p>
-                <a href="#collections" class="cta-button">EXPLORE COLLECTIONS</a>
-            </div>
         </div>
     </section>
     
-    <!-- Pricing Section -->
-    <section id="pricing" class="price-section">
-        <div class="container">
-            <div class="section-title scroll-reveal">
-                <h2>EXCLUSIVE PRICING</h2>
-                <div class="luxury-divider"></div>
-            </div>
-            
-            <div class="price-showcase scroll-reveal">
-                <h3>18K GOLD JEWELRY</h3>
-                <div class="price-highlight">Starts at ₱5,899/gram</div>
-                <div class="price-features">
-                    <p>✓ Direct Factory Prices</p>
-                    <p>✓ 18K, 21K & 22K Available</p>
-                    <p>✓ Hong Kong Settings</p>
-                    <p>✓ Lifetime Authenticity Guarantee</p>
-                </div>
-                <div style="text-align: center;">
-                    <a href="tel:09674000040" class="cta-button">INQUIRE NOW</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Products Section -->
+    <!-- Collections -->
     <section id="collections" class="products-section">
         <div class="container">
             <div class="section-title scroll-reveal">
                 <h2>PREMIUM COLLECTIONS</h2>
                 <div class="luxury-divider"></div>
-                <p style="color: var(--gold-light); font-size: 18px;">Handcrafted Excellence</p>
+                <p style="color: var(--gold-light); font-size: 18px;">Hong Kong Settings • Direct Factory Prices</p>
             </div>
             
             <div class="products-grid">
@@ -1282,294 +1097,217 @@
             </div>
         </div>
     </section>
-    
-    <!-- FAQ Section with ALL 20 Questions -->
-<section id="faq" class="faq-section">
-    <div class="container">
-        <div class="section-title scroll-reveal">
-            <h2>FREQUENTLY ASKED QUESTIONS</h2>
-            <div class="luxury-divider"></div>
-        </div>
-        
-        <div class="faq-container">
-            <!-- 🏷️ General -->
-            <div class="faq-category scroll-reveal">
-                <h3>🏷️ General</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>1. What makes The Gold Blessing different?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We sell authentic gold jewelry by the gram with transparent pricing, flexible layaway options, and exciting monthly raffles for straight-payment buyers. Every piece is tested and guaranteed real gold.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>2. How do you price your jewelry?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        All items are priced per gram, based on the current market rate plus minimal craftsmanship. Whether you're buying a chain or a ring, you pay fairly for the actual gold content.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>3. Is your gold authentic?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes. Every piece is 100% genuine gold and tested before release.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>4. What karats do you offer?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We mainly carry 18k gold jewelry with Hong Kong settings at direct factory prices. Selected 21k and 22k pieces are also available.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 💳 Layaway -->
-            <div class="faq-category scroll-reveal">
-                <h3>💳 Layaway</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>5. Do you offer layaway?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes! With our Layaway Plan, you can:<br><br>
-                        • Reserve jewelry with a small initial deposit<br>
-                        • Pay the balance over time with no fixed monthly deadline<br>
-                        • Minimum installment: ₱500<br>
-                        • If no payments are made for 3 months, the layaway is automatically forfeited<br><br>
-                        <div style="background: var(--gold); color: var(--deep-teal); padding: 15px; border-radius: 8px; margin: 15px 0;">
-                            <strong>🟢 Check here: TGB Layaway Calculator 👈🏼</strong><br>
-                            At The Gold Blessing, your convenience is our priority. 💛 Use this tool to compute balances, deposits, and other details instantly. ✨
-                        </div>
-                        Payments are accepted via GCash, BDO, BPI, PayMaya, or cash in-store. Once fully paid, your item is released.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>6. What if I can't continue my layaway?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Layaways with no payment for 3 months are forfeited. Deposits and payments made are non-refundable, except if covered under a promo or special arrangement.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 🚚 Shipping & Delivery -->
-            <div class="faq-category scroll-reveal">
-                <h3>🚚 Shipping & Delivery</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>7. Do you ship orders?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes, we ship nationwide via LBC (insured with tracking).<br><br>
-                        • Metro Manila: 3–5 business days<br>
-                        • Provincial areas: 5–7 business days<br><br>
-                        You'll receive a tracking email with your expected delivery date.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>8. Do you offer Cash on Delivery (COD) or Cash on Pickup (COP)?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes! We offer COD and COP.<br>
-                        For COD, we collect the shipping fee first before sending out your jewelry. The balance is paid upon delivery.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 🎉 Promos & Resellers -->
-            <div class="faq-category scroll-reveal">
-                <h3>🎉 Promos & Resellers</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>9. How do I join the raffle promos?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Every straight-payment order is automatically entered in our monthly raffle. Prizes include staycations at Luntian Log Cabin, shawls, and more.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>10. Do you accept resellers?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes. We offer a reseller program with special packages. Send us an email to receive full details and requirements.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 📦 Orders & Confirmation -->
-            <div class="faq-category scroll-reveal">
-                <h3>📦 Orders & Confirmation</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>11. How do I know if my order is confirmed?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        You'll receive:<br><br>
-                        • An invoice email with order details<br>
-                        • A tracking email once shipped<br>
-                        • Updates via Messenger/phone as needed
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>12. Can I see the jewelry before buying?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes. You may visit our shop or request a video call preview. Online buyers also receive detailed photos, weights, and descriptions.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 📜 Policies -->
-            <div class="faq-category scroll-reveal">
-                <h3>📜 Policies</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>13. Do you accept returns or exchanges?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        For hygiene and value protection, we do not accept returns once released. Exchanges may only be allowed if the wrong item was sent.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>14. How do you handle damaged or missing items during shipping?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        All parcels are sealed, insured, and tracked. If lost or damaged, we coordinate directly with LBC for claims. Full value refunds are only given if the customer declared the shipment value when paying for insurance.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>15. How do I know my payment is secure?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Every payment is issued a receipt and verified in our system. You'll always get a confirmation email.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>16. Do you buy back gold?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Yes. We may accept buy-back or trade-in depending on the item's condition and weight, based on the day's market rate.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>17. Do you customize jewelry?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        We mainly offer ready-to-wear jewelry. For custom requests, sourcing may be possible with extra lead time and cost.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 📢 Updates & Contact -->
-            <div class="faq-category scroll-reveal">
-                <h3>📢 Updates & Contact</h3>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>18. How can I stay updated with new items?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        Follow us and join our channels:<br><br>
-                        • Messenger: <a href="https://messenger.com/channel/thegoldblessingofficial" target="_blank" style="color: var(--gold);">messenger.com/channel/thegoldblessingofficial</a><br>
-                        • WhatsApp: <a href="https://whatsapp.com/channel/0029VbAeWqS6WaKlx1sbq917" target="_blank" style="color: var(--gold);">whatsapp.com/channel/0029VbAeWqS6WaKlx1sbq917</a><br>
-                        • Facebook & Instagram: @thegoldblessing
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>19. How can I contact you?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        📞 0967-400-0040<br>
-                        📧 thegoldblessingofficial@gmail.com<br>
-                        📱 FB/IG: @thegoldblessing
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question" onclick="toggleFAQ(this)">
-                        <span>20. What's the store address and operating hours?</span>
-                        <span class="faq-arrow">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        📍 Daang Luma, Brgy. Loma, Amadeo, Cavite<br>
-                        ⏰ Monday-Saturday: 9AM-7PM<br>
-                        ⏰ Sunday: 10AM-5PM
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    
-    <!-- Live Selling Section -->
-    <section class="live-section">
+
+    <!-- Testimonials Section with Real Reviews -->
+    <section id="testimonials" class="testimonials-section">
         <div class="container">
             <div class="section-title scroll-reveal">
-                <h2>LIVE SELLING</h2>
+                <h2>FEATURED CUSTOMER REVIEWS</h2>
                 <div class="luxury-divider"></div>
+                <p style="color: var(--gold-light); font-size: 18px;">Authentic Reviews from Verified Customers</p>
+                <div style="margin-top: 20px;">
+                    <a href="https://www.facebook.com/thegoldblessingofficial/reviews" target="_blank" style="color: var(--gold); text-decoration: none;">
+                        View All Reviews on Facebook →
+                    </a>
+                </div>
             </div>
             
-            <div class="live-box scroll-reveal">
-                <h3>Daily Facebook Live</h3>
-                <p class="live-time">8:00 PM</p>
-                <p style="color: var(--gold-light); font-size: 18px;">Exclusive Deals • Limited Pieces</p>
-                <div class="live-badge">🔴 LIVE DAILY</div>
+            <div class="testimonials-grid">
+                <!-- Mary Jane Barte -->
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Arrived today. Sooo beautiful 😍. Till next time."
+                    </p>
+                    <div class="testimonial-author">Mary Jane Barte</div>
+                    <div class="testimonial-date">Facebook Review • November 21, 2024</div>
+                    <div class="testimonial-verified">✓ Verified Purchase</div>
+                </div>
+                
+                <!-- Hazel Tabares-Marcelino -->
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Highly recommended. Authentic, trustworthy, and very accommodating! SoleBlessing and GoldBlessing are 100% legit. We will definitely go back and purchase jewelry again! ❤️"
+                    </p>
+                    <div class="testimonial-author">Hazel Tabares-Marcelino</div>
+                    <div class="testimonial-date">Facebook Review • November 17, 2024</div>
+                    <div class="testimonial-verified">✓ Verified Purchase</div>
+                </div>
+                
+                <!-- Michelle Nofre Delos Reyes -->
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Legit, highly recommended. Dami kong budol sakanila 🤣😅 Love all the designs and cheapest so far. Gold is gold ❤️ Thank you so much TGB! 🥰"
+                    </p>
+                    <div class="testimonial-author">Michelle Nofre Delos Reyes</div>
+                    <div class="testimonial-date">Facebook Review • November 16, 2024</div>
+                    <div class="testimonial-verified">✓ Verified Purchase</div>
+                </div>
+                
+                <!-- Mhaler Bumanglag Cresencia -->
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "From Gold Blessing to JFY to The Gold Blessing… sa lahat ng nabilhan ko, dito ako bumabalik balik. They have the most unique designs, quality superb, 100% legit, very accommodating and patient admins. Worth every penny 😊."
+                    </p>
+                    <div class="testimonial-author">Mhaler Bumanglag Cresencia</div>
+                    <div class="testimonial-date">Facebook Review • June 29, 2024</div>
+                    <div class="testimonial-verified">✓ Verified Purchase • Repeat Customer</div>
+                </div>
+                
+                <!-- Avery Leigh -->
+                <div class="testimonial-card scroll-reveal">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "I recommend this page. This is the legit Gold Blessing — tried and tested. Miss P and admins are very accommodating."
+                    </p>
+                    <div class="testimonial-author">Avery Leigh</div>
+                    <div class="testimonial-date">Facebook Review • June 20, 2024</div>
+                    <div class="testimonial-verified">✓ Verified Purchase</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://www.facebook.com/thegoldblessingofficial/reviews" class="layaway-calculator-btn" target="_blank">
+                    View More Reviews on Facebook
+                </a>
             </div>
         </div>
     </section>
-    
+
+    <!-- Policies Section -->
+    <section id="policies" class="policies-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>STORE POLICIES</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="scroll-reveal">
+                <div class="policy-card">
+                    <h3 class="policy-title">Shipping Policy</h3>
+                    <div class="policy-content">
+                        <ul>
+                            <li>Nationwide shipping via LBC (insured with tracking)</li>
+                            <li>Metro Manila: 3-5 business days</li>
+                            <li>Provincial areas: 5-7 business days</li>
+                            <li>All packages are sealed, insured, and tracked</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 class="policy-title">Payment Options</h3>
+                    <div class="policy-content">
+                        <ul>
+                            <li>Cash on Delivery (COD) available nationwide</li>
+                            <li>GCash, BDO, BPI, PayMaya accepted</li>
+                            <li>Layaway plan with flexible terms</li>
+                        </ul>
+                        <div class="cod-notice">
+                            📢 COD POLICY: We collect shipping fee first before sending your order. Balance is paid upon delivery.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 class="policy-title">Layaway Terms</h3>
+                    <div class="policy-content">
+                        <ul>
+                            <li>Reserve jewelry with small initial deposit</li>
+                            <li>No fixed monthly deadline</li>
+                            <li>Minimum ₱500 per installment</li>
+                            <li>Automatic forfeiture if no payment for 3 months</li>
+                        </ul>
+                        <a href="https://calculator.thegoldblessing.com" class="layaway-calculator-btn" target="_blank">
+                            <span>🧮</span>
+                            <span>Try Our Layaway Calculator</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 class="policy-title">Returns & Exchanges</h3>
+                    <div class="policy-content">
+                        <ul>
+                            <li>No returns once item is released (for hygiene and value protection)</li>
+                            <li>Exchanges only if wrong item was sent</li>
+                            <li>All items are tested and guaranteed authentic</li>
+                            <li>Buy-back or trade-in available based on market rate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>CONTACT US</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="contact-grid scroll-reveal">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3 class="contact-title">Call Us</h3>
+                    <div class="contact-info">
+                        <a href="tel:09674000040">0967-400-0040</a><br>
+                        <small>Tap to call</small>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3 class="contact-title">Message Us</h3>
+                    <div class="contact-info">
+                        <a href="https://m.me/thegoldblessingofficial" target="_blank">Messenger</a><br>
+                        <a href="https://wa.me/639674000040" target="_blank">WhatsApp</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3 class="contact-title">Email</h3>
+                    <div class="contact-info">
+                        <a href="mailto:thegoldblessingofficial@gmail.com">thegoldblessingofficial@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3 class="contact-title">Visit Us</h3>
+                    <div class="contact-info">
+                        Daang Luma, Brgy. Loma<br>
+                        Amadeo, Cavite
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">⏰</div>
+                    <h3 class="contact-title">Store Hours</h3>
+                    <div class="contact-info">
+                        Mon-Sat: 9AM - 7PM<br>
+                        Sunday: 10AM - 5PM
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">🔴</div>
+                    <h3 class="contact-title">Live Selling</h3>
+                    <div class="contact-info">
+                        Daily at 8:00 PM<br>
+                        <a href="https://facebook.com/thegoldblessingofficial" target="_blank">Facebook Live</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Social Media Section -->
     <section class="social-section">
         <div class="container">
@@ -1580,73 +1318,60 @@
             
             <div class="social-grid">
                 <a href="https://www.facebook.com/thegoldblessingofficial" target="_blank" class="social-card scroll-reveal">
-                    <div class="social-icon">📘</div>
-                    <div class="social-name">Facebook</div>
-                    <div class="social-handle">@thegoldblessingofficial</div>
+                    <div style="font-size: 40px; margin-bottom: 15px;">📘</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Facebook</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">@thegoldblessingofficial</div>
                 </a>
                 
                 <a href="https://www.instagram.com/the_gold_blessing" target="_blank" class="social-card scroll-reveal">
-                    <div class="social-icon">📷</div>
-                    <div class="social-name">Instagram</div>
-                    <div class="social-handle">@the_gold_blessing</div>
+                    <div style="font-size: 40px; margin-bottom: 15px;">📷</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Instagram</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">@the_gold_blessing</div>
                 </a>
                 
                 <a href="https://www.tiktok.com/@goldblessingofficial" target="_blank" class="social-card scroll-reveal">
-                    <div class="social-icon">🎵</div>
-                    <div class="social-name">TikTok</div>
-                    <div class="social-handle">@goldblessingofficial</div>
+                    <div style="font-size: 40px; margin-bottom: 15px;">🎵</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">TikTok</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">@goldblessingofficial</div>
                 </a>
                 
                 <a href="https://messenger.com/channel/thegoldblessingofficial" target="_blank" class="social-card scroll-reveal">
-                    <div class="social-icon">💬</div>
-                    <div class="social-name">Messenger</div>
-                    <div class="social-handle">Join Channel</div>
+                    <div style="font-size: 40px; margin-bottom: 15px;">💬</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Messenger</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">Join Channel</div>
                 </a>
                 
                 <a href="https://whatsapp.com/channel/0029VbAeWqS6WaKlx1sbq917" target="_blank" class="social-card scroll-reveal">
-                    <div class="social-icon">📱</div>
-                    <div class="social-name">WhatsApp</div>
-                    <div class="social-handle">Join Channel</div>
-                </a>
-                
-                <a href="https://www.facebook.com/jewelryforyouofficial" target="_blank" class="social-card scroll-reveal">
-                    <div class="social-icon">📘</div>
-                    <div class="social-name">Facebook Jewelry</div>
-                    <div class="social-handle">@jewelryforyouofficial</div>
+                    <div style="font-size: 40px; margin-bottom: 15px;">📱</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">WhatsApp</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">Join Channel</div>
                 </a>
             </div>
         </div>
     </section>
     
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
-            <div class="footer-logo">
-                <img src="TGB_LOGO.png" alt="The Gold Blessing">
+            <div style="margin-bottom: 30px;">
+                <img src="TGB_LOGO.png" alt="The Gold Blessing" style="width: 80px; height: 80px; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));">
             </div>
             
-            <div class="footer-info">
-                <h4>THE GOLD BLESSING</h4>
-                <p>📍 Daang Luma, Brgy. Loma, Amadeo, Cavite</p>
-                <p>📞 0967-400-0040</p>
-                <p>📧 thegoldblessingofficial@gmail.com</p>
-                <p>⏰ Mon-Sat 9AM-7PM, Sun 10AM-5PM</p>
+            <div>
+                <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">THE GOLD BLESSING</h4>
+                <p style="color: var(--gold-light); margin: 10px 0; font-size: 16px;">📍 Daang Luma, Brgy. Loma, Amadeo, Cavite</p>
+                <p style="color: var(--gold-light); margin: 10px 0; font-size: 16px;">📞 0967-400-0040</p>
+                <p style="color: var(--gold-light); margin: 10px 0; font-size: 16px;">📧 thegoldblessingofficial@gmail.com</p>
             </div>
             
-            <div class="footer-links">
-                <a href="https://tyg-services.com" target="_blank">TYG Services</a>
-                <a href="https://luntian.net" target="_blank">Luntian</a>
-                <a href="https://soleblessing.com" target="_blank">SoleBlessing</a>
-                <a href="https://musthavecorner.com" target="_blank">Must Have Corner</a>
-            </div>
-            
-            <div class="copyright">
-                © 2025 The Gold Blessing. All Rights Reserved. Established 2016.
+            <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 14px;">
+                © 2025 The Gold Blessing. All Rights Reserved. Established 2016.<br>
+                Authentic Gold Jewelry • Amadeo, Cavite
             </div>
         </div>
     </footer>
     
-    <!-- Floating Action Button -->
+    <!-- Floating Call Button -->
     <a href="tel:09674000040" class="fab">📞</a>
     
     <!-- JavaScript -->
@@ -1654,29 +1379,23 @@
         // Gold Dust Rain Effect
         function createGoldDust() {
             const container = document.getElementById('goldDust');
-            const particleCount = 50;
+            const particleCount = 30;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'gold-particle';
                 
-                // Random size between 2px and 6px
                 const size = Math.random() * 4 + 2;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                
-                // Random horizontal position
                 particle.style.left = Math.random() * 100 + '%';
                 
-                // Random animation duration between 8s and 15s
                 const duration = Math.random() * 7 + 8;
                 particle.style.animationDuration = duration + 's';
                 
-                // Random delay to stagger particles
                 const delay = Math.random() * 10;
                 particle.style.animationDelay = delay + 's';
                 
-                // Add glow effect to some particles
                 if (Math.random() > 0.5) {
                     particle.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.8)';
                 }
@@ -1685,7 +1404,6 @@
             }
         }
 
-        // Initialize gold dust when page loads
         window.addEventListener('load', createGoldDust);
         
         // Header scroll effect
@@ -1709,7 +1427,6 @@
             const answer = element.nextElementSibling;
             const arrow = element.querySelector('.faq-arrow');
             
-            // Close all other FAQs
             document.querySelectorAll('.faq-answer').forEach(item => {
                 if (item !== answer) {
                     item.style.display = 'none';
@@ -1717,7 +1434,6 @@
                 }
             });
             
-            // Toggle current FAQ
             if (answer.style.display === 'block') {
                 answer.style.display = 'none';
                 arrow.style.transform = 'rotate(0)';
@@ -1745,7 +1461,7 @@
             observer.observe(el);
         });
         
-        // Smooth scrolling for navigation links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
