@@ -23,7 +23,15 @@
     <meta property="og:title" content="The Gold Blessing - Authentic Gold Jewelry Philippines">
     <meta property="og:description" content="18K gold from ₱5,899/gram. Hong Kong settings. Layaway available. COD nationwide.">
     <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
-    
+
+    <!-- Google Analytics GA4 - Add this in <head> section -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-478KRML772"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-478KRML772');
+</script>
     <!-- Schema Markup -->
     <script type="application/ld+json">
     {
@@ -1617,6 +1625,68 @@
                 }
             });
         });
+        
     </script>
 </body>
+</html>
+</body>
+    <script>
+// Track button clicks
+function trackEvent(action, category, label, value) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+            'event_category': category,
+            'event_label': label,
+            'value': value
+        });
+    }
+}
+
+// Track Contact Clicks
+document.addEventListener('DOMContentLoaded', function() {
+    // Phone clicks
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', function() {
+            gtag('event', 'contact_click', {
+                'event_category': 'Contact',
+                'event_label': 'Phone Call',
+                'value': 1
+            });
+        });
+    });
+
+    // WhatsApp clicks
+    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+        link.addEventListener('click', function() {
+            gtag('event', 'contact_click', {
+                'event_category': 'Contact',
+                'event_label': 'WhatsApp',
+                'value': 1
+            });
+        });
+    });
+
+    // Messenger clicks
+    document.querySelectorAll('a[href*="m.me"]').forEach(link => {
+        link.addEventListener('click', function() {
+            gtag('event', 'contact_click', {
+                'event_category': 'Contact',
+                'event_label': 'Messenger',
+                'value': 1
+            });
+        });
+    });
+
+    // Layaway Calculator clicks
+    document.querySelectorAll('a[href*="calculator"]').forEach(link => {
+        link.addEventListener('click', function() {
+            gtag('event', 'tool_use', {
+                'event_category': 'Tools',
+                'event_label': 'Layaway Calculator',
+                'value': 1
+            });
+        });
+    });
+});
+</script>
 </html>
