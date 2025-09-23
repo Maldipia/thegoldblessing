@@ -1,0 +1,65 @@
+   <!-- Business Network Section -->
+    <section class="business-network" id="network">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: var(--gold);">Our Business Network</h2>
+                <div class="gold-divider"></div>
+                <p style="color: var(--gold-light);">Quality services across multiple industries</p>
+            </div>
+            
+            <div class="network-grid">
+                <a href="https://tyg-services.com" class="network-card" target="_blank">
+                    <div class="network-icon">🔧</div>
+                    <h3>TYG Services</h3>
+                    <p>Automation & Professional Services</p>
+                    <span class="network-badge">Visit Website</span>
+                </a>
+                
+                <a href="https://luntian.net" class="network-card" target="_blank">
+                    <div class="network-icon">🏡</div>
+                    <h3>Luntian</h3>
+                    <p>Premium Accommodation & Staycation</p>
+                    <span class="network-badge">Visit Website</span>
+                </a>
+                
+                <a href="https://soleblessing.com" class="network-card" target="_blank">
+                    <div class="network-icon">👟</div>
+                    <h3>SoleBlessing</h3>
+                    <p>Authentic Sneakers & Footwear</p>
+                    <span class="network-badge">Visit Website</span>
+                </a>
+                
+                <a href="https://musthavecorner.com" class="network-card" target="_blank">
+                    <div class="network-icon">🛒</div>
+                    <h3>Must Have Corner</h3>
+                    <p>Fresh Food & Daily Essentials</p>
+                    <span class="network-badge">Visit Website</span>
+                </a>
+                
+                <div class="network-card" style="cursor: default; opacity: 0.9;">
+                    <div class="network-icon">💎</div>
+                    <h3>The Gold Blessing</h3>
+                    <p>Premium Gold Jewelry</p>
+                    <span class="network-badge" style="background: var(--emerald-700); color: var(--gold);">You're Here!</span>
+                </div>
+                
+                <div class="network-card" style="cursor: default;">
+                    <div class="network-icon">👗</div>
+                    <h3>ASTER</h3>
+                    <p>High Quality Apparels</p>
+                    <span class="network-badge">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+            const arrow = element.querySelector('span');
+            arrow.textContent = faqItem.classList.contains('active') ? '▲' : '▼';
+        }
+    </script>
+</body>
+</html>
