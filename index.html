@@ -68,6 +68,58 @@
             padding: 0 20px;
         }
         
+        /* Gold Dust Rain Effect */
+        .gold-dust-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .gold-particle {
+            position: absolute;
+            background: radial-gradient(circle, #ffd700 0%, #d4af37 50%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .gold-particle:nth-child(odd) {
+            animation-name: fall, shimmer;
+            animation-duration: 10s, 2s;
+            animation-iteration-count: infinite, infinite;
+        }
+        
         /* Luxury Loading Animation */
         .loader {
             position: fixed;
@@ -338,6 +390,82 @@
         .diamond-face:nth-child(2) { transform: rotateY(90deg) translateZ(30px); }
         .diamond-face:nth-child(3) { transform: rotateY(180deg) translateZ(30px); }
         .diamond-face:nth-child(4) { transform: rotateY(270deg) translateZ(30px); }
+
+        /* About Us Section */
+        .about-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-teal) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 60px auto;
+        }
+
+        .achievement-badges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .achievement-badge {
+            text-align: center;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+        }
+
+        .achievement-badge-number {
+            font-size: 36px;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .achievement-badge-label {
+            color: var(--gold-light);
+            font-size: 14px;
+        }
+
+        .mission-box {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid var(--gold);
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-choose-card {
+            padding: 30px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+
+        .why-choose-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
         
         /* Price Section - Luxury Cards */
         .price-section {
@@ -869,6 +997,10 @@
                 font-size: 36px;
             }
             
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .products-grid,
             .social-grid {
                 grid-template-columns: 1fr;
@@ -893,6 +1025,9 @@
     </style>
 </head>
 <body>
+    <!-- Gold Dust Rain Effect -->
+    <div class="gold-dust-container" id="goldDust"></div>
+    
     <!-- Loading Animation -->
     <div class="loader">
         <div class="loader-diamond"></div>
@@ -908,6 +1043,7 @@
                 </a>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#collections">Collections</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#faq">FAQs</a></li>
@@ -943,6 +1079,115 @@
                         <div class="diamond-face"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>OUR STORY</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="about-grid">
+                <!-- Left Content -->
+                <div class="scroll-reveal">
+                    <h3 style="color: var(--gold); font-size: 32px; margin-bottom: 30px;">Trusted Since 2016</h3>
+                    <p style="color: var(--gold-light); font-size: 18px; line-height: 1.8; margin-bottom: 25px;">
+                        The Gold Blessing has been Cavite's premier destination for authentic gold jewelry for nearly a decade. What started as a family passion for fine jewelry has grown into a trusted name in the Philippine gold industry.
+                    </p>
+                    <p style="color: var(--gold-light); font-size: 18px; line-height: 1.8; margin-bottom: 25px;">
+                        Located in the heart of Amadeo, Cavite, we've built our reputation on transparency, authenticity, and exceptional service that has earned us a perfect 100% customer satisfaction rating.
+                    </p>
+                    
+                    <div class="achievement-badges">
+                        <div class="achievement-badge">
+                            <div class="achievement-badge-number">9+</div>
+                            <div class="achievement-badge-label">Years of Excellence</div>
+                        </div>
+                        <div class="achievement-badge">
+                            <div class="achievement-badge-number">100%</div>
+                            <div class="achievement-badge-label">Customer Satisfaction</div>
+                        </div>
+                        <div class="achievement-badge">
+                            <div class="achievement-badge-number">1000+</div>
+                            <div class="achievement-badge-label">Happy Customers</div>
+                        </div>
+                        <div class="achievement-badge">
+                            <div class="achievement-badge-number">Daily</div>
+                            <div class="achievement-badge-label">Live Selling</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Content -->
+                <div class="scroll-reveal">
+                    <div class="mission-box">
+                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 15px;">Our Mission</h4>
+                        <p style="color: var(--gold-light); line-height: 1.8;">
+                            To provide authentic, high-quality gold jewelry at transparent, factory-direct prices, making luxury accessible to every Filipino family.
+                        </p>
+                    </div>
+                    
+                    <div class="mission-box">
+                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 15px;">Our Vision</h4>
+                        <p style="color: var(--gold-light); line-height: 1.8;">
+                            To be the most trusted name in Philippine gold jewelry, known for our authenticity, transparency, and dedication to customer satisfaction.
+                        </p>
+                    </div>
+                    
+                    <div class="mission-box">
+                        <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">Our Values</h4>
+                        <ul style="list-style: none; color: var(--gold-light); line-height: 2;">
+                            <li>✓ Authenticity in Every Piece</li>
+                            <li>✓ Transparent Per-Gram Pricing</li>
+                            <li>✓ Customer-First Service</li>
+                            <li>✓ Family Values & Trust</li>
+                            <li>✓ Community Engagement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Why Choose Us -->
+            <div style="margin-top: 80px; text-align: center;" class="scroll-reveal">
+                <h3 style="color: var(--gold); font-size: 36px; margin-bottom: 40px;">Why Choose The Gold Blessing?</h3>
+                
+                <div class="why-choose-grid">
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">🏆</div>
+                        <h4 style="color: var(--gold); margin-bottom: 15px;">Direct Factory Prices</h4>
+                        <p style="color: var(--gold-light);">Cut out the middleman with our direct factory connections</p>
+                    </div>
+                    
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">💎</div>
+                        <h4 style="color: var(--gold); margin-bottom: 15px;">Guaranteed Authentic</h4>
+                        <p style="color: var(--gold-light);">Every piece tested and certified genuine gold</p>
+                    </div>
+                    
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">💳</div>
+                        <h4 style="color: var(--gold); margin-bottom: 15px;">Flexible Layaway</h4>
+                        <p style="color: var(--gold-light);">Reserve now, pay at your own pace</p>
+                    </div>
+                    
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">🎁</div>
+                        <h4 style="color: var(--gold); margin-bottom: 15px;">Monthly Raffles</h4>
+                        <p style="color: var(--gold-light);">Win amazing prizes with every straight payment</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div style="text-align: center; margin-top: 60px;" class="scroll-reveal">
+                <p style="color: var(--gold-light); font-size: 20px; margin-bottom: 30px;">
+                    Experience the Gold Blessing difference today
+                </p>
+                <a href="#collections" class="cta-button">EXPLORE COLLECTIONS</a>
             </div>
         </div>
     </section>
@@ -1038,7 +1283,7 @@
         </div>
     </section>
     
-   <!-- FAQ Section -->
+    <!-- FAQ Section with ALL 20 Questions -->
 <section id="faq" class="faq-section">
     <div class="container">
         <div class="section-title scroll-reveal">
@@ -1291,6 +1536,18 @@
                         📱 FB/IG: @thegoldblessing
                     </div>
                 </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>20. What's the store address and operating hours?</span>
+                        <span class="faq-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        📍 Daang Luma, Brgy. Loma, Amadeo, Cavite<br>
+                        ⏰ Monday-Saturday: 9AM-7PM<br>
+                        ⏰ Sunday: 10AM-5PM
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1394,6 +1651,43 @@
     
     <!-- JavaScript -->
     <script>
+        // Gold Dust Rain Effect
+        function createGoldDust() {
+            const container = document.getElementById('goldDust');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'gold-particle';
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Random animation duration between 8s and 15s
+                const duration = Math.random() * 7 + 8;
+                particle.style.animationDuration = duration + 's';
+                
+                // Random delay to stagger particles
+                const delay = Math.random() * 10;
+                particle.style.animationDelay = delay + 's';
+                
+                // Add glow effect to some particles
+                if (Math.random() > 0.5) {
+                    particle.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.8)';
+                }
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize gold dust when page loads
+        window.addEventListener('load', createGoldDust);
+        
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
