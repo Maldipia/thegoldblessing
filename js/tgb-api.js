@@ -7,7 +7,7 @@
  */
 
 // Replace with your deployed Web App URL
-const API_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxeTknwX4L8ZjJbHEh-Y9FWiSa1cRmrtzS2mPUkT22p_OQz9CxybMaasw4ipy6vP9ZG/exec';
 
 const TGB_API = {
   
