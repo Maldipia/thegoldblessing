@@ -543,27 +543,6 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--emerald);
-      color: var(--white);
-      padding: 16px 24px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 500;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 9999;
-    }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    
     /* Responsive */
     @media (max-width: 1200px) {
       .stats-grid, .revenue-grid { grid-template-columns: repeat(2, 1fr); }
@@ -602,8 +581,8 @@
       <li class="nav-item"><a href="track.html" class="nav-link"><span class="nav-icon">📦</span>Track Orders</a></li>
       <li class="nav-item"><a href="layaway.html" class="nav-link"><span class="nav-icon">💳</span>LayAway</a></li>
       <li class="nav-item"><a href="invoice.html" class="nav-link"><span class="nav-icon">🧾</span>Invoices</a></li>
-      <li class="nav-item"><a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>Home</a></li>
       <li class="nav-item"><a href="inventory.html" class="nav-link"><span class="nav-icon">📦</span>Inventory</a></li>
+      <li class="nav-item"><a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>Home</a></li>
       <li class="nav-item"><a href="https://docs.google.com/spreadsheets/d/1YnkcqUy0osdaZbt2LGXQDWLpKiWdC0W0JB6Zfe02Oe0" target="_blank" class="nav-link"><span class="nav-icon">📋</span>Orders Sheet</a></li>
       <li class="nav-item"><a href="https://docs.google.com/spreadsheets/d/1R4GOtQQimCZIqOVx0yeK83UmLmBMERU0Z7w4efpbxMQ" target="_blank" class="nav-link"><span class="nav-icon">📊</span>Inventory Sheet</a></li>
     </ul>
@@ -620,7 +599,7 @@
       <div class="header-actions">
         <span class="last-updated" id="lastUpdated">Last updated: --</span>
         <button class="action-btn export" onclick="exportToExcel()">📥 Export to Excel</button>
-        <button class="action-btn primary" onclick="loadDashboard()">🔄 Refresh Data</button>
+        <button class="action-btn primary" onclick="refreshDashboard()">🔄 Refresh Data</button>
       </div>
     </header>
     
@@ -630,9 +609,9 @@
         <h2>💰 Revenue Analytics</h2>
         <div class="period-selector">
           <button class="period-btn" onclick="setPeriod('today', this)">Today</button>
-          <button class="period-btn active" onclick="setPeriod('week', this)">This Week</button>
+          <button class="period-btn" onclick="setPeriod('week', this)">This Week</button>
           <button class="period-btn" onclick="setPeriod('month', this)">This Month</button>
-          <button class="period-btn" onclick="setPeriod('all', this)">All Time</button>
+          <button class="period-btn active" onclick="setPeriod('all', this)">All Time</button>
         </div>
       </div>
       <div class="revenue-grid">
@@ -718,284 +697,282 @@
       </div>
     </div>
   </main>
-  
-  <div class="toast" id="toast"><span>✅</span><span id="toastMessage">Success!</span></div>
-  
+
   <script>
-  // ═══════════════════════════════════════════════════════════
-  // TGB DASHBOARD - PRODUCTION-READY SCRIPT
-  // ═══════════════════════════════════════════════════════════
-  
-  const API_BASE = '/api/tgb';
-  const ADMIN_PIN = '1234'; // ⚠️ CHANGE THIS IN PRODUCTION
-  const MAX_EXPORT_PAGES = 50;
-  
-  let currentPage = 1;
-  let totalPages = 1;
-  let allOrders = [];
-  let paymentChart = null;
-  let statusChart = null;
-  let currentPeriod = 'all';
-  let isLoading = false;
-  
-  // API CLIENT
-  async function apiFetch(action, params = {}) {
-    try {
-      const url = new URL(API_BASE, window.location.origin);
-      url.searchParams.set('action', action);
-      Object.entries(params).forEach(([k, v]) => {
-        if (v !== undefined && v !== null && v !== 'all') {
-          url.searchParams.set(k, v);
-        }
-      });
-      console.log('[API] Fetching:', url.toString());
-      const response = await fetch(url.toString());
-      if (!response.ok) { console.error('[API] HTTP Error:', response.status); return null; }
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) { console.error('[API] Not JSON'); return null; }
-      const data = await response.json();
-      if (!data.success) { console.error('[API] success=false:', data); return null; }
-      return data;
-    } catch (err) { console.error('[API] Error:', err.message); return null; }
-  }
-  
-  // SAFE UI WRAPPER
-  function safeUI(fn, name) {
-    return async function(...args) {
-      try { await fn(...args); } 
-      catch (err) { console.error(`[UI] ${name}:`, err); showToast(`❌ ${name} failed`); }
-    };
-  }
-  
-  // TOAST
-  function showToast(message) {
-    let toast = document.getElementById('toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'toast';
-      toast.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#046A38;color:white;padding:16px 24px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s ease;';
-      document.body.appendChild(toast);
+    // ═══════════════════════════════════════════════════════════
+    // TGB DASHBOARD - PRODUCTION-READY SCRIPT
+    // ═══════════════════════════════════════════════════════════
+    
+    const API_BASE = '/api/tgb';
+    const ADMIN_PIN = '1234'; // ⚠️ CHANGE THIS IN PRODUCTION
+    const MAX_EXPORT_PAGES = 50;
+    
+    let currentPage = 1;
+    let totalPages = 1;
+    let allOrders = [];
+    let paymentChart = null;
+    let statusChart = null;
+    let currentPeriod = 'all';
+    let isLoading = false;
+    
+    // API CLIENT
+    async function apiFetch(action, params = {}) {
+      try {
+        const url = new URL(API_BASE, window.location.origin);
+        url.searchParams.set('action', action);
+        Object.entries(params).forEach(([k, v]) => {
+          if (v !== undefined && v !== null && v !== 'all') {
+            url.searchParams.set(k, v);
+          }
+        });
+        console.log('[API] Fetching:', url.toString());
+        const response = await fetch(url.toString());
+        if (!response.ok) { console.error('[API] HTTP Error:', response.status); return null; }
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) { console.error('[API] Not JSON'); return null; }
+        const data = await response.json();
+        if (!data.success) { console.error('[API] success=false:', data); return null; }
+        return data;
+      } catch (err) { console.error('[API] Error:', err.message); return null; }
     }
-    toast.textContent = message;
-    toast.style.transform = 'translateY(0)';
-    toast.style.opacity = '1';
-    setTimeout(() => { toast.style.transform = 'translateY(100px)'; toast.style.opacity = '0'; }, 3000);
-  }
-  
-  // LOADING
-  function setLoading(loading) {
-    isLoading = loading;
-    document.querySelectorAll('.action-btn, .period-btn').forEach(btn => {
-      btn.style.opacity = loading ? '0.6' : '1';
-      btn.style.pointerEvents = loading ? 'none' : 'auto';
-    });
-  }
-  
-  // PASSWORD
-  function checkPassword(e) {
-    e.preventDefault();
-    const input = document.getElementById('passwordInput');
-    if (!input) return;
-    if (input.value === ADMIN_PIN) {
-      const overlay = document.getElementById('loginOverlay');
-      if (overlay) overlay.classList.add('hidden');
-      sessionStorage.setItem('tgb_auth', 'true');
-      refreshDashboard();
-      loadOrders();
-    } else {
-      const error = document.getElementById('loginError');
-      if (error) error.classList.add('show');
-      input.value = '';
-      input.focus();
+    
+    // SAFE UI WRAPPER
+    function safeUI(fn, name) {
+      return async function(...args) {
+        try { await fn(...args); } 
+        catch (err) { console.error(`[UI] ${name}:`, err); showToast(`❌ ${name} failed`); }
+      };
     }
-  }
-  
-  function logout() {
-    sessionStorage.removeItem('tgb_auth');
-    const overlay = document.getElementById('loginOverlay');
-    if (overlay) overlay.classList.remove('hidden');
-  }
-  
-  // DASHBOARD
-  async function refreshDashboard() {
-    setLoading(true);
-    showToast('🔄 Refreshing...');
-    const data = await apiFetch('dashboard');
-    if (data) {
-      updateStats(data.metrics);
-      updatePaymentChart(data.paymentMethods);
-      updateStatusChart(data.metrics);
-      updateRevenueAnalytics(data.metrics);
-      setElementText('lastUpdated', 'Last updated: ' + new Date().toLocaleTimeString());
-      showToast('✅ Dashboard refreshed!');
-    } else {
-      showToast('❌ Failed to load data');
-    }
-    setLoading(false);
-  }
-  
-  function updateStats(m) {
-    if (!m) return;
-    setElementText('totalOrders', m.totalOrders?.toLocaleString() || '0');
-    setElementText('pendingOrders', m.pendingOrders?.toLocaleString() || '0');
-    setElementText('completedOrders', m.completedOrders?.toLocaleString() || '0');
-    setElementText('completionRate', (m.completionRate || 0) + '%');
-  }
-  
-  function updateRevenueAnalytics(m) {
-    if (!m) return;
-    const avg = 2500;
-    setElementText('totalRevenue', '₱' + ((m.completedOrders || 0) * avg).toLocaleString());
-    setElementText('periodOrders', (m.totalOrders || 0).toLocaleString());
-    setElementText('avgOrder', '₱' + avg.toLocaleString());
-    setElementText('pendingAmount', '₱' + ((m.pendingOrders || 0) * avg).toLocaleString());
-  }
-  
-  function setElementText(id, text) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = text;
-  }
-  
-  // CHARTS
-  function updatePaymentChart(pm) {
-    const canvas = document.getElementById('paymentChart');
-    if (!canvas || !pm) return;
-    if (paymentChart) paymentChart.destroy();
-    paymentChart = new Chart(canvas.getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: pm.labels || [],
-        datasets: [{ label: 'Orders', data: pm.values || [],
-          backgroundColor: ['rgba(4,106,56,0.8)','rgba(212,175,55,0.8)','rgba(23,162,184,0.8)','rgba(40,167,69,0.8)','rgba(108,117,125,0.8)'],
-          borderRadius: 8, borderWidth: 2 }]
-      },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
-    });
-  }
-  
-  function updateStatusChart(m) {
-    const canvas = document.getElementById('statusChart');
-    if (!canvas || !m) return;
-    if (statusChart) statusChart.destroy();
-    statusChart = new Chart(canvas.getContext('2d'), {
-      type: 'doughnut',
-      data: { labels: ['Completed', 'Pending'],
-        datasets: [{ data: [m.completedOrders || 0, m.pendingOrders || 0],
-          backgroundColor: ['rgba(40,167,69,0.8)', 'rgba(255,193,7,0.8)'], borderWidth: 2 }] },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '65%' }
-    });
-  }
-  
-  // ORDERS
-  async function loadOrders() {
-    const container = document.getElementById('ordersTableContainer');
-    if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading...</p></div>';
-    const sheet = document.getElementById('sheetFilter')?.value || 'all';
-    const status = document.getElementById('statusFilter')?.value || 'all';
-    const data = await apiFetch('orders', { page: currentPage, limit: 20, sheet, status });
-    if (data) {
-      allOrders = data.orders || [];
-      renderOrdersTable(filterOrdersBySearch(allOrders));
-      updatePagination(data.pagination);
-    } else if (container) {
-      container.innerHTML = '<div class="loading"><p>Failed to load</p></div>';
-    }
-  }
-  
-  function filterOrdersBySearch(orders) {
-    const search = document.getElementById('searchInput')?.value?.toLowerCase() || '';
-    if (!search) return orders;
-    return orders.filter(o => o.orderId?.toLowerCase().includes(search) || o.customer?.toLowerCase().includes(search));
-  }
-  
-  function renderOrdersTable(orders) {
-    const container = document.getElementById('ordersTableContainer');
-    if (!container) return;
-    if (!orders || orders.length === 0) { container.innerHTML = '<div class="loading"><p>No orders found</p></div>'; return; }
-    const sc = (s) => { if (!s) return 'pending'; const u = s.toUpperCase(); if (u.includes('PAID') || u.includes('COMPLETE')) return 'completed'; if (u.includes('PROCESS')) return 'processing'; return 'pending'; };
-    let html = '<table class="orders-table"><thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Payment</th><th>Status</th></tr></thead><tbody>';
-    orders.forEach(o => { html += `<tr onclick="window.open('track.html?id=${o.orderId}','_blank')" style="cursor:pointer"><td><span class="order-id">${o.orderId||''}</span></td><td>${o.date||''}</td><td>${o.customer||''}</td><td><span class="method-badge">${o.method||''}</span></td><td><span class="status-badge ${sc(o.status)}">${o.status||''}</span></td></tr>`; });
-    html += '</tbody></table>';
-    container.innerHTML = html;
-  }
-  
-  function updatePagination(p) {
-    const el = document.getElementById('pagination');
-    const info = document.getElementById('paginationInfo');
-    const btns = document.getElementById('paginationButtons');
-    if (!p || !el) return;
-    totalPages = p.pages || 1;
-    if (info) { const s = ((p.page||1)-1)*(p.limit||20)+1; const e = Math.min((p.page||1)*(p.limit||20), p.total||0); info.textContent = `Showing ${s}-${e} of ${p.total||0}`; }
-    if (btns) { let h = `<button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage<=1?'disabled':''}>← Prev</button>`; for(let i=Math.max(1,currentPage-2);i<=Math.min(totalPages,currentPage+2);i++) h+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`; h+=`<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage>=totalPages?'disabled':''}>Next →</button>`; btns.innerHTML=h; }
-    el.style.display = 'flex';
-  }
-  
-  function goToPage(page) { if (page < 1 || page > totalPages) return; currentPage = page; loadOrders(); }
-  
-  // EXPORT TO EXCEL
-  async function exportToExcel() {
-    if (allOrders.length === 0) { showToast('⚠️ No orders loaded'); return; }
-    showToast('📥 Preparing export...');
-    setLoading(true);
-    try {
-      let all = []; let page = 1; let hasMore = true;
-      while (hasMore && page <= MAX_EXPORT_PAGES) {
-        const data = await apiFetch('orders', { page, limit: 100 });
-        if (data?.orders?.length > 0) { all = all.concat(data.orders); hasMore = data.pagination && page < data.pagination.pages; page++; }
-        else hasMore = false;
+    
+    // TOAST
+    function showToast(message) {
+      let toast = document.getElementById('toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#046A38;color:white;padding:16px 24px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s ease;';
+        document.body.appendChild(toast);
       }
-      if (all.length === 0) { showToast('⚠️ No orders'); setLoading(false); return; }
-      const BOM = '\uFEFF';
-      let csv = BOM + 'Order ID,Date,Customer,Payment Method,Status\n';
-      all.forEach(o => { csv += `"${o.orderId||''}","${o.date||''}","${o.customer||''}","${o.method||''}","${o.status||""}"\n`; });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `TGB_Orders_${new Date().toISOString().split('T')[0]}.csv`;
-      document.body.appendChild(link); link.click(); document.body.removeChild(link);
-      showToast(`✅ Exported ${all.length} orders!`);
-    } catch (err) { console.error('[Export] Error:', err); showToast('❌ Export failed'); }
-    setLoading(false);
-  }
-  
-  // PERIOD
-  function setPeriod(period, btn) {
-    currentPeriod = period;
-    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    refreshDashboard();
-  }
-  
-  // INIT
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('[TGB] Dashboard initializing...');
-    if (sessionStorage.getItem('tgb_auth') === 'true') {
-      const overlay = document.getElementById('loginOverlay');
-      if (overlay) overlay.classList.add('hidden');
-      refreshDashboard();
-      loadOrders();
+      toast.textContent = message;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.transform = 'translateY(100px)'; toast.style.opacity = '0'; }, 3000);
     }
-    const search = document.getElementById('searchInput');
-    if (search) { let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => renderOrdersTable(filterOrdersBySearch(allOrders)), 300); }); }
-    const sheet = document.getElementById('sheetFilter');
-    if (sheet) sheet.addEventListener('change', () => { currentPage = 1; loadOrders(); });
-    const status = document.getElementById('statusFilter');
-    if (status) status.addEventListener('change', () => { currentPage = 1; loadOrders(); });
-    console.log('[TGB] Ready!');
-  });
-  
-  // GLOBALS
-  window.checkPassword = checkPassword;
-  window.logout = logout;
-  window.refreshDashboard = safeUI(refreshDashboard, 'refreshDashboard');
-  window.loadDashboard = safeUI(refreshDashboard, 'loadDashboard');
-  window.exportToExcel = safeUI(exportToExcel, 'exportToExcel');
-  window.loadOrders = safeUI(loadOrders, 'loadOrders');
-  window.goToPage = goToPage;
-  window.setPeriod = setPeriod;
-  
-  setInterval(() => { if (sessionStorage.getItem('tgb_auth') === 'true' && !isLoading) refreshDashboard(); }, 300000);
-</script>
+    
+    // LOADING
+    function setLoading(loading) {
+      isLoading = loading;
+      document.querySelectorAll('.action-btn, .period-btn').forEach(btn => {
+        btn.style.opacity = loading ? '0.6' : '1';
+        btn.style.pointerEvents = loading ? 'none' : 'auto';
+      });
+    }
+    
+    // PASSWORD
+    function checkPassword(e) {
+      e.preventDefault();
+      const input = document.getElementById('passwordInput');
+      if (!input) return;
+      if (input.value === ADMIN_PIN) {
+        const overlay = document.getElementById('loginOverlay');
+        if (overlay) overlay.classList.add('hidden');
+        sessionStorage.setItem('tgb_auth', 'true');
+        refreshDashboard();
+        loadOrders();
+      } else {
+        const error = document.getElementById('loginError');
+        if (error) error.classList.add('show');
+        input.value = '';
+        input.focus();
+      }
+    }
+    
+    function logout() {
+      sessionStorage.removeItem('tgb_auth');
+      const overlay = document.getElementById('loginOverlay');
+      if (overlay) overlay.classList.remove('hidden');
+    }
+    
+    // DASHBOARD
+    async function refreshDashboard() {
+      setLoading(true);
+      showToast('🔄 Refreshing...');
+      const data = await apiFetch('dashboard');
+      if (data) {
+        updateStats(data.metrics);
+        updatePaymentChart(data.paymentMethods);
+        updateStatusChart(data.metrics);
+        updateRevenueAnalytics(data.metrics);
+        setElementText('lastUpdated', 'Last updated: ' + new Date().toLocaleTimeString());
+        showToast('✅ Dashboard refreshed!');
+      } else {
+        showToast('❌ Failed to load data');
+      }
+      setLoading(false);
+    }
+    
+    function updateStats(m) {
+      if (!m) return;
+      setElementText('totalOrders', m.totalOrders?.toLocaleString() || '0');
+      setElementText('pendingOrders', m.pendingOrders?.toLocaleString() || '0');
+      setElementText('completedOrders', m.completedOrders?.toLocaleString() || '0');
+      setElementText('completionRate', (m.completionRate || 0) + '%');
+    }
+    
+    function updateRevenueAnalytics(m) {
+      if (!m) return;
+      const avg = 2500;
+      setElementText('totalRevenue', '₱' + ((m.completedOrders || 0) * avg).toLocaleString());
+      setElementText('periodOrders', (m.totalOrders || 0).toLocaleString());
+      setElementText('avgOrder', '₱' + avg.toLocaleString());
+      setElementText('pendingAmount', '₱' + ((m.pendingOrders || 0) * avg).toLocaleString());
+    }
+    
+    function setElementText(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+    
+    // CHARTS
+    function updatePaymentChart(pm) {
+      const canvas = document.getElementById('paymentChart');
+      if (!canvas || !pm) return;
+      if (paymentChart) paymentChart.destroy();
+      paymentChart = new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: pm.labels || [],
+          datasets: [{ label: 'Orders', data: pm.values || [],
+            backgroundColor: ['rgba(4,106,56,0.8)','rgba(212,175,55,0.8)','rgba(23,162,184,0.8)','rgba(40,167,69,0.8)','rgba(108,117,125,0.8)'],
+            borderRadius: 8, borderWidth: 2 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
+      });
+    }
+    
+    function updateStatusChart(m) {
+      const canvas = document.getElementById('statusChart');
+      if (!canvas || !m) return;
+      if (statusChart) statusChart.destroy();
+      statusChart = new Chart(canvas.getContext('2d'), {
+        type: 'doughnut',
+        data: { labels: ['Completed', 'Pending'],
+          datasets: [{ data: [m.completedOrders || 0, m.pendingOrders || 0],
+            backgroundColor: ['rgba(40,167,69,0.8)', 'rgba(255,193,7,0.8)'], borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '65%' }
+      });
+    }
+    
+    // ORDERS
+    async function loadOrders() {
+      const container = document.getElementById('ordersTableContainer');
+      if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading...</p></div>';
+      const sheet = document.getElementById('sheetFilter')?.value || 'all';
+      const status = document.getElementById('statusFilter')?.value || 'all';
+      const data = await apiFetch('orders', { page: currentPage, limit: 20, sheet, status });
+      if (data) {
+        allOrders = data.orders || [];
+        renderOrdersTable(filterOrdersBySearch(allOrders));
+        updatePagination(data.pagination);
+      } else if (container) {
+        container.innerHTML = '<div class="loading"><p>Failed to load</p></div>';
+      }
+    }
+    
+    function filterOrdersBySearch(orders) {
+      const search = document.getElementById('searchInput')?.value?.toLowerCase() || '';
+      if (!search) return orders;
+      return orders.filter(o => o.orderId?.toLowerCase().includes(search) || o.customer?.toLowerCase().includes(search));
+    }
+    
+    function renderOrdersTable(orders) {
+      const container = document.getElementById('ordersTableContainer');
+      if (!container) return;
+      if (!orders || orders.length === 0) { container.innerHTML = '<div class="loading"><p>No orders found</p></div>'; return; }
+      const sc = (s) => { if (!s) return 'pending'; const u = s.toUpperCase(); if (u.includes('PAID') || u.includes('COMPLETE')) return 'completed'; if (u.includes('PROCESS')) return 'processing'; return 'pending'; };
+      let html = '<table class="orders-table"><thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Payment</th><th>Status</th></tr></thead><tbody>';
+      orders.forEach(o => { html += `<tr onclick="window.open('track.html?id=${o.orderId}','_blank')" style="cursor:pointer"><td><span class="order-id">${o.orderId||''}</span></td><td>${o.date||''}</td><td>${o.customer||''}</td><td><span class="method-badge">${o.method||''}</span></td><td><span class="status-badge ${sc(o.status)}">${o.status||''}</span></td></tr>`; });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+    
+    function updatePagination(p) {
+      const el = document.getElementById('pagination');
+      const info = document.getElementById('paginationInfo');
+      const btns = document.getElementById('paginationButtons');
+      if (!p || !el) return;
+      totalPages = p.pages || 1;
+      if (info) { const s = ((p.page||1)-1)*(p.limit||20)+1; const e = Math.min((p.page||1)*(p.limit||20), p.total||0); info.textContent = `Showing ${s}-${e} of ${p.total||0}`; }
+      if (btns) { let h = `<button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage<=1?'disabled':''}>← Prev</button>`; for(let i=Math.max(1,currentPage-2);i<=Math.min(totalPages,currentPage+2);i++) h+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`; h+=`<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage>=totalPages?'disabled':''}>Next →</button>`; btns.innerHTML=h; }
+      el.style.display = 'flex';
+    }
+    
+    function goToPage(page) { if (page < 1 || page > totalPages) return; currentPage = page; loadOrders(); }
+    
+    // EXPORT TO EXCEL
+    async function exportToExcel() {
+      if (allOrders.length === 0) { showToast('⚠️ No orders loaded'); return; }
+      showToast('📥 Preparing export...');
+      setLoading(true);
+      try {
+        let all = []; let page = 1; let hasMore = true;
+        while (hasMore && page <= MAX_EXPORT_PAGES) {
+          const data = await apiFetch('orders', { page, limit: 100 });
+          if (data?.orders?.length > 0) { all = all.concat(data.orders); hasMore = data.pagination && page < data.pagination.pages; page++; }
+          else hasMore = false;
+        }
+        if (all.length === 0) { showToast('⚠️ No orders'); setLoading(false); return; }
+        const BOM = '\uFEFF';
+        let csv = BOM + 'Order ID,Date,Customer,Payment Method,Status\n';
+        all.forEach(o => { csv += `"${o.orderId||''}","${o.date||''}","${o.customer||''}","${o.method||''}","${o.status||''}"\n`; });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `TGB_Orders_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        showToast(`✅ Exported ${all.length} orders!`);
+      } catch (err) { console.error('[Export]', err); showToast('❌ Export failed'); }
+      setLoading(false);
+    }
+    
+    // PERIOD
+    function setPeriod(period, btn) {
+      currentPeriod = period;
+      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      refreshDashboard();
+    }
+    
+    // INIT
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[TGB] Dashboard initializing...');
+      if (sessionStorage.getItem('tgb_auth') === 'true') {
+        const overlay = document.getElementById('loginOverlay');
+        if (overlay) overlay.classList.add('hidden');
+        refreshDashboard();
+        loadOrders();
+      }
+      const search = document.getElementById('searchInput');
+      if (search) { let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => renderOrdersTable(filterOrdersBySearch(allOrders)), 300); }); }
+      const sheet = document.getElementById('sheetFilter');
+      if (sheet) sheet.addEventListener('change', () => { currentPage = 1; loadOrders(); });
+      const status = document.getElementById('statusFilter');
+      if (status) status.addEventListener('change', () => { currentPage = 1; loadOrders(); });
+      console.log('[TGB] Ready!');
+    });
+    
+    // GLOBALS
+    window.checkPassword = checkPassword;
+    window.logout = logout;
+    window.refreshDashboard = safeUI(refreshDashboard, 'refreshDashboard');
+    window.loadDashboard = safeUI(refreshDashboard, 'loadDashboard');
+    window.exportToExcel = safeUI(exportToExcel, 'exportToExcel');
+    window.loadOrders = safeUI(loadOrders, 'loadOrders');
+    window.goToPage = goToPage;
+    window.setPeriod = setPeriod;
+    
+    setInterval(() => { if (sessionStorage.getItem('tgb_auth') === 'true' && !isLoading) refreshDashboard(); }, 300000);
+  </script>
 </body>
 </html>
