@@ -4,22 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Track Your Order - The Gold Blessing</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
+      --emerald: #047857;
+      --emerald-light: #10b981;
+      --emerald-dark: #065f46;
+      --emerald-glow: rgba(16, 185, 129, 0.3);
       --gold: #d4af37;
       --gold-light: #f4e4bc;
       --gold-dark: #b8960c;
-      --dark: #1a1a2e;
-      --dark-light: #16213e;
-      --dark-card: #0f3460;
       --white: #ffffff;
-      --gray: #a0a0a0;
-      --success: #4ade80;
-      --warning: #fbbf24;
-      --danger: #f87171;
-      --info: #60a5fa;
+      --off-white: #f8faf9;
+      --gray: #6b7280;
+      --gray-light: #e5e7eb;
+      --dark: #1f2937;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
     }
     
     * {
@@ -30,20 +35,24 @@
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
       min-height: 100vh;
-      color: var(--white);
+      color: var(--dark);
     }
     
     /* Header */
     .header {
-      background: rgba(15, 52, 96, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 15px 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 12px 30px;
+      border-bottom: 3px solid var(--gold);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     
     .logo {
@@ -51,46 +60,63 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
+      transition: transform 0.3s ease;
     }
     
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+    .logo:hover {
+      transform: scale(1.02);
+    }
+    
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
     }
     
     .logo-text {
-      font-size: 18px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
       font-weight: 700;
-      color: var(--gold);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     .nav-links {
       display: flex;
-      gap: 20px;
+      gap: 8px;
     }
     
     .nav-links a {
       color: var(--gray);
       text-decoration: none;
       font-size: 14px;
-      transition: color 0.3s;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
     }
     
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--gold);
+    .nav-links a:hover {
+      color: var(--emerald);
+      background: rgba(4, 120, 87, 0.1);
+    }
+    
+    .nav-links a.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     /* Main Container */
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 50px 20px;
     }
     
     /* Page Title */
@@ -100,24 +126,37 @@
     }
     
     .page-title h1 {
-      font-size: 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
       font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .page-title h1 span {
       color: var(--gold);
-      margin-bottom: 10px;
     }
     
     .page-title p {
-      color: var(--gray);
+      color: rgba(255, 255, 255, 0.9);
       font-size: 16px;
     }
     
     /* Search Box */
     .search-box {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 20px;
+      background: var(--white);
+      border-radius: 24px;
       padding: 40px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      border: 3px solid var(--gold);
       margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .search-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
     }
     
     .search-form {
@@ -128,18 +167,19 @@
     .search-input {
       flex: 1;
       padding: 18px 24px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      color: var(--white);
+      background: var(--off-white);
+      border: 2px solid var(--gray-light);
+      border-radius: 16px;
+      color: var(--dark);
       font-size: 16px;
+      font-family: 'Poppins', sans-serif;
       outline: none;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
     }
     
     .search-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+      border-color: var(--emerald);
+      box-shadow: 0 0 0 4px var(--emerald-glow);
     }
     
     .search-input::placeholder {
@@ -148,19 +188,25 @@
     
     .search-btn {
       padding: 18px 40px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: var(--dark);
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      color: var(--white);
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       font-size: 16px;
       font-weight: 600;
+      font-family: 'Poppins', sans-serif;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     .search-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px var(--emerald-glow);
+    }
+    
+    .search-btn:active {
+      transform: translateY(-1px);
     }
     
     .search-btn:disabled {
@@ -171,47 +217,52 @@
     
     /* Result Card */
     .result-card {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 20px;
+      background: var(--white);
+      border-radius: 24px;
       padding: 0;
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      border: 3px solid var(--gold);
       overflow: hidden;
       display: none;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     }
     
     .result-card.show {
       display: block;
-      animation: fadeIn 0.5s ease;
+      animation: slideUp 0.5s ease;
     }
     
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
     .result-header {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      padding: 25px 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      padding: 30px;
+      color: var(--white);
     }
     
     .result-header h2 {
       font-size: 14px;
-      color: var(--gray);
       font-weight: 500;
+      opacity: 0.9;
       margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
     .result-header .order-id {
-      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--gold-light);
     }
     
     /* Status Stepper */
     .status-stepper {
-      padding: 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      padding: 40px 30px;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--gray-light);
     }
     
     .stepper {
@@ -223,20 +274,20 @@
     .stepper::before {
       content: '';
       position: absolute;
-      top: 20px;
-      left: 40px;
-      right: 40px;
+      top: 24px;
+      left: 50px;
+      right: 50px;
       height: 4px;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--gray-light);
       border-radius: 2px;
     }
     
     .stepper-progress {
       position: absolute;
-      top: 20px;
-      left: 40px;
+      top: 24px;
+      left: 50px;
       height: 4px;
-      background: linear-gradient(90deg, var(--gold), var(--success));
+      background: linear-gradient(90deg, var(--emerald), var(--gold));
       border-radius: 2px;
       transition: width 0.5s ease;
     }
@@ -250,39 +301,44 @@
     }
     
     .step-icon {
-      width: 44px;
-      height: 44px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      margin-bottom: 10px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s;
+      font-size: 22px;
+      margin-bottom: 12px;
+      border: 3px solid var(--gray-light);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
     .step.active .step-icon {
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
       border-color: var(--gold);
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
     }
     
     .step.completed .step-icon {
-      background: var(--success);
-      border-color: var(--success);
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      border-color: var(--emerald);
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     .step-label {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--gray);
       text-align: center;
+      font-weight: 500;
     }
     
     .step.active .step-label,
     .step.completed .step-label {
-      color: var(--white);
-      font-weight: 500;
+      color: var(--dark);
+      font-weight: 600;
     }
     
     /* Order Details */
@@ -297,9 +353,16 @@
     }
     
     .detail-item {
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 10px;
+      padding: 20px;
+      background: var(--off-white);
+      border-radius: 16px;
+      border: 1px solid var(--gray-light);
+      transition: all 0.3s ease;
+    }
+    
+    .detail-item:hover {
+      border-color: var(--emerald);
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     .detail-item.full {
@@ -309,74 +372,100 @@
     .detail-label {
       font-size: 12px;
       color: var(--gray);
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      font-weight: 600;
     }
     
     .detail-value {
       font-size: 16px;
-      color: var(--white);
-      font-weight: 500;
+      color: var(--dark);
+      font-weight: 600;
     }
     
     .detail-value.gold {
-      color: var(--gold);
+      color: var(--gold-dark);
+    }
+    
+    .detail-value.emerald {
+      color: var(--emerald);
     }
     
     .detail-value a {
-      color: var(--info);
+      color: var(--emerald);
       text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
     }
     
     .detail-value a:hover {
+      color: var(--emerald-dark);
       text-decoration: underline;
     }
     
     /* Status Badge */
     .status-badge {
       display: inline-block;
-      padding: 6px 16px;
-      border-radius: 20px;
+      padding: 8px 20px;
+      border-radius: 25px;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     .status-badge.pending {
-      background: rgba(251, 191, 36, 0.2);
-      color: var(--warning);
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #92400e;
     }
     
     .status-badge.paid, .status-badge.completed {
-      background: rgba(74, 222, 128, 0.2);
-      color: var(--success);
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      color: var(--emerald-dark);
     }
     
     .status-badge.processing {
-      background: rgba(96, 165, 250, 0.2);
-      color: var(--info);
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1e40af;
+    }
+    
+    .status-badge.shipped {
+      background: linear-gradient(135deg, var(--gold-light), #fcd34d);
+      color: #78350f;
     }
     
     /* Error State */
     .error-message {
-      background: rgba(248, 113, 113, 0.1);
-      border: 1px solid rgba(248, 113, 113, 0.3);
-      border-radius: 12px;
-      padding: 20px;
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+      border-radius: 16px;
+      padding: 25px;
       text-align: center;
       color: var(--danger);
       display: none;
+      font-weight: 500;
     }
     
     .error-message.show {
       display: block;
+      animation: shake 0.5s ease;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
     }
     
     /* Loading */
     .loading {
       text-align: center;
-      padding: 40px;
+      padding: 50px;
       display: none;
+      background: var(--white);
+      border-radius: 24px;
+      border: 3px solid var(--gold);
     }
     
     .loading.show {
@@ -384,23 +473,65 @@
     }
     
     .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(212, 175, 55, 0.2);
-      border-top-color: var(--gold);
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--gray-light);
+      border-top-color: var(--emerald);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
+      margin: 0 auto 20px;
+    }
+    
+    .loading p {
+      color: var(--gray);
+      font-weight: 500;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
     
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+    }
+    
+    .footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+    
     /* Responsive */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-links a {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+      
+      .page-title h1 {
+        font-size: 32px;
+      }
+      
       .search-form {
         flex-direction: column;
+      }
+      
+      .search-box {
+        padding: 25px;
       }
       
       .detail-grid {
@@ -413,7 +544,7 @@
       
       .stepper {
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 25px;
         justify-content: center;
       }
       
@@ -427,11 +558,12 @@
 <body>
   <!-- Header -->
   <header class="header">
-    <a href="dashboard.html" class="logo">
-      <div class="logo-icon">👑</div>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="The Gold Blessing" class="logo-img">
       <span class="logo-text">The Gold Blessing</span>
     </a>
     <nav class="nav-links">
+      <a href="index.html">Home</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="track.html" class="active">Track Order</a>
       <a href="layaway.html">LayAway</a>
@@ -442,15 +574,15 @@
   <!-- Main Content -->
   <div class="container">
     <div class="page-title">
-      <h1>🔍 Track Your Order</h1>
-      <p>Enter your Order ID to see the current status</p>
+      <h1>Track Your <span>Order</span></h1>
+      <p>Enter your Order ID to see the current status of your purchase</p>
     </div>
     
     <!-- Search Box -->
     <div class="search-box">
       <form class="search-form" onsubmit="trackOrder(event)">
         <input type="text" class="search-input" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-6888662240)" required>
-        <button type="submit" class="search-btn" id="searchBtn">Track Order</button>
+        <button type="submit" class="search-btn" id="searchBtn">🔍 Track Order</button>
       </form>
     </div>
     
@@ -505,145 +637,135 @@
             <div class="detail-value"><span class="status-badge" id="orderStatus">--</span></div>
           </div>
           <div class="detail-item">
-            <div class="detail-label">Receiver</div>
-            <div class="detail-value" id="receiver">--</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Contact</div>
-            <div class="detail-value" id="contact">--</div>
+            <div class="detail-label">Receiver Name</div>
+            <div class="detail-value" id="receiverName">--</div>
           </div>
           <div class="detail-item">
             <div class="detail-label">Payment Method</div>
-            <div class="detail-value gold" id="paymentMethod">--</div>
+            <div class="detail-value" id="paymentMethod">--</div>
           </div>
           <div class="detail-item">
             <div class="detail-label">Payment Status</div>
             <div class="detail-value"><span class="status-badge" id="paymentStatus">--</span></div>
           </div>
+          <div class="detail-item">
+            <div class="detail-label">Tracking Number</div>
+            <div class="detail-value" id="trackingNumber">--</div>
+          </div>
           <div class="detail-item full">
             <div class="detail-label">Delivery Address</div>
-            <div class="detail-value" id="address">--</div>
-          </div>
-          <div class="detail-item" id="trackingSection" style="display: none;">
-            <div class="detail-label">Tracking Number</div>
-            <div class="detail-value"><a href="#" target="_blank" id="trackingLink">--</a></div>
+            <div class="detail-value" id="deliveryAddress">--</div>
           </div>
         </div>
       </div>
     </div>
   </div>
   
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2025 <a href="index.html">The Gold Blessing</a>. All rights reserved.</p>
+  </div>
+
+  <!-- API Script -->
+  <script src="js/tgb-api.js"></script>
   <script>
-    const API_URL = '/api/tgb';
-    
-    // Get order ID from URL if present
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderIdParam = urlParams.get('id');
-    if (orderIdParam) {
-      document.getElementById('orderIdInput').value = orderIdParam;
-      trackOrder();
-    }
-    
-    async function trackOrder(e) {
-      if (e) e.preventDefault();
+    async function trackOrder(event) {
+      event.preventDefault();
       
       const orderId = document.getElementById('orderIdInput').value.trim();
-      if (!orderId) return;
+      const loading = document.getElementById('loading');
+      const resultCard = document.getElementById('resultCard');
+      const errorMessage = document.getElementById('errorMessage');
+      const searchBtn = document.getElementById('searchBtn');
       
-      // UI States
-      document.getElementById('loading').classList.add('show');
-      document.getElementById('resultCard').classList.remove('show');
-      document.getElementById('errorMessage').classList.remove('show');
-      document.getElementById('searchBtn').disabled = true;
+      // Reset states
+      resultCard.classList.remove('show');
+      errorMessage.classList.remove('show');
+      loading.classList.add('show');
+      searchBtn.disabled = true;
+      searchBtn.textContent = '⏳ Searching...';
       
       try {
-        const response = await fetch(`${API_URL}?action=track&orderId=${encodeURIComponent(orderId)}`);
-        const data = await response.json();
+        const data = await TGB_API.trackOrder(orderId);
         
-        if (data.success) {
+        loading.classList.remove('show');
+        searchBtn.disabled = false;
+        searchBtn.textContent = '🔍 Track Order';
+        
+        if (data.success && data.order) {
           displayOrder(data.order);
         } else {
-          showError(data.error || 'Order not found');
+          showError(data.error || 'Order not found. Please check your Order ID.');
         }
       } catch (error) {
-        showError('Unable to connect. Please try again.');
-        console.error(error);
-      } finally {
-        document.getElementById('loading').classList.remove('show');
-        document.getElementById('searchBtn').disabled = false;
+        loading.classList.remove('show');
+        searchBtn.disabled = false;
+        searchBtn.textContent = '🔍 Track Order';
+        showError('Unable to connect. Please try again later.');
+        console.error('Track error:', error);
       }
     }
     
     function displayOrder(order) {
-      // Basic Info
-      document.getElementById('resultOrderId').textContent = order.orderId;
-      document.getElementById('orderDate').textContent = order.date;
-      document.getElementById('receiver').textContent = order.receiver;
-      document.getElementById('contact').textContent = order.contactNumber;
-      document.getElementById('paymentMethod').textContent = order.paymentMethod;
-      document.getElementById('address').textContent = `${order.address}, ${order.city}, ${order.region}`;
+      const resultCard = document.getElementById('resultCard');
       
-      // Status Badge
+      document.getElementById('resultOrderId').textContent = order.orderId || '--';
+      document.getElementById('orderDate').textContent = order.date || '--';
+      document.getElementById('receiverName').textContent = order.receiver || '--';
+      document.getElementById('paymentMethod').textContent = order.paymentMethod || '--';
+      
+      // Status
       const statusEl = document.getElementById('orderStatus');
-      statusEl.textContent = order.status;
-      statusEl.className = 'status-badge ' + getStatusClass(order.status);
+      const status = order.status || 'Pending';
+      statusEl.textContent = status;
+      statusEl.className = 'status-badge ' + status.toLowerCase().replace(' ', '-');
       
-      // Payment Status Badge
-      const paymentEl = document.getElementById('paymentStatus');
-      paymentEl.textContent = order.paymentStatus;
-      paymentEl.className = 'status-badge ' + getStatusClass(order.paymentStatus);
+      // Payment Status
+      const paymentStatusEl = document.getElementById('paymentStatus');
+      const paymentStatus = order.paymentStatus || 'Pending';
+      paymentStatusEl.textContent = paymentStatus;
+      paymentStatusEl.className = 'status-badge ' + (paymentStatus.toLowerCase().includes('paid') || paymentStatus.toLowerCase().includes('complete') ? 'paid' : 'pending');
       
-      // Tracking
+      // Tracking Number
+      const trackingEl = document.getElementById('trackingNumber');
       if (order.trackingNumber && order.trackingNumber !== 'NOT YET') {
-        document.getElementById('trackingSection').style.display = 'block';
-        const trackingLink = document.getElementById('trackingLink');
-        trackingLink.textContent = order.trackingNumber;
-        trackingLink.href = order.trackingUrl || '#';
+        trackingEl.innerHTML = `<a href="${order.trackingUrl || '#'}" target="_blank">${order.trackingNumber}</a>`;
       } else {
-        document.getElementById('trackingSection').style.display = 'none';
+        trackingEl.textContent = 'Not yet available';
       }
       
-      // Update Stepper
-      updateStepper(order.statusStep);
+      // Address
+      const address = [order.address, order.city, order.region].filter(Boolean).join(', ');
+      document.getElementById('deliveryAddress').textContent = address || '--';
       
-      // Show result
-      document.getElementById('resultCard').classList.add('show');
+      // Update stepper
+      updateStepper(order.statusStep || 0);
+      
+      resultCard.classList.add('show');
     }
     
     function updateStepper(step) {
-      // Reset all steps
-      for (let i = 0; i <= 3; i++) {
-        const stepEl = document.getElementById('step' + i);
-        stepEl.classList.remove('active', 'completed');
-      }
+      const steps = document.querySelectorAll('.step');
+      const progress = document.getElementById('stepperProgress');
       
-      // Mark completed and active
-      for (let i = 0; i <= step; i++) {
-        const stepEl = document.getElementById('step' + i);
+      steps.forEach((s, i) => {
+        s.classList.remove('active', 'completed');
         if (i < step) {
-          stepEl.classList.add('completed');
-        } else {
-          stepEl.classList.add('active');
+          s.classList.add('completed');
+        } else if (i === step) {
+          s.classList.add('active');
         }
-      }
+      });
       
-      // Progress bar
-      const progress = (step / 3) * 100;
-      document.getElementById('stepperProgress').style.width = `calc(${progress}% - 80px)`;
-    }
-    
-    function getStatusClass(status) {
-      if (!status) return 'pending';
-      const s = status.toUpperCase();
-      if (s.includes('PAID') || s.includes('COMPLETE') || s.includes('DELIVER')) return 'completed';
-      if (s.includes('PROCESS') || s.includes('SHIP')) return 'processing';
-      return 'pending';
+      // Update progress bar
+      const progressWidth = step === 0 ? '0%' : step === 1 ? '33%' : step === 2 ? '66%' : '100%';
+      progress.style.width = progressWidth;
     }
     
     function showError(message) {
-      const el = document.getElementById('errorMessage');
-      el.textContent = '❌ ' + message;
-      el.classList.add('show');
+      const errorEl = document.getElementById('errorMessage');
+      errorEl.textContent = message;
+      errorEl.classList.add('show');
     }
   </script>
 </body>

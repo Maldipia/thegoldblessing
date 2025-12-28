@@ -4,42 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LayAway Status - The Gold Blessing</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
+      --emerald: #047857;
+      --emerald-light: #10b981;
+      --emerald-dark: #065f46;
+      --emerald-glow: rgba(16, 185, 129, 0.3);
       --gold: #d4af37;
       --gold-light: #f4e4bc;
       --gold-dark: #b8960c;
-      --dark: #1a1a2e;
-      --dark-light: #16213e;
-      --dark-card: #0f3460;
       --white: #ffffff;
-      --gray: #a0a0a0;
-      --success: #4ade80;
-      --warning: #fbbf24;
-      --danger: #f87171;
-      --info: #60a5fa;
+      --off-white: #f8faf9;
+      --gray: #6b7280;
+      --gray-light: #e5e7eb;
+      --dark: #1f2937;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
       min-height: 100vh;
-      color: var(--white);
+      color: var(--dark);
     }
     
-    /* Header */
     .header {
-      background: rgba(15, 52, 96, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 15px 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 12px 30px;
+      border-bottom: 3px solid var(--gold);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     
     .logo {
@@ -47,46 +54,57 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
+      transition: transform 0.3s ease;
     }
     
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+    .logo:hover { transform: scale(1.02); }
+    
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
     }
     
     .logo-text {
-      font-size: 18px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
       font-weight: 700;
-      color: var(--gold);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
+    .nav-links { display: flex; gap: 8px; }
     
     .nav-links a {
       color: var(--gray);
       text-decoration: none;
       font-size: 14px;
-      transition: color 0.3s;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
     }
     
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--gold);
+    .nav-links a:hover {
+      color: var(--emerald);
+      background: rgba(4, 120, 87, 0.1);
     }
     
-    /* Container */
+    .nav-links a.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      box-shadow: 0 4px 15px var(--emerald-glow);
+    }
+    
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 50px 20px;
     }
     
     .page-title {
@@ -95,91 +113,106 @@
     }
     
     .page-title h1 {
-      font-size: 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
       font-weight: 700;
-      color: var(--gold);
-      margin-bottom: 10px;
+      color: var(--white);
+      margin-bottom: 12px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
     
+    .page-title h1 span { color: var(--gold); }
+    
     .page-title p {
-      color: var(--gray);
+      color: rgba(255, 255, 255, 0.9);
       font-size: 16px;
     }
     
-    /* Search Box */
     .search-box {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 20px;
+      background: var(--white);
+      border-radius: 24px;
       padding: 40px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      border: 3px solid var(--gold);
       margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
-    .search-form {
-      display: flex;
-      gap: 15px;
+    .search-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
     }
+    
+    .search-form { display: flex; gap: 15px; }
     
     .search-input {
       flex: 1;
       padding: 18px 24px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      color: var(--white);
+      background: var(--off-white);
+      border: 2px solid var(--gray-light);
+      border-radius: 16px;
+      color: var(--dark);
       font-size: 16px;
+      font-family: 'Poppins', sans-serif;
       outline: none;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
     }
     
     .search-input:focus {
-      border-color: var(--gold);
+      border-color: var(--emerald);
+      box-shadow: 0 0 0 4px var(--emerald-glow);
     }
     
-    .search-input::placeholder {
-      color: var(--gray);
-    }
+    .search-input::placeholder { color: var(--gray); }
     
     .search-btn {
       padding: 18px 40px;
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
       color: var(--dark);
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       font-size: 16px;
       font-weight: 600;
+      font-family: 'Poppins', sans-serif;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     }
     
     .search-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
     }
     
-    /* Result Card */
+    .search-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
     .result-card {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      background: var(--white);
+      border-radius: 24px;
+      border: 3px solid var(--gold);
       overflow: hidden;
       display: none;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     }
     
     .result-card.show {
       display: block;
-      animation: fadeIn 0.5s ease;
+      animation: slideUp 0.5s ease;
     }
     
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
     .result-header {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      padding: 25px 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      padding: 30px;
+      color: var(--dark);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -187,44 +220,49 @@
     
     .result-header h2 {
       font-size: 14px;
-      color: var(--gray);
       font-weight: 500;
+      opacity: 0.8;
       margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
     .result-header .order-id {
-      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--white);
     }
     
     .layaway-badge {
-      padding: 8px 20px;
-      border-radius: 20px;
+      padding: 10px 24px;
+      border-radius: 25px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
     .layaway-badge.active {
-      background: rgba(74, 222, 128, 0.2);
-      color: var(--success);
+      background: var(--white);
+      color: var(--emerald);
     }
     
-    .layaway-badge.overdue {
-      background: rgba(248, 113, 113, 0.2);
-      color: var(--danger);
+    .layaway-badge.completed {
+      background: var(--emerald);
+      color: var(--white);
     }
     
-    /* Progress Section */
     .progress-section {
-      padding: 30px;
+      padding: 40px;
       text-align: center;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      background: var(--off-white);
+      border-bottom: 1px solid var(--gray-light);
     }
     
     .progress-circle {
-      width: 160px;
-      height: 160px;
+      width: 180px;
+      height: 180px;
       margin: 0 auto 20px;
       position: relative;
     }
@@ -235,15 +273,15 @@
     
     .progress-circle circle {
       fill: none;
-      stroke-width: 12;
+      stroke-width: 14;
     }
     
     .progress-bg {
-      stroke: rgba(255, 255, 255, 0.1);
+      stroke: var(--gray-light);
     }
     
     .progress-bar {
-      stroke: var(--gold);
+      stroke: url(#gradient);
       stroke-linecap: round;
       transition: stroke-dashoffset 1s ease;
     }
@@ -257,103 +295,104 @@
     }
     
     .progress-percent {
-      font-size: 36px;
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--emerald);
     }
     
     .progress-label {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--gray);
+      font-weight: 500;
     }
     
-    /* Balance Cards */
     .balance-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       padding: 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      border-bottom: 1px solid var(--gray-light);
     }
     
     .balance-card {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 20px;
+      background: var(--off-white);
+      border-radius: 16px;
+      padding: 25px;
       text-align: center;
+      border: 2px solid var(--gray-light);
+      transition: all 0.3s ease;
+    }
+    
+    .balance-card:hover {
+      border-color: var(--emerald);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px var(--emerald-glow);
     }
     
     .balance-card.highlight {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-color: var(--gold);
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
     }
     
     .balance-label {
       font-size: 12px;
       color: var(--gray);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
     }
     
     .balance-value {
-      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
       font-weight: 700;
-      color: var(--white);
+      color: var(--dark);
     }
     
-    .balance-value.gold {
-      color: var(--gold);
-    }
+    .balance-value.gold { color: var(--gold-dark); }
+    .balance-value.emerald { color: var(--emerald); }
+    .balance-value.danger { color: var(--danger); }
     
-    .balance-value.danger {
-      color: var(--danger);
-    }
-    
-    .balance-value.success {
-      color: var(--success);
-    }
-    
-    /* Due Date Alert */
     .due-alert {
       margin: 20px 30px;
-      padding: 20px;
-      border-radius: 12px;
+      padding: 20px 25px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       gap: 15px;
     }
     
     .due-alert.warning {
-      background: rgba(251, 191, 36, 0.1);
-      border: 1px solid rgba(251, 191, 36, 0.3);
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 2px solid #fcd34d;
     }
     
     .due-alert.danger {
-      background: rgba(248, 113, 113, 0.1);
-      border: 1px solid rgba(248, 113, 113, 0.3);
+      background: linear-gradient(135deg, #fef2f2, #fecaca);
+      border: 2px solid #f87171;
     }
     
     .due-alert.success {
-      background: rgba(74, 222, 128, 0.1);
-      border: 1px solid rgba(74, 222, 128, 0.3);
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      border: 2px solid #34d399;
     }
     
-    .due-alert-icon {
-      font-size: 24px;
-    }
+    .due-alert-icon { font-size: 28px; }
     
     .due-alert-text h4 {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       margin-bottom: 4px;
+      color: var(--dark);
     }
     
     .due-alert-text p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--gray);
     }
     
-    /* Details */
     .detail-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -362,58 +401,75 @@
     }
     
     .detail-item {
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 10px;
+      padding: 20px;
+      background: var(--off-white);
+      border-radius: 12px;
+      border: 1px solid var(--gray-light);
     }
     
     .detail-label {
       font-size: 12px;
       color: var(--gray);
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
     }
     
     .detail-value {
       font-size: 16px;
-      color: var(--white);
+      color: var(--dark);
+      font-weight: 600;
+    }
+    
+    .loading, .error-message {
+      text-align: center;
+      padding: 50px;
+      display: none;
+      background: var(--white);
+      border-radius: 24px;
+      border: 3px solid var(--gold);
+    }
+    
+    .loading.show, .error-message.show { display: block; }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--gray-light);
+      border-top-color: var(--emerald);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .error-message {
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+      color: var(--danger);
       font-weight: 500;
     }
     
-    /* Loading & Error */
-    .loading, .error-message {
+    .footer {
       text-align: center;
-      padding: 40px;
-      display: none;
+      padding: 30px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
     }
     
-    .loading.show, .error-message.show {
-      display: block;
+    .footer a {
+      color: var(--gold-light);
+      text-decoration: none;
     }
     
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(212, 175, 55, 0.2);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    .error-message {
-      background: rgba(248, 113, 113, 0.1);
-      border: 1px solid rgba(248, 113, 113, 0.3);
-      border-radius: 12px;
-      color: var(--danger);
-    }
-    
-    /* Responsive */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      .header { flex-direction: column; gap: 15px; padding: 15px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .page-title h1 { font-size: 32px; }
       .search-form { flex-direction: column; }
+      .search-box { padding: 25px; }
       .balance-grid, .detail-grid { grid-template-columns: 1fr; }
       .result-header { flex-direction: column; gap: 15px; text-align: center; }
     }
@@ -421,11 +477,12 @@
 </head>
 <body>
   <header class="header">
-    <a href="dashboard.html" class="logo">
-      <div class="logo-icon">👑</div>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="The Gold Blessing" class="logo-img">
       <span class="logo-text">The Gold Blessing</span>
     </a>
     <nav class="nav-links">
+      <a href="index.html">Home</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="track.html">Track Order</a>
       <a href="layaway.html" class="active">LayAway</a>
@@ -435,14 +492,14 @@
   
   <div class="container">
     <div class="page-title">
-      <h1>💳 LayAway Status</h1>
+      <h1>LayAway <span>Status</span></h1>
       <p>Check your LayAway payment progress and remaining balance</p>
     </div>
     
     <div class="search-box">
       <form class="search-form" onsubmit="checkLayaway(event)">
         <input type="text" class="search-input" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-6888662240)" required>
-        <button type="submit" class="search-btn" id="searchBtn">Check Status</button>
+        <button type="submit" class="search-btn" id="searchBtn">💰 Check Status</button>
       </form>
     </div>
     
@@ -462,27 +519,31 @@
         <span class="layaway-badge active" id="layawayBadge">ACTIVE</span>
       </div>
       
-      <!-- Progress Circle -->
       <div class="progress-section">
         <div class="progress-circle">
-          <svg width="160" height="160">
-            <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
-            <circle class="progress-bar" id="progressBar" cx="80" cy="80" r="70" 
-                    stroke-dasharray="439.8" stroke-dashoffset="439.8"></circle>
+          <svg width="180" height="180">
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#047857"/>
+                <stop offset="100%" style="stop-color:#d4af37"/>
+              </linearGradient>
+            </defs>
+            <circle class="progress-bg" cx="90" cy="90" r="76"></circle>
+            <circle class="progress-bar" id="progressBar" cx="90" cy="90" r="76" 
+                    stroke-dasharray="477.5" stroke-dashoffset="477.5"></circle>
           </svg>
           <div class="progress-text">
             <div class="progress-percent" id="progressPercent">0%</div>
             <div class="progress-label">Paid</div>
           </div>
         </div>
-        <p style="color: var(--gray);">Payment Progress</p>
+        <p style="color: var(--gray); font-weight: 500;">Payment Progress</p>
       </div>
       
-      <!-- Balance Grid -->
       <div class="balance-grid">
         <div class="balance-card">
           <div class="balance-label">Downpayment</div>
-          <div class="balance-value success" id="downpayment">₱0</div>
+          <div class="balance-value emerald" id="downpayment">₱0</div>
         </div>
         <div class="balance-card highlight">
           <div class="balance-label">Remaining Balance</div>
@@ -490,136 +551,121 @@
         </div>
       </div>
       
-      <!-- Due Date Alert -->
       <div class="due-alert warning" id="dueAlert">
         <span class="due-alert-icon">📅</span>
         <div class="due-alert-text">
-          <h4 id="dueTitle">Due Date</h4>
+          <h4 id="dueTitle">Next Due Date</h4>
           <p id="dueText">--</p>
         </div>
       </div>
       
-      <!-- Details -->
       <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">Receiver Name</div>
+          <div class="detail-value" id="receiverName">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Total Amount</div>
+          <div class="detail-value" id="totalAmount">--</div>
+        </div>
         <div class="detail-item">
           <div class="detail-label">Order Date</div>
           <div class="detail-value" id="orderDate">--</div>
         </div>
         <div class="detail-item">
-          <div class="detail-label">Customer</div>
-          <div class="detail-value" id="receiver">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Due Date</div>
-          <div class="detail-value" id="dueDate">--</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Days Remaining</div>
-          <div class="detail-value" id="daysRemaining">--</div>
+          <div class="detail-label">Payment Method</div>
+          <div class="detail-value" id="paymentMethod">--</div>
         </div>
       </div>
     </div>
   </div>
   
+  <div class="footer">
+    <p>© 2025 <a href="index.html">The Gold Blessing</a>. All rights reserved.</p>
+  </div>
+
+  <script src="js/tgb-api.js"></script>
   <script>
-    const API_URL = '/api/tgb';
-    
-    async function checkLayaway(e) {
-      if (e) e.preventDefault();
+    async function checkLayaway(event) {
+      event.preventDefault();
       
       const orderId = document.getElementById('orderIdInput').value.trim();
-      if (!orderId) return;
+      const loading = document.getElementById('loading');
+      const resultCard = document.getElementById('resultCard');
+      const errorMessage = document.getElementById('errorMessage');
+      const searchBtn = document.getElementById('searchBtn');
       
-      document.getElementById('loading').classList.add('show');
-      document.getElementById('resultCard').classList.remove('show');
-      document.getElementById('errorMessage').classList.remove('show');
+      resultCard.classList.remove('show');
+      errorMessage.classList.remove('show');
+      loading.classList.add('show');
+      searchBtn.disabled = true;
+      searchBtn.textContent = '⏳ Checking...';
       
       try {
-        const response = await fetch(`${API_URL}?action=layaway&orderId=${encodeURIComponent(orderId)}`);
-        const data = await response.json();
+        const data = await TGB_API.getLayaway(orderId);
         
-        if (data.success) {
+        loading.classList.remove('show');
+        searchBtn.disabled = false;
+        searchBtn.textContent = '💰 Check Status';
+        
+        if (data.success && data.layaway) {
           displayLayaway(data.layaway);
         } else {
-          showError(data.error || 'LayAway order not found');
+          showError(data.error || 'LayAway order not found. Please check your Order ID.');
         }
       } catch (error) {
-        showError('Unable to connect. Please try again.');
-      } finally {
-        document.getElementById('loading').classList.remove('show');
+        loading.classList.remove('show');
+        searchBtn.disabled = false;
+        searchBtn.textContent = '💰 Check Status';
+        showError('Unable to connect. Please try again later.');
+        console.error('Layaway error:', error);
       }
     }
     
     function displayLayaway(layaway) {
-      document.getElementById('resultOrderId').textContent = layaway.orderId;
-      document.getElementById('orderDate').textContent = layaway.date;
-      document.getElementById('receiver').textContent = layaway.receiver;
-      document.getElementById('dueDate').textContent = layaway.dueDate;
+      const resultCard = document.getElementById('resultCard');
       
-      // Downpayment & Balance
-      document.getElementById('downpayment').textContent = '₱' + formatNumber(layaway.downpaymentAmount);
-      document.getElementById('balance').textContent = '₱' + formatNumber(layaway.balance);
+      document.getElementById('resultOrderId').textContent = layaway.orderId || '--';
+      document.getElementById('downpayment').textContent = formatCurrency(layaway.downpayment || 0);
+      document.getElementById('balance').textContent = formatCurrency(layaway.remainingBalance || 0);
+      document.getElementById('receiverName').textContent = layaway.receiver || '--';
+      document.getElementById('totalAmount').textContent = formatCurrency(layaway.totalAmount || 0);
+      document.getElementById('orderDate').textContent = layaway.date || '--';
+      document.getElementById('paymentMethod').textContent = layaway.paymentMethod || 'LAY AWAY';
       
       // Progress
-      const percent = layaway.percentPaid || 0;
-      document.getElementById('progressPercent').textContent = percent + '%';
-      const circumference = 2 * Math.PI * 70;
-      const offset = circumference - (percent / 100) * circumference;
+      const progress = layaway.progressPercent || 0;
+      document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+      const circumference = 477.5;
+      const offset = circumference - (progress / 100) * circumference;
       document.getElementById('progressBar').style.strokeDashoffset = offset;
       
-      // Days Remaining
-      const days = layaway.daysRemaining;
-      const daysEl = document.getElementById('daysRemaining');
-      if (days !== null) {
-        if (days < 0) {
-          daysEl.textContent = Math.abs(days) + ' days overdue';
-          daysEl.style.color = 'var(--danger)';
-        } else if (days === 0) {
-          daysEl.textContent = 'Due today!';
-          daysEl.style.color = 'var(--warning)';
-        } else {
-          daysEl.textContent = days + ' days left';
-          daysEl.style.color = days <= 7 ? 'var(--warning)' : 'var(--success)';
-        }
-      } else {
-        daysEl.textContent = 'N/A';
+      // Due date
+      if (layaway.dueDate) {
+        document.getElementById('dueText').textContent = layaway.dueDate;
       }
       
-      // Badge & Alert
+      // Badge
       const badge = document.getElementById('layawayBadge');
-      const alert = document.getElementById('dueAlert');
-      
-      if (layaway.isOverdue) {
-        badge.textContent = 'OVERDUE';
-        badge.className = 'layaway-badge overdue';
-        alert.className = 'due-alert danger';
-        document.getElementById('dueTitle').textContent = '⚠️ Payment Overdue';
-        document.getElementById('dueText').textContent = `Your payment is ${Math.abs(days)} days overdue. Please settle your balance immediately.`;
-      } else if (days !== null && days <= 7) {
-        badge.textContent = 'DUE SOON';
-        badge.className = 'layaway-badge warning';
-        alert.className = 'due-alert warning';
-        document.getElementById('dueTitle').textContent = '📅 Payment Due Soon';
-        document.getElementById('dueText').textContent = `Your payment is due in ${days} days on ${layaway.dueDate}.`;
+      if (progress >= 100) {
+        badge.textContent = 'COMPLETED';
+        badge.className = 'layaway-badge completed';
       } else {
         badge.textContent = 'ACTIVE';
         badge.className = 'layaway-badge active';
-        alert.className = 'due-alert success';
-        document.getElementById('dueTitle').textContent = '✅ On Track';
-        document.getElementById('dueText').textContent = `Your next payment is due on ${layaway.dueDate}.`;
       }
       
-      document.getElementById('resultCard').classList.add('show');
+      resultCard.classList.add('show');
     }
     
-    function formatNumber(num) {
-      return parseFloat(num || 0).toLocaleString('en-PH', { minimumFractionDigits: 2 });
+    function formatCurrency(amount) {
+      return '₱' + Number(amount).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     
     function showError(message) {
-      const el = document.getElementById('errorMessage');
-      el.textContent = '❌ ' + message;
-      el.classList.add('show');
+      const errorEl = document.getElementById('errorMessage');
+      errorEl.textContent = message;
+      errorEl.classList.add('show');
     }
   </script>
 </body>

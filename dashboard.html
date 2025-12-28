@@ -3,79 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TGB Admin Dashboard</title>
+  <title>Admin Dashboard - The Gold Blessing</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
+      --emerald: #047857;
+      --emerald-light: #10b981;
+      --emerald-dark: #065f46;
+      --emerald-glow: rgba(16, 185, 129, 0.3);
       --gold: #d4af37;
       --gold-light: #f4e4bc;
       --gold-dark: #b8960c;
-      --dark: #1a1a2e;
-      --dark-light: #16213e;
-      --dark-card: #0f3460;
       --white: #ffffff;
-      --gray: #a0a0a0;
-      --success: #4ade80;
-      --warning: #fbbf24;
-      --danger: #f87171;
-      --info: #60a5fa;
+      --off-white: #f8faf9;
+      --gray: #6b7280;
+      --gray-light: #e5e7eb;
+      --dark: #1f2937;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%);
       min-height: 100vh;
-      color: var(--white);
+      color: var(--dark);
     }
     
-    /* ==================== LOGIN OVERLAY ==================== */
+    /* LOGIN OVERLAY */
     .login-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
     }
     
-    .login-overlay.hidden {
-      display: none;
-    }
+    .login-overlay.hidden { display: none; }
     
     .login-box {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.9) 100%);
+      background: var(--white);
       border-radius: 24px;
       padding: 50px 40px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border: 3px solid var(--gold);
       text-align: center;
-      max-width: 400px;
+      max-width: 420px;
       width: 90%;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
     }
     
-    .login-logo {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      margin: 0 auto 25px;
+    .login-logo-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      margin-bottom: 25px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
     }
     
     .login-box h2 {
-      font-size: 24px;
-      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--dark);
       margin-bottom: 8px;
     }
     
@@ -87,20 +89,23 @@
     
     .login-input {
       width: 100%;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      color: var(--white);
-      font-size: 16px;
+      padding: 18px 24px;
+      background: var(--off-white);
+      border: 2px solid var(--gray-light);
+      border-radius: 16px;
+      color: var(--dark);
+      font-size: 18px;
+      font-family: 'Poppins', sans-serif;
       outline: none;
       margin-bottom: 20px;
       text-align: center;
       letter-spacing: 8px;
+      transition: all 0.3s ease;
     }
     
     .login-input:focus {
-      border-color: var(--gold);
+      border-color: var(--emerald);
+      box-shadow: 0 0 0 4px var(--emerald-glow);
     }
     
     .login-input::placeholder {
@@ -110,20 +115,22 @@
     
     .login-btn {
       width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: var(--dark);
+      padding: 18px;
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      color: var(--white);
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       font-size: 16px;
       font-weight: 600;
+      font-family: 'Poppins', sans-serif;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px var(--emerald-glow);
     }
     
     .login-error {
@@ -131,117 +138,124 @@
       font-size: 14px;
       margin-top: 15px;
       display: none;
+      font-weight: 500;
     }
     
-    .login-error.show {
-      display: block;
-    }
+    .login-error.show { display: block; }
     
-    /* ==================== SIDEBAR ==================== */
+    /* SIDEBAR */
     .sidebar {
       position: fixed;
       left: 0;
       top: 0;
-      width: 260px;
+      width: 280px;
       height: 100vh;
-      background: rgba(15, 52, 96, 0.95);
-      backdrop-filter: blur(10px);
+      background: var(--white);
       padding: 20px;
-      border-right: 1px solid rgba(212, 175, 55, 0.2);
+      border-right: 3px solid var(--gold);
       z-index: 100;
       overflow-y: auto;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
     }
     
-    .logo {
+    .sidebar-logo {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 15px 10px;
       margin-bottom: 30px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      border-bottom: 2px solid var(--gray-light);
+      text-decoration: none;
     }
     
-    .logo-icon {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
+    .sidebar-logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
     }
     
-    .logo-text {
+    .sidebar-logo-text {
+      font-family: 'Playfair Display', serif;
       font-size: 18px;
       font-weight: 700;
-      color: var(--gold);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
-    .logo-text span {
+    .sidebar-logo-text span {
       display: block;
+      font-family: 'Poppins', sans-serif;
       font-size: 11px;
       font-weight: 400;
       color: var(--gray);
+      -webkit-text-fill-color: var(--gray);
     }
     
     .nav-menu { list-style: none; }
-    
     .nav-item { margin-bottom: 8px; }
     
     .nav-link {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 16px;
+      padding: 14px 18px;
       color: var(--gray);
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 12px;
       transition: all 0.3s ease;
       font-size: 14px;
+      font-weight: 500;
     }
     
-    .nav-link:hover, .nav-link.active {
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold);
+    .nav-link:hover {
+      background: rgba(4, 120, 87, 0.1);
+      color: var(--emerald);
     }
     
     .nav-link.active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      border-left: 3px solid var(--gold);
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      color: var(--white);
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     .nav-icon { font-size: 18px; width: 24px; text-align: center; }
     
     .logout-btn {
       margin-top: 30px;
-      padding: 14px 16px;
-      background: rgba(248, 113, 113, 0.15);
-      border: 1px solid rgba(248, 113, 113, 0.3);
-      border-radius: 10px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      border: 2px solid #fecaca;
+      border-radius: 12px;
       color: var(--danger);
       cursor: pointer;
       font-size: 14px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 12px;
       width: 100%;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
     }
     
     .logout-btn:hover {
-      background: rgba(248, 113, 113, 0.25);
+      background: var(--danger);
+      color: var(--white);
+      border-color: var(--danger);
     }
     
-    /* ==================== MAIN CONTENT ==================== */
+    /* MAIN CONTENT */
     .main-content {
-      margin-left: 260px;
+      margin-left: 280px;
       padding: 30px;
       min-height: 100vh;
     }
     
-    /* Header */
-    .header {
+    .page-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -250,153 +264,39 @@
       gap: 15px;
     }
     
-    .header-title h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--white);
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--dark);
     }
     
-    .header-title p {
-      color: var(--gray);
+    .page-header h1 span { color: var(--emerald); }
+    
+    .header-actions { display: flex; gap: 15px; }
+    
+    .refresh-btn {
+      padding: 12px 24px;
+      background: var(--white);
+      color: var(--emerald);
+      border: 2px solid var(--emerald);
+      border-radius: 12px;
       font-size: 14px;
-      margin-top: 4px;
-    }
-    
-    .header-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    
-    .action-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      color: var(--white);
-      border-radius: 10px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 14px;
-    }
-    
-    .action-btn:hover {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--gold);
-    }
-    
-    .action-btn.primary {
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: var(--dark);
-      border: none;
-    }
-    
-    .action-btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-    }
-    
-    .last-updated {
-      color: var(--gray);
-      font-size: 12px;
-    }
-    
-    /* ==================== REVENUE SECTION ==================== */
-    .revenue-section {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      margin-bottom: 30px;
-    }
-    
-    .revenue-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    
-    .revenue-header h2 {
-      font-size: 20px;
-      color: var(--gold);
+      font-family: 'Poppins', sans-serif;
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-    
-    .period-selector {
-      display: flex;
       gap: 8px;
-      flex-wrap: wrap;
     }
     
-    .period-btn {
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      border-radius: 8px;
-      color: var(--gray);
-      cursor: pointer;
-      font-size: 13px;
-      transition: all 0.3s;
-    }
-    
-    .period-btn.active, .period-btn:hover {
-      background: var(--gold);
-      color: var(--dark);
-      border-color: var(--gold);
-    }
-    
-    .revenue-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-    
-    .revenue-card {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-    }
-    
-    .revenue-card .label {
-      font-size: 12px;
-      color: var(--gray);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-    
-    .revenue-card .value {
-      font-size: 28px;
-      font-weight: 700;
+    .refresh-btn:hover {
+      background: var(--emerald);
       color: var(--white);
     }
     
-    .revenue-card .value.gold {
-      color: var(--gold);
-    }
-    
-    .revenue-card .trend {
-      font-size: 12px;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-    
-    .revenue-card .trend.up { color: var(--success); }
-    .revenue-card .trend.down { color: var(--danger); }
-    
-    /* ==================== STATS CARDS ==================== */
+    /* STATS CARDS */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -405,10 +305,11 @@
     }
     
     .stat-card {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid rgba(212, 175, 55, 0.1);
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+      border: 2px solid var(--gray-light);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
@@ -417,10 +318,16 @@
       content: '';
       position: absolute;
       top: 0;
+      left: 0;
       right: 0;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      height: 4px;
+      background: linear-gradient(90deg, var(--emerald), var(--gold));
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border-color: var(--emerald);
     }
     
     .stat-icon {
@@ -431,27 +338,50 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
     
-    .stat-icon.blue { background: rgba(96, 165, 250, 0.2); }
-    .stat-icon.yellow { background: rgba(251, 191, 36, 0.2); }
-    .stat-icon.green { background: rgba(74, 222, 128, 0.2); }
-    .stat-icon.purple { background: rgba(167, 139, 250, 0.2); }
-    
-    .stat-value {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
+    .stat-icon.emerald { background: linear-gradient(135deg, #ecfdf5, #d1fae5); }
+    .stat-icon.gold { background: linear-gradient(135deg, #fffbeb, #fef3c7); }
+    .stat-icon.blue { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+    .stat-icon.purple { background: linear-gradient(135deg, #f5f3ff, #ede9fe); }
     
     .stat-label {
+      font-size: 13px;
       color: var(--gray);
-      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
-    /* ==================== CHARTS ==================== */
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .stat-change {
+      font-size: 12px;
+      margin-top: 10px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      font-weight: 600;
+    }
+    
+    .stat-change.up {
+      background: #ecfdf5;
+      color: var(--emerald);
+    }
+    
+    .stat-change.down {
+      background: #fef2f2;
+      color: var(--danger);
+    }
+    
+    /* CHARTS SECTION */
     .charts-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -460,23 +390,19 @@
     }
     
     .chart-card {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid rgba(212, 175, 55, 0.1);
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+      border: 2px solid var(--gray-light);
     }
     
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .chart-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--dark);
       margin-bottom: 20px;
-    }
-    
-    .chart-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--white);
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--gray-light);
     }
     
     .chart-container {
@@ -484,12 +410,12 @@
       height: 300px;
     }
     
-    /* ==================== ORDERS TABLE ==================== */
+    /* RECENT ORDERS */
     .orders-section {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid rgba(212, 175, 55, 0.1);
+      background: var(--white);
+      border-radius: 20px;
+      padding: 25px;
+      border: 2px solid var(--gray-light);
     }
     
     .orders-header {
@@ -497,555 +423,366 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 15px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--gray-light);
     }
     
-    .orders-title {
-      font-size: 18px;
+    .orders-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--dark);
+    }
+    
+    .view-all-btn {
+      padding: 8px 20px;
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
       font-weight: 600;
-      color: var(--white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
     }
     
-    .orders-filters {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    
-    .filter-select, .search-input {
-      padding: 10px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      border-radius: 8px;
-      color: var(--white);
-      font-size: 14px;
-      outline: none;
-    }
-    
-    .filter-select option { background: var(--dark-card); }
-    
-    .search-input { min-width: 250px; }
-    .search-input::placeholder { color: var(--gray); }
-    
-    .table-wrapper {
-      overflow-x: auto;
+    .view-all-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--emerald-glow);
     }
     
     .orders-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 600px;
     }
     
     .orders-table th {
       text-align: left;
-      padding: 14px 16px;
+      padding: 15px;
+      font-size: 12px;
+      font-weight: 600;
       color: var(--gray);
-      font-weight: 500;
-      font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      background: var(--off-white);
+      border-radius: 8px;
     }
     
     .orders-table td {
-      padding: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 18px 15px;
       font-size: 14px;
+      border-bottom: 1px solid var(--gray-light);
     }
     
-    .orders-table tbody tr {
-      transition: all 0.3s ease;
-    }
-    
-    .orders-table tbody tr:hover {
-      background: rgba(212, 175, 55, 0.05);
+    .orders-table tr:hover td {
+      background: var(--off-white);
     }
     
     .order-id {
       font-weight: 600;
-      color: var(--gold);
+      color: var(--emerald);
     }
     
     .status-badge {
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .status-badge.completed {
+      background: #ecfdf5;
+      color: var(--emerald);
     }
     
     .status-badge.pending {
-      background: rgba(251, 191, 36, 0.2);
-      color: var(--warning);
-    }
-    
-    .status-badge.paid, .status-badge.completed {
-      background: rgba(74, 222, 128, 0.2);
-      color: var(--success);
+      background: #fffbeb;
+      color: #d97706;
     }
     
     .status-badge.processing {
-      background: rgba(96, 165, 250, 0.2);
-      color: var(--info);
+      background: #eff6ff;
+      color: #2563eb;
     }
     
-    .method-badge {
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold);
+    .status-badge.cancelled {
+      background: #fef2f2;
+      color: var(--danger);
     }
     
-    /* Pagination */
-    .pagination {
+    /* LOADING */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(212, 175, 55, 0.1);
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    
-    .pagination-info {
-      color: var(--gray);
-      font-size: 14px;
-    }
-    
-    .pagination-buttons {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    
-    .page-btn {
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      border-radius: 8px;
-      color: var(--white);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 14px;
-    }
-    
-    .page-btn:hover:not(:disabled) {
-      background: var(--gold);
-      color: var(--dark);
-    }
-    
-    .page-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
-    .page-btn.active {
-      background: var(--gold);
-      color: var(--dark);
-    }
-    
-    /* Loading */
-    .loading {
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 60px;
-      color: var(--gray);
+      z-index: 9998;
     }
+    
+    .loading-overlay.hidden { display: none; }
     
     .spinner {
       width: 50px;
       height: 50px;
-      border: 4px solid rgba(212, 175, 55, 0.2);
-      border-top-color: var(--gold);
+      border: 4px solid var(--gray-light);
+      border-top-color: var(--emerald);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-bottom: 16px;
     }
     
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     
-    /* ==================== RESPONSIVE ==================== */
+    /* RESPONSIVE */
     @media (max-width: 1200px) {
-      .stats-grid, .revenue-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .charts-grid {
-        grid-template-columns: 1fr;
-      }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid { grid-template-columns: 1fr; }
     }
     
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      .main-content {
-        margin-left: 0;
-      }
-      .stats-grid, .revenue-grid {
-        grid-template-columns: 1fr;
-      }
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .orders-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
 <body>
-  <!-- ==================== LOGIN OVERLAY ==================== -->
+  <!-- LOGIN OVERLAY -->
   <div class="login-overlay" id="loginOverlay">
     <div class="login-box">
-      <div class="login-logo">👑</div>
+      <img src="logo.png" alt="The Gold Blessing" class="login-logo-img">
       <h2>Admin Dashboard</h2>
-      <p>Enter password to access</p>
-      <form onsubmit="checkPassword(event)">
-        <input type="password" class="login-input" id="passwordInput" placeholder="Enter Password" autofocus>
-        <button type="submit" class="login-btn">🔓 Unlock Dashboard</button>
+      <p>Enter your PIN to access the dashboard</p>
+      <form onsubmit="login(event)">
+        <input type="password" class="login-input" id="pinInput" placeholder="Enter PIN" maxlength="6" required>
+        <button type="submit" class="login-btn">🔐 Access Dashboard</button>
       </form>
-      <p class="login-error" id="loginError">❌ Incorrect password. Try again.</p>
+      <p class="login-error" id="loginError">Invalid PIN. Please try again.</p>
     </div>
   </div>
   
-  <!-- ==================== SIDEBAR ==================== -->
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+  
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="logo">
-      <div class="logo-icon">👑</div>
-      <div class="logo-text">
-        TGB Admin
-        <span>The Gold Blessing</span>
+    <a href="index.html" class="sidebar-logo">
+      <img src="logo.png" alt="The Gold Blessing" class="sidebar-logo-img">
+      <div class="sidebar-logo-text">
+        The Gold Blessing
+        <span>Admin Dashboard</span>
       </div>
-    </div>
+    </a>
     
-    <ul class="nav-menu">
-      <li class="nav-item">
-        <a href="#" class="nav-link active">
-          <span class="nav-icon">📊</span>
-          Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#orders-section" class="nav-link">
-          <span class="nav-icon">📦</span>
-          Orders
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="track.html" class="nav-link">
-          <span class="nav-icon">🔍</span>
-          Track Order
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="layaway.html" class="nav-link">
-          <span class="nav-icon">💳</span>
-          LayAway
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="invoice.html" class="nav-link">
-          <span class="nav-icon">🧾</span>
-          Invoices
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="https://docs.google.com/spreadsheets/d/1YnkcqUy0osdaZbt2LGXQDWLpKiWdC0W0JB6Zfe02Oe0" target="_blank" class="nav-link">
-          <span class="nav-icon">📋</span>
-          Google Sheet
-        </a>
-      </li>
-    </ul>
+    <nav>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="dashboard.html" class="nav-link active">
+            <span class="nav-icon">📊</span>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="track.html" class="nav-link">
+            <span class="nav-icon">📦</span>
+            Track Orders
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="layaway.html" class="nav-link">
+            <span class="nav-icon">💳</span>
+            LayAway
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="invoice.html" class="nav-link">
+            <span class="nav-icon">🧾</span>
+            Invoices
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <span class="nav-icon">🏠</span>
+            Home
+          </a>
+        </li>
+      </ul>
+    </nav>
     
     <button class="logout-btn" onclick="logout()">
-      <span class="nav-icon">🚪</span>
+      <span>🚪</span>
       Logout
     </button>
   </aside>
   
-  <!-- ==================== MAIN CONTENT ==================== -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-title">
-        <h1>📊 Dashboard Overview</h1>
-        <p>Welcome back! Here's your business summary.</p>
-      </div>
+    <div class="page-header">
+      <h1>Welcome to <span>Dashboard</span></h1>
       <div class="header-actions">
-        <span class="last-updated" id="lastUpdated">Last updated: --</span>
-        <button class="action-btn" onclick="exportToExcel()">
-          📥 Export Excel
+        <button class="refresh-btn" onclick="refreshData()">
+          🔄 Refresh Data
         </button>
-        <button class="action-btn primary" onclick="loadDashboard()">
-          🔄 Refresh
-        </button>
-      </div>
-    </header>
-    
-    <!-- ==================== REVENUE ANALYTICS ==================== -->
-    <section class="revenue-section">
-      <div class="revenue-header">
-        <h2>💰 Revenue Analytics</h2>
-        <div class="period-selector">
-          <button class="period-btn" onclick="setPeriod('today', this)">Today</button>
-          <button class="period-btn active" onclick="setPeriod('week', this)">This Week</button>
-          <button class="period-btn" onclick="setPeriod('month', this)">This Month</button>
-          <button class="period-btn" onclick="setPeriod('all', this)">All Time</button>
-        </div>
-      </div>
-      <div class="revenue-grid">
-        <div class="revenue-card">
-          <div class="label">Total Revenue</div>
-          <div class="value gold" id="totalRevenue">₱0</div>
-          <div class="trend up" id="revenueTrend">📈 Sales this period</div>
-        </div>
-        <div class="revenue-card">
-          <div class="label">Orders</div>
-          <div class="value" id="periodOrders">0</div>
-          <div class="trend">📦 This period</div>
-        </div>
-        <div class="revenue-card">
-          <div class="label">Average Order</div>
-          <div class="value" id="avgOrder">₱0</div>
-          <div class="trend">💳 Per transaction</div>
-        </div>
-        <div class="revenue-card">
-          <div class="label">Pending Collection</div>
-          <div class="value" id="pendingAmount">₱0</div>
-          <div class="trend">⏳ Awaiting payment</div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Stats Cards -->
-    <div class="stats-grid" id="statsGrid">
-      <div class="stat-card">
-        <div class="stat-icon blue">📦</div>
-        <div class="stat-value" id="totalOrders">--</div>
-        <div class="stat-label">Total Orders</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon yellow">⏳</div>
-        <div class="stat-value" id="pendingOrders">--</div>
-        <div class="stat-label">Pending Orders</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon green">✅</div>
-        <div class="stat-value" id="completedOrders">--</div>
-        <div class="stat-label">Completed Orders</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon purple">📈</div>
-        <div class="stat-value" id="completionRate">--</div>
-        <div class="stat-label">Completion Rate</div>
       </div>
     </div>
     
-    <!-- Charts -->
+    <!-- STATS CARDS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon emerald">📦</div>
+        <div class="stat-label">Total Orders</div>
+        <div class="stat-value" id="totalOrders">--</div>
+        <div class="stat-change up">↑ All time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon gold">💰</div>
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value" id="totalRevenue">--</div>
+        <div class="stat-change up">↑ This month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue">💳</div>
+        <div class="stat-label">Active LayAway</div>
+        <div class="stat-value" id="activeLayaway">--</div>
+        <div class="stat-change up">Active plans</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">✅</div>
+        <div class="stat-label">Completed</div>
+        <div class="stat-value" id="completedOrders">--</div>
+        <div class="stat-change up">↑ This week</div>
+      </div>
+    </div>
+    
+    <!-- CHARTS -->
     <div class="charts-grid">
       <div class="chart-card">
-        <div class="chart-header">
-          <h3 class="chart-title">📈 Orders by Payment Method</h3>
+        <h3>📈 Sales Overview</h3>
+        <div class="chart-container">
+          <canvas id="salesChart"></canvas>
         </div>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Payment Methods</h3>
         <div class="chart-container">
           <canvas id="paymentChart"></canvas>
         </div>
       </div>
-      <div class="chart-card">
-        <div class="chart-header">
-          <h3 class="chart-title">🥧 Order Status</h3>
-        </div>
-        <div class="chart-container">
-          <canvas id="statusChart"></canvas>
-        </div>
-      </div>
     </div>
     
-    <!-- Orders Table -->
-    <div class="orders-section" id="orders-section">
+    <!-- RECENT ORDERS -->
+    <div class="orders-section">
       <div class="orders-header">
-        <h3 class="orders-title">📦 All Orders</h3>
-        <div class="orders-filters">
-          <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search order ID or customer...">
-          <select class="filter-select" id="sheetFilter">
-            <option value="all">All Payment Methods</option>
-            <option value="STRAIGHT PAYMENT">Straight Payment</option>
-            <option value="COD">COD</option>
-            <option value="COP">COP</option>
-            <option value="LAY AWAY">LayAway</option>
-            <option value="WALK IN">Walk In</option>
-          </select>
-          <select class="filter-select" id="statusFilter">
-            <option value="all">All Status</option>
-            <option value="PENDING">Pending</option>
-            <option value="PAID">Paid</option>
-            <option value="PROCESSING">Processing</option>
-            <option value="COMPLETED">Completed</option>
-          </select>
-          <button class="action-btn" onclick="exportToExcel()">📥 Export</button>
-        </div>
+        <h3>📋 Recent Orders</h3>
+        <a href="track.html" class="view-all-btn">View All</a>
       </div>
-      
-      <div class="table-wrapper">
-        <div id="ordersTableContainer">
-          <div class="loading">
-            <div class="spinner"></div>
-            <p>Loading orders...</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="pagination" id="pagination" style="display: none;">
-        <span class="pagination-info" id="paginationInfo">Showing 1-20 of 100</span>
-        <div class="pagination-buttons" id="paginationButtons"></div>
-      </div>
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
+              Loading orders...
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </main>
-  
+
+  <script src="js/tgb-api.js"></script>
   <script>
-    // ==================== CONFIGURATION ====================
-    const API_URL = '/api/tgb';
-    const ADMIN_PASSWORD = 'tgb2025'; // ⚠️ CHANGE THIS PASSWORD!
+    const ADMIN_PIN = '123456';
+    let salesChart, paymentChart;
     
-    // ==================== STATE ====================
-    let currentPage = 1;
-    let totalPages = 1;
-    let allOrders = [];
-    let paymentChart = null;
-    let statusChart = null;
-    let currentPeriod = 'week';
-    
-    // ==================== PASSWORD PROTECTION ====================
-    function checkPassword(e) {
-      e.preventDefault();
-      const password = document.getElementById('passwordInput').value;
-      
-      if (password === ADMIN_PASSWORD) {
+    // Check login status
+    function checkLogin() {
+      const isLoggedIn = sessionStorage.getItem('tgb_admin_logged_in');
+      if (isLoggedIn === 'true') {
         document.getElementById('loginOverlay').classList.add('hidden');
-        sessionStorage.setItem('tgb_auth', 'true');
-        loadDashboard();
-        loadOrders();
+        loadDashboardData();
+      }
+    }
+    
+    function login(e) {
+      e.preventDefault();
+      const pin = document.getElementById('pinInput').value;
+      
+      if (pin === ADMIN_PIN) {
+        sessionStorage.setItem('tgb_admin_logged_in', 'true');
+        document.getElementById('loginOverlay').classList.add('hidden');
+        loadDashboardData();
       } else {
         document.getElementById('loginError').classList.add('show');
-        document.getElementById('passwordInput').value = '';
-        document.getElementById('passwordInput').focus();
+        document.getElementById('pinInput').value = '';
       }
     }
     
     function logout() {
-      sessionStorage.removeItem('tgb_auth');
+      sessionStorage.removeItem('tgb_admin_logged_in');
       document.getElementById('loginOverlay').classList.remove('hidden');
-      document.getElementById('passwordInput').value = '';
+      document.getElementById('pinInput').value = '';
       document.getElementById('loginError').classList.remove('show');
     }
     
-    // Check if already authenticated
-    if (sessionStorage.getItem('tgb_auth') === 'true') {
-      document.getElementById('loginOverlay').classList.add('hidden');
-      loadDashboard();
-      loadOrders();
-    }
-    
-    // ==================== DASHBOARD DATA ====================
-    async function loadDashboard() {
+    async function loadDashboardData() {
+      document.getElementById('loadingOverlay').classList.remove('hidden');
+      
       try {
-        const response = await fetch(`${API_URL}?action=dashboard`);
-        const data = await response.json();
+        const data = await TGB_API.getDashboard();
         
-        if (data.success) {
-          updateStats(data.metrics);
-          updatePaymentChart(data.paymentMethods);
-          updateStatusChart(data.metrics);
-          updateRevenueAnalytics(data);
-          document.getElementById('lastUpdated').textContent = 
-            'Last updated: ' + new Date().toLocaleTimeString();
+        if (data.success && data.dashboard) {
+          updateStats(data.dashboard);
+          updateCharts(data.dashboard);
+          updateRecentOrders(data.dashboard.recentOrders || []);
         }
       } catch (error) {
         console.error('Dashboard error:', error);
+      } finally {
+        document.getElementById('loadingOverlay').classList.add('hidden');
       }
     }
     
-    function updateStats(metrics) {
-      animateValue('totalOrders', metrics.totalOrders);
-      animateValue('pendingOrders', metrics.pendingOrders);
-      animateValue('completedOrders', metrics.completedOrders);
-      document.getElementById('completionRate').textContent = metrics.completionRate + '%';
+    function updateStats(dashboard) {
+      document.getElementById('totalOrders').textContent = dashboard.totalOrders || 0;
+      document.getElementById('totalRevenue').textContent = formatCurrency(dashboard.totalRevenue || 0);
+      document.getElementById('activeLayaway').textContent = dashboard.activeLayaway || 0;
+      document.getElementById('completedOrders').textContent = dashboard.completedOrders || 0;
     }
     
-    function animateValue(id, value) {
-      const el = document.getElementById(id);
-      const duration = 1000;
-      const start = parseInt(el.textContent) || 0;
-      const increment = (value - start) / (duration / 16);
-      let current = start;
+    function updateCharts(dashboard) {
+      // Sales Chart
+      const salesCtx = document.getElementById('salesChart').getContext('2d');
+      if (salesChart) salesChart.destroy();
       
-      const timer = setInterval(() => {
-        current += increment;
-        if ((increment > 0 && current >= value) || (increment < 0 && current <= value)) {
-          el.textContent = value.toLocaleString();
-          clearInterval(timer);
-        } else {
-          el.textContent = Math.floor(current).toLocaleString();
-        }
-      }, 16);
-    }
-    
-    // ==================== REVENUE ANALYTICS ====================
-    function updateRevenueAnalytics(data) {
-      // Revenue estimation based on order counts
-      // Adjust avgOrderValue based on your actual average
-      const avgOrderValue = 2500; 
-      const totalOrders = data.metrics.totalOrders;
-      const completedOrders = data.metrics.completedOrders;
-      const pendingOrders = data.metrics.pendingOrders;
-      
-      const totalRevenue = completedOrders * avgOrderValue;
-      const pendingAmount = pendingOrders * avgOrderValue;
-      const avgOrder = completedOrders > 0 ? Math.round(totalRevenue / completedOrders) : 0;
-      
-      document.getElementById('totalRevenue').textContent = '₱' + totalRevenue.toLocaleString();
-      document.getElementById('periodOrders').textContent = totalOrders.toLocaleString();
-      document.getElementById('avgOrder').textContent = '₱' + avgOrder.toLocaleString();
-      document.getElementById('pendingAmount').textContent = '₱' + pendingAmount.toLocaleString();
-    }
-    
-    function setPeriod(period, btn) {
-      currentPeriod = period;
-      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      loadDashboard();
-    }
-    
-    // ==================== CHARTS ====================
-    function updatePaymentChart(paymentMethods) {
-      const ctx = document.getElementById('paymentChart').getContext('2d');
-      
-      if (paymentChart) paymentChart.destroy();
-      
-      const colors = [
-        'rgba(212, 175, 55, 0.8)',
-        'rgba(96, 165, 250, 0.8)',
-        'rgba(74, 222, 128, 0.8)',
-        'rgba(251, 191, 36, 0.8)',
-        'rgba(167, 139, 250, 0.8)'
-      ];
-      
-      paymentChart = new Chart(ctx, {
-        type: 'bar',
+      salesChart = new Chart(salesCtx, {
+        type: 'line',
         data: {
-          labels: paymentMethods.labels,
+          labels: dashboard.salesLabels || ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
           datasets: [{
-            label: 'Orders',
-            data: paymentMethods.values,
-            backgroundColor: colors,
-            borderColor: colors.map(c => c.replace('0.8', '1')),
-            borderWidth: 2,
-            borderRadius: 8
+            label: 'Sales',
+            data: dashboard.salesData || [12, 19, 15, 25, 22, 30],
+            borderColor: '#047857',
+            backgroundColor: 'rgba(4, 120, 87, 0.1)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3
           }]
         },
         options: {
@@ -1053,34 +790,24 @@
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            y: {
-              beginAtZero: true,
-              grid: { color: 'rgba(255,255,255,0.1)' },
-              ticks: { color: '#a0a0a0' }
-            },
-            x: {
-              grid: { display: false },
-              ticks: { color: '#a0a0a0' }
-            }
+            y: { beginAtZero: true, grid: { color: '#e5e7eb' } },
+            x: { grid: { display: false } }
           }
         }
       });
-    }
-    
-    function updateStatusChart(metrics) {
-      const ctx = document.getElementById('statusChart').getContext('2d');
       
-      if (statusChart) statusChart.destroy();
+      // Payment Chart
+      const paymentCtx = document.getElementById('paymentChart').getContext('2d');
+      if (paymentChart) paymentChart.destroy();
       
-      statusChart = new Chart(ctx, {
+      paymentChart = new Chart(paymentCtx, {
         type: 'doughnut',
         data: {
-          labels: ['Completed', 'Pending'],
+          labels: ['Straight', 'COD', 'COP', 'LayAway', 'Walk-in'],
           datasets: [{
-            data: [metrics.completedOrders, metrics.pendingOrders],
-            backgroundColor: ['rgba(74, 222, 128, 0.8)', 'rgba(251, 191, 36, 0.8)'],
-            borderColor: ['rgba(74, 222, 128, 1)', 'rgba(251, 191, 36, 1)'],
-            borderWidth: 2
+            data: dashboard.paymentData || [30, 25, 20, 15, 10],
+            backgroundColor: ['#047857', '#d4af37', '#3b82f6', '#8b5cf6', '#f59e0b'],
+            borderWidth: 0
           }]
         },
         options: {
@@ -1089,182 +816,58 @@
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#a0a0a0', padding: 20 }
+              labels: { padding: 15, usePointStyle: true }
             }
-          },
-          cutout: '65%'
+          }
         }
       });
     }
     
-    // ==================== ORDERS TABLE ====================
-    async function loadOrders() {
-      const sheet = document.getElementById('sheetFilter').value;
-      const status = document.getElementById('statusFilter').value;
-      const search = document.getElementById('searchInput').value;
-      
-      const container = document.getElementById('ordersTableContainer');
-      container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading orders...</p></div>';
-      
-      try {
-        let url = `${API_URL}?action=orders&page=${currentPage}&limit=20`;
-        if (sheet !== 'all') url += `&sheet=${encodeURIComponent(sheet)}`;
-        if (status !== 'all') url += `&status=${encodeURIComponent(status)}`;
-        
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.success) {
-          allOrders = data.orders;
-          let orders = data.orders;
-          
-          // Client-side search filter
-          if (search) {
-            const searchLower = search.toLowerCase();
-            orders = orders.filter(o => 
-              o.orderId.toLowerCase().includes(searchLower) ||
-              o.customer.toLowerCase().includes(searchLower)
-            );
-          }
-          
-          renderOrdersTable(orders);
-          updatePagination(data.pagination);
-        }
-      } catch (error) {
-        console.error('Orders error:', error);
-        container.innerHTML = '<div class="loading"><p>Error loading orders</p></div>';
-      }
-    }
-    
-    function renderOrdersTable(orders) {
-      const container = document.getElementById('ordersTableContainer');
+    function updateRecentOrders(orders) {
+      const tbody = document.getElementById('ordersTableBody');
       
       if (!orders || orders.length === 0) {
-        container.innerHTML = '<div class="loading"><p>No orders found</p></div>';
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
+              No recent orders found
+            </td>
+          </tr>
+        `;
         return;
       }
       
-      let html = `
-        <table class="orders-table">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Date</th>
-              <th>Customer</th>
-              <th>Payment Method</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-      
-      orders.forEach(order => {
-        const statusClass = getStatusClass(order.status);
-        html += `
-          <tr onclick="window.open('track.html?id=${order.orderId}', '_blank')" style="cursor: pointer;">
-            <td><span class="order-id">${order.orderId}</span></td>
-            <td>${order.date}</td>
-            <td>${order.customer}</td>
-            <td><span class="method-badge">${order.method}</span></td>
-            <td><span class="status-badge ${statusClass}">${order.status}</span></td>
-          </tr>
-        `;
-      });
-      
-      html += '</tbody></table>';
-      container.innerHTML = html;
+      tbody.innerHTML = orders.slice(0, 10).map(order => `
+        <tr>
+          <td class="order-id">${order.orderId || '--'}</td>
+          <td>${order.receiver || '--'}</td>
+          <td>${formatCurrency(order.totalAmount || 0)}</td>
+          <td>${order.paymentMethod || '--'}</td>
+          <td><span class="status-badge ${getStatusClass(order.status)}">${order.status || 'Pending'}</span></td>
+          <td>${order.date || '--'}</td>
+        </tr>
+      `).join('');
     }
     
     function getStatusClass(status) {
       if (!status) return 'pending';
-      const s = status.toUpperCase();
-      if (s.includes('PAID') || s.includes('COMPLETE')) return 'completed';
-      if (s.includes('PROCESSING')) return 'processing';
+      const s = status.toLowerCase();
+      if (s.includes('complete') || s.includes('delivered')) return 'completed';
+      if (s.includes('process') || s.includes('ship')) return 'processing';
+      if (s.includes('cancel')) return 'cancelled';
       return 'pending';
     }
     
-    function updatePagination(pagination) {
-      if (!pagination) return;
-      
-      totalPages = pagination.pages;
-      const paginationEl = document.getElementById('pagination');
-      const infoEl = document.getElementById('paginationInfo');
-      const buttonsEl = document.getElementById('paginationButtons');
-      
-      const start = (pagination.page - 1) * pagination.limit + 1;
-      const end = Math.min(pagination.page * pagination.limit, pagination.total);
-      
-      infoEl.textContent = `Showing ${start}-${end} of ${pagination.total}`;
-      
-      let buttonsHtml = '';
-      buttonsHtml += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← Prev</button>`;
-      
-      for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
-        buttonsHtml += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-      }
-      
-      buttonsHtml += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>Next →</button>`;
-      
-      buttonsEl.innerHTML = buttonsHtml;
-      paginationEl.style.display = 'flex';
+    function formatCurrency(amount) {
+      return '₱' + Number(amount).toLocaleString('en-PH', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     }
     
-    function goToPage(page) {
-      if (page < 1 || page > totalPages) return;
-      currentPage = page;
-      loadOrders();
+    function refreshData() {
+      loadDashboardData();
     }
     
-    // ==================== EXPORT TO EXCEL ====================
-    function exportToExcel() {
-      if (!allOrders || allOrders.length === 0) {
-        alert('No orders to export. Please wait for data to load.');
-        return;
-      }
-      
-      // Create CSV content
-      let csv = 'Order ID,Date,Customer,Payment Method,Status\n';
-      
-      allOrders.forEach(order => {
-        csv += `"${order.orderId}","${order.date}","${order.customer}","${order.method}","${order.status}"\n`;
-      });
-      
-      // Create download link
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      
-      link.setAttribute('href', url);
-      link.setAttribute('download', `TGB_Orders_${new Date().toISOString().split('T')[0]}.csv`);
-      link.style.visibility = 'hidden';
-      
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      // Show success message
-      alert('✅ Orders exported successfully!\n\nFile: TGB_Orders_' + new Date().toISOString().split('T')[0] + '.csv\n\nOpen with Excel or Google Sheets');
-    }
-    
-    // ==================== EVENT LISTENERS ====================
-    document.getElementById('searchInput').addEventListener('input', debounce(loadOrders, 500));
-    document.getElementById('sheetFilter').addEventListener('change', () => { currentPage = 1; loadOrders(); });
-    document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; loadOrders(); });
-    
-    function debounce(func, wait) {
-      let timeout;
-      return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-      };
-    }
-    
-    // Auto-refresh every 5 minutes
-    setInterval(() => {
-      if (sessionStorage.getItem('tgb_auth') === 'true') {
-        loadDashboard();
-      }
-    }, 300000);
+    // Initialize
+    checkLogin();
   </script>
 </body>
 </html>
