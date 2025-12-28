@@ -1,277 +1,649 @@
 <!DOCTYPE html>
-<html lang="en-PH">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://thegoldblessing.com/track.html">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="TGB_LOGO.png">
-  
-  <!-- Primary Meta Tags -->
-  <title>Track Your Order | The Gold Blessing</title>
-  <meta name="title" content="Track Your Order | The Gold Blessing">
-  <meta name="description" content="Track your gold jewelry order from The Gold Blessing. Enter your Order ID to check payment status, shipping updates, and delivery information.">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://thegoldblessing.com/track.html">
-  <meta property="og:title" content="Track Your Order | The Gold Blessing">
-  <meta property="og:description" content="Track your gold jewelry order status and shipping information.">
-  <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
-  
-  <!-- Google Fonts -->
+  <title>Track Your Order - The Gold Blessing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- TGB System Styles -->
-  <link rel="stylesheet" href="css/tgb-system.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f4e4bc;
+      --gold-dark: #b8960c;
+      --dark: #1a1a2e;
+      --dark-light: #16213e;
+      --dark-card: #0f3460;
+      --white: #ffffff;
+      --gray: #a0a0a0;
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --info: #60a5fa;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      min-height: 100vh;
+      color: var(--white);
+    }
+    
+    /* Header */
+    .header {
+      background: rgba(15, 52, 96, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold);
+    }
+    
+    /* Main Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .page-title h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    
+    .page-title p {
+      color: var(--gray);
+      font-size: 16px;
+    }
+    
+    /* Search Box */
+    .search-box {
+      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 30px;
+    }
+    
+    .search-form {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .search-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+    
+    .search-input::placeholder {
+      color: var(--gray);
+    }
+    
+    .search-btn {
+      padding: 18px 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--dark);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+    
+    .search-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Result Card */
+    .result-card {
+      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
+      border-radius: 20px;
+      padding: 0;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      overflow: hidden;
+      display: none;
+    }
+    
+    .result-card.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .result-header {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+      padding: 25px 30px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .result-header h2 {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .result-header .order-id {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    /* Status Stepper */
+    .status-stepper {
+      padding: 30px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+    
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+    
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      right: 40px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+    }
+    
+    .stepper-progress {
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--success));
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .step.active .step-icon {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-color: var(--gold);
+    }
+    
+    .step.completed .step-icon {
+      background: var(--success);
+      border-color: var(--success);
+    }
+    
+    .step-label {
+      font-size: 12px;
+      color: var(--gray);
+      text-align: center;
+    }
+    
+    .step.active .step-label,
+    .step.completed .step-label {
+      color: var(--white);
+      font-weight: 500;
+    }
+    
+    /* Order Details */
+    .order-details {
+      padding: 30px;
+    }
+    
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .detail-item {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
+    
+    .detail-item.full {
+      grid-column: span 2;
+    }
+    
+    .detail-label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .detail-value {
+      font-size: 16px;
+      color: var(--white);
+      font-weight: 500;
+    }
+    
+    .detail-value.gold {
+      color: var(--gold);
+    }
+    
+    .detail-value a {
+      color: var(--info);
+      text-decoration: none;
+    }
+    
+    .detail-value a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Status Badge */
+    .status-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .status-badge.pending {
+      background: rgba(251, 191, 36, 0.2);
+      color: var(--warning);
+    }
+    
+    .status-badge.paid, .status-badge.completed {
+      background: rgba(74, 222, 128, 0.2);
+      color: var(--success);
+    }
+    
+    .status-badge.processing {
+      background: rgba(96, 165, 250, 0.2);
+      color: var(--info);
+    }
+    
+    /* Error State */
+    .error-message {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      color: var(--danger);
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      display: none;
+    }
+    
+    .loading.show {
+      display: block;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .search-form {
+        flex-direction: column;
+      }
+      
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .detail-item.full {
+        grid-column: span 1;
+      }
+      
+      .stepper {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      
+      .stepper::before,
+      .stepper-progress {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <a href="dashboard.html" class="logo">
+      <div class="logo-icon">👑</div>
+      <span class="logo-text">The Gold Blessing</span>
+    </a>
+    <nav class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="track.html" class="active">Track Order</a>
+      <a href="layaway.html">LayAway</a>
+      <a href="invoice.html">Invoice</a>
+    </nav>
+  </header>
   
-  <!-- Navigation -->
-  <nav class="tgb-nav">
-    <div class="tgb-nav-content">
-      <a href="/" class="tgb-nav-logo">
-        <img src="TGB_LOGO.png" alt="The Gold Blessing">
-        <span>THE GOLD BLESSING</span>
-      </a>
-      <div class="tgb-nav-links">
-        <a href="/">Home</a>
-        <a href="/track.html" class="active">Track Order</a>
-        <a href="/layaway.html">LayAway</a>
-      </div>
-      <div class="tgb-mobile-menu" onclick="toggleMobileMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
-  
-  <div class="tgb-page">
-    
-    <!-- Header -->
-    <div class="tgb-header">
-      <h1>Track Your Order</h1>
-      <p>Enter your Order ID to check your order status</p>
+  <!-- Main Content -->
+  <div class="container">
+    <div class="page-title">
+      <h1>🔍 Track Your Order</h1>
+      <p>Enter your Order ID to see the current status</p>
     </div>
     
     <!-- Search Box -->
-    <div class="tgb-search-box">
-      <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
-      <button onclick="trackOrder()">TRACK ORDER</button>
+    <div class="search-box">
+      <form class="search-form" onsubmit="trackOrder(event)">
+        <input type="text" class="search-input" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-6888662240)" required>
+        <button type="submit" class="search-btn" id="searchBtn">Track Order</button>
+      </form>
     </div>
     
-    <!-- Loading -->
-    <div class="tgb-loading" id="loading">
-      <div class="tgb-spinner"></div>
+    <!-- Loading State -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
       <p>Searching for your order...</p>
     </div>
     
-    <!-- Error -->
-    <div class="tgb-error" id="error"></div>
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage"></div>
     
-    <!-- Result -->
-    <div class="tgb-result" id="result">
-      
-      <!-- Status Timeline -->
-      <div class="tgb-timeline">
-        <div class="tgb-timeline-step" id="step0">
-          <div class="step-icon">1</div>
-          <div class="step-label">Pending Payment</div>
-        </div>
-        <div class="tgb-timeline-step" id="step1">
-          <div class="step-icon">2</div>
-          <div class="step-label">Processing</div>
-        </div>
-        <div class="tgb-timeline-step" id="step2">
-          <div class="step-icon">3</div>
-          <div class="step-label">Shipped</div>
-        </div>
-        <div class="tgb-timeline-step" id="step3">
-          <div class="step-icon">4</div>
-          <div class="step-label">Delivered</div>
-        </div>
+    <!-- Result Card -->
+    <div class="result-card" id="resultCard">
+      <div class="result-header">
+        <h2>Order ID</h2>
+        <div class="order-id" id="resultOrderId">--</div>
       </div>
       
-      <!-- Order Info Grid -->
-      <div class="tgb-info-grid">
-        <div class="tgb-info-item">
-          <label>Order ID</label>
-          <value id="resultOrderId">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Order Date</label>
-          <value id="resultDate">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Receiver</label>
-          <value id="resultReceiver">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Contact</label>
-          <value id="resultContact">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>City</label>
-          <value id="resultCity">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Region</label>
-          <value id="resultRegion">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Payment Method</label>
-          <value id="resultPaymentMethod">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Payment Status</label>
-          <value id="resultPaymentStatus">-</value>
-        </div>
-      </div>
-      
-      <!-- Tracking Section -->
-      <div id="trackingSection" style="display: none; margin-top: 25px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.3);">
-        <h3 style="color: var(--tgb-gold); margin-bottom: 15px; font-family: 'Playfair Display', serif;">Shipping Information</h3>
-        <div class="tgb-info-grid">
-          <div class="tgb-info-item">
-            <label>Tracking Number</label>
-            <value id="resultTrackingNumber">-</value>
+      <!-- Status Stepper -->
+      <div class="status-stepper">
+        <div class="stepper">
+          <div class="stepper-progress" id="stepperProgress"></div>
+          <div class="step" id="step0">
+            <div class="step-icon">📝</div>
+            <span class="step-label">Pending<br>Payment</span>
           </div>
-          <div class="tgb-info-item">
-            <label>Courier</label>
-            <value>LBC Express</value>
+          <div class="step" id="step1">
+            <div class="step-icon">⚙️</div>
+            <span class="step-label">Processing</span>
+          </div>
+          <div class="step" id="step2">
+            <div class="step-icon">🚚</div>
+            <span class="step-label">Shipped</span>
+          </div>
+          <div class="step" id="step3">
+            <div class="step-icon">✅</div>
+            <span class="step-label">Delivered</span>
           </div>
         </div>
-        <a id="trackingLink" href="#" target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 25px; background: var(--tgb-gold); color: var(--tgb-deep-green); text-decoration: none; border-radius: 5px; font-weight: 600;">Track with LBC</a>
       </div>
       
-      <!-- Invoice Section -->
-      <div id="invoiceSection" style="display: none; margin-top: 20px; text-align: center;">
-        <a id="invoiceLink" href="#" target="_blank" style="color: var(--tgb-gold); text-decoration: underline;">View Invoice</a>
+      <!-- Order Details -->
+      <div class="order-details">
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">Order Date</div>
+            <div class="detail-value" id="orderDate">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Current Status</div>
+            <div class="detail-value"><span class="status-badge" id="orderStatus">--</span></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Receiver</div>
+            <div class="detail-value" id="receiver">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Contact</div>
+            <div class="detail-value" id="contact">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Payment Method</div>
+            <div class="detail-value gold" id="paymentMethod">--</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Payment Status</div>
+            <div class="detail-value"><span class="status-badge" id="paymentStatus">--</span></div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Delivery Address</div>
+            <div class="detail-value" id="address">--</div>
+          </div>
+          <div class="detail-item" id="trackingSection" style="display: none;">
+            <div class="detail-label">Tracking Number</div>
+            <div class="detail-value"><a href="#" target="_blank" id="trackingLink">--</a></div>
+          </div>
+        </div>
       </div>
-      
     </div>
-    
-    <!-- Back Link -->
-    <div class="tgb-back-link">
-      <a href="/">← Back to Homepage</a>
-    </div>
-    
   </div>
   
-  <!-- Load TGB API -->
-  <script src="js/tgb-api.js"></script>
-  
   <script>
-    function trackOrder() {
-      var orderId = document.getElementById('orderIdInput').value.trim();
+    const API_URL = '/api/tgb';
+    
+    // Get order ID from URL if present
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderIdParam = urlParams.get('id');
+    if (orderIdParam) {
+      document.getElementById('orderIdInput').value = orderIdParam;
+      trackOrder();
+    }
+    
+    async function trackOrder(e) {
+      if (e) e.preventDefault();
       
-      if (!orderId) {
-        showError('Please enter your Order ID');
-        return;
-      }
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      if (!orderId) return;
       
-      // Show loading
+      // UI States
       document.getElementById('loading').classList.add('show');
-      document.getElementById('result').classList.remove('show');
-      document.getElementById('error').classList.remove('show');
+      document.getElementById('resultCard').classList.remove('show');
+      document.getElementById('errorMessage').classList.remove('show');
+      document.getElementById('searchBtn').disabled = true;
       
-      // Call API using TGB_API object
-      TGB_API.trackOrder(orderId)
-        .then(function(response) {
-          document.getElementById('loading').classList.remove('show');
-          
-          if (response.success) {
-            displayOrder(response.order);
-          } else {
-            showError(response.error || 'Order not found');
-          }
-        })
-        .catch(function(err) {
-          document.getElementById('loading').classList.remove('show');
-          showError('Unable to connect. Please try again later.');
-          console.error('Track error:', err);
-        });
+      try {
+        const response = await fetch(`${API_URL}?action=track&orderId=${encodeURIComponent(orderId)}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          displayOrder(data.order);
+        } else {
+          showError(data.error || 'Order not found');
+        }
+      } catch (error) {
+        showError('Unable to connect. Please try again.');
+        console.error(error);
+      } finally {
+        document.getElementById('loading').classList.remove('show');
+        document.getElementById('searchBtn').disabled = false;
+      }
     }
     
     function displayOrder(order) {
-      // Update timeline
-      var step = order.statusStep || 0;
-      for (var i = 0; i <= 3; i++) {
-        var stepEl = document.getElementById('step' + i);
+      // Basic Info
+      document.getElementById('resultOrderId').textContent = order.orderId;
+      document.getElementById('orderDate').textContent = order.date;
+      document.getElementById('receiver').textContent = order.receiver;
+      document.getElementById('contact').textContent = order.contactNumber;
+      document.getElementById('paymentMethod').textContent = order.paymentMethod;
+      document.getElementById('address').textContent = `${order.address}, ${order.city}, ${order.region}`;
+      
+      // Status Badge
+      const statusEl = document.getElementById('orderStatus');
+      statusEl.textContent = order.status;
+      statusEl.className = 'status-badge ' + getStatusClass(order.status);
+      
+      // Payment Status Badge
+      const paymentEl = document.getElementById('paymentStatus');
+      paymentEl.textContent = order.paymentStatus;
+      paymentEl.className = 'status-badge ' + getStatusClass(order.paymentStatus);
+      
+      // Tracking
+      if (order.trackingNumber && order.trackingNumber !== 'NOT YET') {
+        document.getElementById('trackingSection').style.display = 'block';
+        const trackingLink = document.getElementById('trackingLink');
+        trackingLink.textContent = order.trackingNumber;
+        trackingLink.href = order.trackingUrl || '#';
+      } else {
+        document.getElementById('trackingSection').style.display = 'none';
+      }
+      
+      // Update Stepper
+      updateStepper(order.statusStep);
+      
+      // Show result
+      document.getElementById('resultCard').classList.add('show');
+    }
+    
+    function updateStepper(step) {
+      // Reset all steps
+      for (let i = 0; i <= 3; i++) {
+        const stepEl = document.getElementById('step' + i);
         stepEl.classList.remove('active', 'completed');
+      }
+      
+      // Mark completed and active
+      for (let i = 0; i <= step; i++) {
+        const stepEl = document.getElementById('step' + i);
         if (i < step) {
           stepEl.classList.add('completed');
-        } else if (i === step) {
+        } else {
           stepEl.classList.add('active');
         }
       }
       
-      // Update info
-      document.getElementById('resultOrderId').textContent = order.orderId || '-';
-      document.getElementById('resultDate').textContent = order.date || '-';
-      document.getElementById('resultReceiver').textContent = order.receiver || '-';
-      document.getElementById('resultContact').textContent = order.contactNumber || '-';
-      document.getElementById('resultCity').textContent = order.city || '-';
-      document.getElementById('resultRegion').textContent = order.region || '-';
-      document.getElementById('resultPaymentMethod').textContent = order.paymentMethod || '-';
-      document.getElementById('resultPaymentStatus').textContent = order.paymentStatus || '-';
-      
-      // Tracking section
-      var trackingSection = document.getElementById('trackingSection');
-      if (order.trackingNumber) {
-        document.getElementById('resultTrackingNumber').textContent = order.trackingNumber;
-        document.getElementById('trackingLink').href = order.trackingUrl || 'https://www.lbc.com.ph/tracking?tracking_no=' + order.trackingNumber;
-        trackingSection.style.display = 'block';
-      } else {
-        trackingSection.style.display = 'none';
-      }
-      
-      // Invoice section
-      var invoiceSection = document.getElementById('invoiceSection');
-      if (order.invoiceLink) {
-        document.getElementById('invoiceLink').href = order.invoiceLink;
-        invoiceSection.style.display = 'block';
-      } else {
-        invoiceSection.style.display = 'none';
-      }
-      
-      // Show result
-      document.getElementById('result').classList.add('show');
+      // Progress bar
+      const progress = (step / 3) * 100;
+      document.getElementById('stepperProgress').style.width = `calc(${progress}% - 80px)`;
+    }
+    
+    function getStatusClass(status) {
+      if (!status) return 'pending';
+      const s = status.toUpperCase();
+      if (s.includes('PAID') || s.includes('COMPLETE') || s.includes('DELIVER')) return 'completed';
+      if (s.includes('PROCESS') || s.includes('SHIP')) return 'processing';
+      return 'pending';
     }
     
     function showError(message) {
-      document.getElementById('error').textContent = message;
-      document.getElementById('error').classList.add('show');
-    }
-    
-    // Enter key support
-    document.getElementById('orderIdInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') trackOrder();
-    });
-    
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-      var links = document.querySelector('.tgb-nav-links');
-      if (links.style.display === 'flex') {
-        links.style.display = 'none';
-      } else {
-        links.style.display = 'flex';
-        links.style.flexDirection = 'column';
-        links.style.position = 'absolute';
-        links.style.top = '70px';
-        links.style.left = '0';
-        links.style.right = '0';
-        links.style.background = 'var(--tgb-deep-green)';
-        links.style.padding = '20px';
-        links.style.borderBottom = '1px solid rgba(212, 175, 55, 0.3)';
-      }
+      const el = document.getElementById('errorMessage');
+      el.textContent = '❌ ' + message;
+      el.classList.add('show');
     }
   </script>
 </body>

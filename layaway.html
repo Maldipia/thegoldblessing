@@ -1,269 +1,625 @@
 <!DOCTYPE html>
-<html lang="en-PH">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://thegoldblessing.com/layaway.html">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="TGB_LOGO.png">
-  
-  <!-- Primary Meta Tags -->
-  <title>LayAway Status | The Gold Blessing</title>
-  <meta name="title" content="LayAway Status | The Gold Blessing">
-  <meta name="description" content="Check your LayAway installment status at The Gold Blessing. View your balance, payment progress, due date, and service fees.">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://thegoldblessing.com/layaway.html">
-  <meta property="og:title" content="LayAway Status | The Gold Blessing">
-  <meta property="og:description" content="Check your LayAway installment balance and payment schedule.">
-  <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
-  
-  <!-- Google Fonts -->
+  <title>LayAway Status - The Gold Blessing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- TGB System Styles -->
-  <link rel="stylesheet" href="css/tgb-system.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f4e4bc;
+      --gold-dark: #b8960c;
+      --dark: #1a1a2e;
+      --dark-light: #16213e;
+      --dark-card: #0f3460;
+      --white: #ffffff;
+      --gray: #a0a0a0;
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --info: #60a5fa;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      min-height: 100vh;
+      color: var(--white);
+    }
+    
+    /* Header */
+    .header {
+      background: rgba(15, 52, 96, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold);
+    }
+    
+    /* Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .page-title h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    
+    .page-title p {
+      color: var(--gray);
+      font-size: 16px;
+    }
+    
+    /* Search Box */
+    .search-box {
+      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 30px;
+    }
+    
+    .search-form {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .search-input:focus {
+      border-color: var(--gold);
+    }
+    
+    .search-input::placeholder {
+      color: var(--gray);
+    }
+    
+    .search-btn {
+      padding: 18px 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--dark);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+    
+    /* Result Card */
+    .result-card {
+      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      overflow: hidden;
+      display: none;
+    }
+    
+    .result-card.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .result-header {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+      padding: 25px 30px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .result-header h2 {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .result-header .order-id {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    .layaway-badge {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .layaway-badge.active {
+      background: rgba(74, 222, 128, 0.2);
+      color: var(--success);
+    }
+    
+    .layaway-badge.overdue {
+      background: rgba(248, 113, 113, 0.2);
+      color: var(--danger);
+    }
+    
+    /* Progress Section */
+    .progress-section {
+      padding: 30px;
+      text-align: center;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+    
+    .progress-circle {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+    
+    .progress-circle svg {
+      transform: rotate(-90deg);
+    }
+    
+    .progress-circle circle {
+      fill: none;
+      stroke-width: 12;
+    }
+    
+    .progress-bg {
+      stroke: rgba(255, 255, 255, 0.1);
+    }
+    
+    .progress-bar {
+      stroke: var(--gold);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease;
+    }
+    
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    
+    .progress-percent {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    .progress-label {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    
+    /* Balance Cards */
+    .balance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 30px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+    
+    .balance-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .balance-card.highlight {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .balance-label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    
+    .balance-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    
+    .balance-value.gold {
+      color: var(--gold);
+    }
+    
+    .balance-value.danger {
+      color: var(--danger);
+    }
+    
+    .balance-value.success {
+      color: var(--success);
+    }
+    
+    /* Due Date Alert */
+    .due-alert {
+      margin: 20px 30px;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .due-alert.warning {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    
+    .due-alert.danger {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+    }
+    
+    .due-alert.success {
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+    }
+    
+    .due-alert-icon {
+      font-size: 24px;
+    }
+    
+    .due-alert-text h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .due-alert-text p {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    
+    /* Details */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 30px;
+    }
+    
+    .detail-item {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
+    
+    .detail-label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 5px;
+    }
+    
+    .detail-value {
+      font-size: 16px;
+      color: var(--white);
+      font-weight: 500;
+    }
+    
+    /* Loading & Error */
+    .loading, .error-message {
+      text-align: center;
+      padding: 40px;
+      display: none;
+    }
+    
+    .loading.show, .error-message.show {
+      display: block;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .error-message {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: 12px;
+      color: var(--danger);
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .search-form { flex-direction: column; }
+      .balance-grid, .detail-grid { grid-template-columns: 1fr; }
+      .result-header { flex-direction: column; gap: 15px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
+  <header class="header">
+    <a href="dashboard.html" class="logo">
+      <div class="logo-icon">👑</div>
+      <span class="logo-text">The Gold Blessing</span>
+    </a>
+    <nav class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="track.html">Track Order</a>
+      <a href="layaway.html" class="active">LayAway</a>
+      <a href="invoice.html">Invoice</a>
+    </nav>
+  </header>
   
-  <!-- Navigation -->
-  <nav class="tgb-nav">
-    <div class="tgb-nav-content">
-      <a href="/" class="tgb-nav-logo">
-        <img src="TGB_LOGO.png" alt="The Gold Blessing">
-        <span>THE GOLD BLESSING</span>
-      </a>
-      <div class="tgb-nav-links">
-        <a href="/">Home</a>
-        <a href="/track.html">Track Order</a>
-        <a href="/layaway.html" class="active">LayAway</a>
-      </div>
-      <div class="tgb-mobile-menu" onclick="toggleMobileMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
-  
-  <div class="tgb-page">
-    
-    <!-- Header -->
-    <div class="tgb-header">
-      <h1>LayAway Status</h1>
-      <p>Check your installment balance and payment schedule</p>
+  <div class="container">
+    <div class="page-title">
+      <h1>💳 LayAway Status</h1>
+      <p>Check your LayAway payment progress and remaining balance</p>
     </div>
     
-    <!-- Search Box -->
-    <div class="tgb-search-box">
-      <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
-      <button onclick="checkLayaway()">CHECK STATUS</button>
+    <div class="search-box">
+      <form class="search-form" onsubmit="checkLayaway(event)">
+        <input type="text" class="search-input" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-6888662240)" required>
+        <button type="submit" class="search-btn" id="searchBtn">Check Status</button>
+      </form>
     </div>
     
-    <!-- Loading -->
-    <div class="tgb-loading" id="loading">
-      <div class="tgb-spinner"></div>
-      <p>Loading your LayAway details...</p>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Loading LayAway details...</p>
     </div>
     
-    <!-- Error -->
-    <div class="tgb-error" id="error"></div>
+    <div class="error-message" id="errorMessage"></div>
     
-    <!-- Result -->
-    <div class="tgb-result" id="result">
-      
-      <!-- Balance Highlight -->
-      <div class="tgb-balance-box">
-        <div class="label">Balance Remaining</div>
-        <div class="amount" id="resultBalance">₱0</div>
-        <div id="statusBadge"></div>
-      </div>
-      
-      <!-- Progress Bar -->
-      <div style="margin-bottom: 25px;">
-        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; color: var(--text-secondary);">
-          <span>Payment Progress</span>
-          <span id="percentPaid">0%</span>
+    <div class="result-card" id="resultCard">
+      <div class="result-header">
+        <div>
+          <h2>Order ID</h2>
+          <div class="order-id" id="resultOrderId">--</div>
         </div>
-        <div class="tgb-progress">
-          <div class="tgb-progress-fill" id="progressFill" style="width: 0%"></div>
+        <span class="layaway-badge active" id="layawayBadge">ACTIVE</span>
+      </div>
+      
+      <!-- Progress Circle -->
+      <div class="progress-section">
+        <div class="progress-circle">
+          <svg width="160" height="160">
+            <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
+            <circle class="progress-bar" id="progressBar" cx="80" cy="80" r="70" 
+                    stroke-dasharray="439.8" stroke-dashoffset="439.8"></circle>
+          </svg>
+          <div class="progress-text">
+            <div class="progress-percent" id="progressPercent">0%</div>
+            <div class="progress-label">Paid</div>
+          </div>
+        </div>
+        <p style="color: var(--gray);">Payment Progress</p>
+      </div>
+      
+      <!-- Balance Grid -->
+      <div class="balance-grid">
+        <div class="balance-card">
+          <div class="balance-label">Downpayment</div>
+          <div class="balance-value success" id="downpayment">₱0</div>
+        </div>
+        <div class="balance-card highlight">
+          <div class="balance-label">Remaining Balance</div>
+          <div class="balance-value gold" id="balance">₱0</div>
         </div>
       </div>
       
-      <!-- Info Grid -->
-      <div class="tgb-info-grid">
-        <div class="tgb-info-item">
-          <label>Order ID</label>
-          <value id="resultOrderId">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Plan</label>
-          <value id="resultPlan">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Downpayment</label>
-          <value id="resultDownpayment">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Service Fee</label>
-          <value id="resultServiceFee">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Due Date</label>
-          <value id="resultDueDate">-</value>
-        </div>
-        <div class="tgb-info-item">
-          <label>Days Remaining</label>
-          <value id="resultDaysRemaining">-</value>
-        </div>
-        <div class="tgb-info-item full">
-          <label>Total Amount Due (with service fee)</label>
-          <value id="resultTotalDue" style="font-size: 22px; color: var(--tgb-gold); font-weight: bold;">-</value>
+      <!-- Due Date Alert -->
+      <div class="due-alert warning" id="dueAlert">
+        <span class="due-alert-icon">📅</span>
+        <div class="due-alert-text">
+          <h4 id="dueTitle">Due Date</h4>
+          <p id="dueText">--</p>
         </div>
       </div>
       
-      <!-- Payment Reminder -->
-      <div id="paymentReminder" style="margin-top: 20px; padding: 15px; background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 8px; display: none;">
-        <p style="color: var(--warning); font-size: 14px; margin: 0;">
-          <strong>Reminder:</strong> Please complete your payment before the due date to avoid additional service fees.
-        </p>
+      <!-- Details -->
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">Order Date</div>
+          <div class="detail-value" id="orderDate">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Customer</div>
+          <div class="detail-value" id="receiver">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Due Date</div>
+          <div class="detail-value" id="dueDate">--</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Days Remaining</div>
+          <div class="detail-value" id="daysRemaining">--</div>
+        </div>
       </div>
-      
     </div>
-    
-    <!-- Back Link -->
-    <div class="tgb-back-link">
-      <a href="/">← Back to Homepage</a>
-    </div>
-    
   </div>
   
-  <!-- Load TGB API -->
-  <script src="js/tgb-api.js"></script>
-  
   <script>
-    function checkLayaway() {
-      var orderId = document.getElementById('orderIdInput').value.trim();
+    const API_URL = '/api/tgb';
+    
+    async function checkLayaway(e) {
+      if (e) e.preventDefault();
       
-      if (!orderId) {
-        showError('Please enter your Order ID');
-        return;
-      }
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      if (!orderId) return;
       
-      // Show loading
       document.getElementById('loading').classList.add('show');
-      document.getElementById('result').classList.remove('show');
-      document.getElementById('error').classList.remove('show');
+      document.getElementById('resultCard').classList.remove('show');
+      document.getElementById('errorMessage').classList.remove('show');
       
-      // Call API using TGB_API object
-      TGB_API.getLayaway(orderId)
-        .then(function(response) {
-          document.getElementById('loading').classList.remove('show');
-          
-          if (response.success) {
-            displayLayaway(response.layaway);
-          } else {
-            showError(response.error || 'LayAway order not found');
-          }
-        })
-        .catch(function(err) {
-          document.getElementById('loading').classList.remove('show');
-          showError('Unable to connect. Please try again later.');
-          console.error('LayAway check error:', err);
-        });
+      try {
+        const response = await fetch(`${API_URL}?action=layaway&orderId=${encodeURIComponent(orderId)}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          displayLayaway(data.layaway);
+        } else {
+          showError(data.error || 'LayAway order not found');
+        }
+      } catch (error) {
+        showError('Unable to connect. Please try again.');
+      } finally {
+        document.getElementById('loading').classList.remove('show');
+      }
     }
     
     function displayLayaway(layaway) {
-      // Balance
-      document.getElementById('resultBalance').textContent = formatCurrency(layaway.balance);
+      document.getElementById('resultOrderId').textContent = layaway.orderId;
+      document.getElementById('orderDate').textContent = layaway.date;
+      document.getElementById('receiver').textContent = layaway.receiver;
+      document.getElementById('dueDate').textContent = layaway.dueDate;
       
-      // Status badge
-      var badgeClass = 'active';
-      var badgeText = layaway.status || 'ACTIVE';
-      if (layaway.isOverdue) {
-        badgeClass = 'overdue';
-        badgeText = 'OVERDUE';
-      } else if (layaway.status === 'COMPLETED' || layaway.paymentStatus === 'PAID') {
-        badgeClass = 'completed';
-        badgeText = 'COMPLETED';
-      }
-      document.getElementById('statusBadge').innerHTML = '<span class="tgb-badge ' + badgeClass + '">' + badgeText + '</span>';
+      // Downpayment & Balance
+      document.getElementById('downpayment').textContent = '₱' + formatNumber(layaway.downpaymentAmount);
+      document.getElementById('balance').textContent = '₱' + formatNumber(layaway.balance);
       
       // Progress
-      var percent = layaway.percentPaid || 0;
-      document.getElementById('percentPaid').textContent = percent + '%';
-      document.getElementById('progressFill').style.width = percent + '%';
+      const percent = layaway.percentPaid || 0;
+      document.getElementById('progressPercent').textContent = percent + '%';
+      const circumference = 2 * Math.PI * 70;
+      const offset = circumference - (percent / 100) * circumference;
+      document.getElementById('progressBar').style.strokeDashoffset = offset;
       
-      // Info
-      document.getElementById('resultOrderId').textContent = layaway.orderId || '-';
-      document.getElementById('resultPlan').textContent = layaway.template === 'LA20' ? 'Option B (20% DP)' : 'Option A (50% DP)';
-      document.getElementById('resultDownpayment').textContent = formatCurrency(layaway.downpaymentAmount);
-      document.getElementById('resultServiceFee').textContent = formatCurrency(layaway.serviceFeeAmount || 0) + ' (' + (layaway.serviceFeePercent || 0) + '%)';
-      document.getElementById('resultDueDate').textContent = layaway.dueDate || '-';
-      
-      // Days remaining with color
-      var daysEl = document.getElementById('resultDaysRemaining');
-      if (layaway.daysRemaining === null || layaway.daysRemaining === undefined) {
+      // Days Remaining
+      const days = layaway.daysRemaining;
+      const daysEl = document.getElementById('daysRemaining');
+      if (days !== null) {
+        if (days < 0) {
+          daysEl.textContent = Math.abs(days) + ' days overdue';
+          daysEl.style.color = 'var(--danger)';
+        } else if (days === 0) {
+          daysEl.textContent = 'Due today!';
+          daysEl.style.color = 'var(--warning)';
+        } else {
+          daysEl.textContent = days + ' days left';
+          daysEl.style.color = days <= 7 ? 'var(--warning)' : 'var(--success)';
+        }
+      } else {
         daysEl.textContent = 'N/A';
-      } else if (layaway.daysRemaining < 0) {
-        daysEl.innerHTML = '<span style="color: var(--error)">' + Math.abs(layaway.daysRemaining) + ' days OVERDUE</span>';
-      } else if (layaway.daysRemaining <= 7) {
-        daysEl.innerHTML = '<span style="color: var(--warning)">' + layaway.daysRemaining + ' days</span>';
-      } else {
-        daysEl.textContent = layaway.daysRemaining + ' days';
       }
       
-      document.getElementById('resultTotalDue').textContent = formatCurrency(layaway.totalWithService || layaway.balance);
+      // Badge & Alert
+      const badge = document.getElementById('layawayBadge');
+      const alert = document.getElementById('dueAlert');
       
-      // Show payment reminder if not completed and days remaining <= 14
-      var reminder = document.getElementById('paymentReminder');
-      if (layaway.daysRemaining !== null && layaway.daysRemaining <= 14 && layaway.status !== 'COMPLETED') {
-        reminder.style.display = 'block';
+      if (layaway.isOverdue) {
+        badge.textContent = 'OVERDUE';
+        badge.className = 'layaway-badge overdue';
+        alert.className = 'due-alert danger';
+        document.getElementById('dueTitle').textContent = '⚠️ Payment Overdue';
+        document.getElementById('dueText').textContent = `Your payment is ${Math.abs(days)} days overdue. Please settle your balance immediately.`;
+      } else if (days !== null && days <= 7) {
+        badge.textContent = 'DUE SOON';
+        badge.className = 'layaway-badge warning';
+        alert.className = 'due-alert warning';
+        document.getElementById('dueTitle').textContent = '📅 Payment Due Soon';
+        document.getElementById('dueText').textContent = `Your payment is due in ${days} days on ${layaway.dueDate}.`;
       } else {
-        reminder.style.display = 'none';
+        badge.textContent = 'ACTIVE';
+        badge.className = 'layaway-badge active';
+        alert.className = 'due-alert success';
+        document.getElementById('dueTitle').textContent = '✅ On Track';
+        document.getElementById('dueText').textContent = `Your next payment is due on ${layaway.dueDate}.`;
       }
       
-      // Show result
-      document.getElementById('result').classList.add('show');
+      document.getElementById('resultCard').classList.add('show');
     }
     
-    function formatCurrency(amount) {
-      return '₱' + Number(amount || 0).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    function formatNumber(num) {
+      return parseFloat(num || 0).toLocaleString('en-PH', { minimumFractionDigits: 2 });
     }
     
     function showError(message) {
-      document.getElementById('error').textContent = message;
-      document.getElementById('error').classList.add('show');
-    }
-    
-    // Enter key support
-    document.getElementById('orderIdInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') checkLayaway();
-    });
-    
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-      var links = document.querySelector('.tgb-nav-links');
-      if (links.style.display === 'flex') {
-        links.style.display = 'none';
-      } else {
-        links.style.display = 'flex';
-        links.style.flexDirection = 'column';
-        links.style.position = 'absolute';
-        links.style.top = '70px';
-        links.style.left = '0';
-        links.style.right = '0';
-        links.style.background = 'var(--tgb-deep-green)';
-        links.style.padding = '20px';
-        links.style.borderBottom = '1px solid rgba(212, 175, 55, 0.3)';
-      }
+      const el = document.getElementById('errorMessage');
+      el.textContent = '❌ ' + message;
+      el.classList.add('show');
     }
   </script>
 </body>
