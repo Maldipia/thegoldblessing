@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://thegoldblessing.com/layaway.html">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="TGB_LOGO.png">
+  
+  <!-- Primary Meta Tags -->
+  <title>LayAway Status | The Gold Blessing</title>
+  <meta name="title" content="LayAway Status | The Gold Blessing">
+  <meta name="description" content="Check your LayAway installment status at The Gold Blessing. View your balance, payment progress, due date, and service fees.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegoldblessing.com/layaway.html">
+  <meta property="og:title" content="LayAway Status | The Gold Blessing">
+  <meta property="og:description" content="Check your LayAway installment balance and payment schedule.">
+  <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- TGB System Styles -->
+  <link rel="stylesheet" href="css/tgb-system.css">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="tgb-nav">
+    <div class="tgb-nav-content">
+      <a href="/" class="tgb-nav-logo">
+        <img src="TGB_LOGO.png" alt="The Gold Blessing">
+        <span>THE GOLD BLESSING</span>
+      </a>
+      <div class="tgb-nav-links">
+        <a href="/">Home</a>
+        <a href="/track.html">Track Order</a>
+        <a href="/layaway.html" class="active">LayAway</a>
+      </div>
+      <div class="tgb-mobile-menu" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="tgb-page">
+    
+    <!-- Header -->
+    <div class="tgb-header">
+      <h1>LayAway Status</h1>
+      <p>Check your installment balance and payment schedule</p>
+    </div>
+    
+    <!-- Search Box -->
+    <div class="tgb-search-box">
+      <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
+      <button onclick="checkLayaway()">Check Status</button>
+    </div>
+    
+    <!-- Loading -->
+    <div class="tgb-loading" id="loading">
+      <div class="tgb-spinner"></div>
+      <p>Loading your LayAway details...</p>
+    </div>
+    
+    <!-- Error -->
+    <div class="tgb-error" id="error"></div>
+    
+    <!-- Result -->
+    <div class="tgb-result" id="result">
+      
+      <!-- Balance Highlight -->
+      <div class="tgb-balance-box">
+        <div class="label">Balance Remaining</div>
+        <div class="amount" id="resultBalance">₱0</div>
+        <div id="statusBadge"></div>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div style="margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; color: var(--text-secondary);">
+          <span>Payment Progress</span>
+          <span id="percentPaid">0%</span>
+        </div>
+        <div class="tgb-progress">
+          <div class="tgb-progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <!-- Info Grid -->
+      <div class="tgb-info-grid">
+        <div class="tgb-info-item">
+          <label>Order ID</label>
+          <value id="resultOrderId">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Plan</label>
+          <value id="resultPlan">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Downpayment</label>
+          <value id="resultDownpayment">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Service Fee</label>
+          <value id="resultServiceFee">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Due Date</label>
+          <value id="resultDueDate">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Days Remaining</label>
+          <value id="resultDaysRemaining">-</value>
+        </div>
+        <div class="tgb-info-item full">
+          <label>Total Amount Due (with service fee)</label>
+          <value id="resultTotalDue" style="font-size: 22px; color: var(--tgb-gold); font-weight: bold;">-</value>
+        </div>
+      </div>
+      
+      <!-- Payment Reminder -->
+      <div id="paymentReminder" style="margin-top: 20px; padding: 15px; background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 8px; display: none;">
+        <p style="color: var(--warning); font-size: 14px; margin: 0;">
+          <strong>Reminder:</strong> Please complete your payment before the due date to avoid additional service fees.
+        </p>
+      </div>
+      
+    </div>
+    
+    <!-- Back Link -->
+    <div class="tgb-back-link">
+      <a href="/">← Back to Homepage</a>
+    </div>
+    
+  </div>
+  
+  <script src="js/tgb-api.js"></script>
+  <script>
+    async function checkLayaway() {
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      
+      if (!orderId) {
+        showError('Please enter your Order ID');
+        return;
+      }
+      
+      document.getElementById('loading').classList.add('show');
+      document.getElementById('result').classList.remove('show');
+      document.getElementById('error').classList.remove('show');
+      
+      try {
+        const response = await TGB_API.getLayaway(orderId);
+        
+        document.getElementById('loading').classList.remove('show');
+        
+        if (response.success) {
+          displayLayaway(response.layaway);
+        } else {
+          showError(response.error);
+        }
+      } catch (err) {
+        document.getElementById('loading').classList.remove('show');
+        showError('Unable to connect. Please try again later.');
+        console.error('LayAway check error:', err);
+      }
+    }
+    
+    function displayLayaway(layaway) {
+      // Balance
+      document.getElementById('resultBalance').textContent = formatCurrency(layaway.balance);
+      
+      // Status badge
+      let badgeClass = 'active';
+      let badgeText = layaway.status;
+      if (layaway.isOverdue) {
+        badgeClass = 'overdue';
+        badgeText = 'OVERDUE';
+      } else if (layaway.status === 'COMPLETED' || layaway.paymentStatus === 'PAID') {
+        badgeClass = 'completed';
+        badgeText = 'COMPLETED';
+      }
+      document.getElementById('statusBadge').innerHTML = `<span class="tgb-badge ${badgeClass}">${badgeText}</span>`;
+      
+      // Progress
+      const percent = layaway.percentPaid || 0;
+      document.getElementById('percentPaid').textContent = percent + '%';
+      document.getElementById('progressFill').style.width = percent + '%';
+      
+      // Info
+      document.getElementById('resultOrderId').textContent = layaway.orderId;
+      document.getElementById('resultPlan').textContent = layaway.template === 'LA20' ? 'Option B (20% DP)' : 'Option A (50% DP)';
+      document.getElementById('resultDownpayment').textContent = formatCurrency(layaway.downpaymentAmount);
+      document.getElementById('resultServiceFee').textContent = formatCurrency(layaway.serviceFeeAmount) + ` (${layaway.serviceFeePercent}%)`;
+      document.getElementById('resultDueDate').textContent = layaway.dueDate;
+      
+      // Days remaining with color
+      const daysEl = document.getElementById('resultDaysRemaining');
+      if (layaway.daysRemaining === null) {
+        daysEl.textContent = 'N/A';
+      } else if (layaway.daysRemaining < 0) {
+        daysEl.innerHTML = `<span style="color: var(--error)">${Math.abs(layaway.daysRemaining)} days OVERDUE</span>`;
+      } else if (layaway.daysRemaining <= 7) {
+        daysEl.innerHTML = `<span style="color: var(--warning)">${layaway.daysRemaining} days</span>`;
+      } else {
+        daysEl.textContent = layaway.daysRemaining + ' days';
+      }
+      
+      document.getElementById('resultTotalDue').textContent = formatCurrency(layaway.totalWithService);
+      
+      // Show payment reminder if not completed and days remaining <= 14
+      const reminder = document.getElementById('paymentReminder');
+      if (layaway.daysRemaining !== null && layaway.daysRemaining <= 14 && layaway.status !== 'COMPLETED') {
+        reminder.style.display = 'block';
+      } else {
+        reminder.style.display = 'none';
+      }
+      
+      document.getElementById('result').classList.add('show');
+    }
+    
+    function formatCurrency(amount) {
+      return '₱' + Number(amount || 0).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    
+    function showError(message) {
+      document.getElementById('error').textContent = message;
+      document.getElementById('error').classList.add('show');
+    }
+    
+    document.getElementById('orderIdInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkLayaway();
+    });
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const links = document.querySelector('.tgb-nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '70px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'var(--tgb-deep-green)';
+        links.style.padding = '20px';
+        links.style.borderBottom = '1px solid rgba(212, 175, 55, 0.3)';
+      }
+    }
+  </script>
+</body>
+</html>

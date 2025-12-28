@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://thegoldblessing.com/invoice.html">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="TGB_LOGO.png">
+  
+  <!-- Primary Meta Tags -->
+  <title>Invoice Lookup | The Gold Blessing</title>
+  <meta name="title" content="Invoice Lookup | The Gold Blessing">
+  <meta name="description" content="Look up your invoice from The Gold Blessing. Enter your Order ID to access your invoice document.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegoldblessing.com/invoice.html">
+  <meta property="og:title" content="Invoice Lookup | The Gold Blessing">
+  <meta property="og:description" content="Access your order invoice from The Gold Blessing.">
+  <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- TGB System Styles -->
+  <link rel="stylesheet" href="css/tgb-system.css">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="tgb-nav">
+    <div class="tgb-nav-content">
+      <a href="/" class="tgb-nav-logo">
+        <img src="TGB_LOGO.png" alt="The Gold Blessing">
+        <span>THE GOLD BLESSING</span>
+      </a>
+      <div class="tgb-nav-links">
+        <a href="/">Home</a>
+        <a href="/track.html">Track Order</a>
+        <a href="/layaway.html">LayAway</a>
+      </div>
+      <div class="tgb-mobile-menu" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="tgb-page">
+    
+    <!-- Header -->
+    <div class="tgb-header">
+      <h1>Invoice Lookup</h1>
+      <p>Enter your Order ID to access your invoice</p>
+    </div>
+    
+    <!-- Search Box -->
+    <div class="tgb-search-box">
+      <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
+      <button onclick="lookupInvoice()">Find Invoice</button>
+    </div>
+    
+    <!-- Loading -->
+    <div class="tgb-loading" id="loading">
+      <div class="tgb-spinner"></div>
+      <p>Looking up your invoice...</p>
+    </div>
+    
+    <!-- Error -->
+    <div class="tgb-error" id="error"></div>
+    
+    <!-- Result -->
+    <div class="tgb-result" id="result">
+      
+      <!-- Invoice Info -->
+      <div style="text-align: center; padding: 30px 0;">
+        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--tgb-green), var(--tgb-green-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 2px solid var(--tgb-gold);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--tgb-gold)" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h3 style="color: var(--tgb-gold); margin-bottom: 10px; font-family: 'Playfair Display', serif;">Invoice Found</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 5px;">Order ID: <strong id="resultOrderId" style="color: var(--text-primary);">-</strong></p>
+        <p style="color: var(--text-secondary);">Status: <span id="resultStatus"></span></p>
+      </div>
+      
+      <!-- Action Button -->
+      <div style="text-align: center;">
+        <a href="#" id="invoiceBtn" class="tgb-btn" target="_blank">View Invoice</a>
+      </div>
+      
+    </div>
+    
+    <!-- No Invoice Result -->
+    <div class="tgb-result" id="noInvoiceResult">
+      <div style="text-align: center; padding: 30px 0;">
+        <div style="width: 80px; height: 80px; background: rgba(255, 193, 7, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 2px solid var(--warning);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h3 style="color: var(--warning); margin-bottom: 10px; font-family: 'Playfair Display', serif;">Invoice Not Yet Available</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 5px;">Order ID: <strong id="noInvoiceOrderId" style="color: var(--text-primary);">-</strong></p>
+        <p style="color: var(--text-secondary); max-width: 350px; margin: 15px auto 0;">Your invoice is being prepared. Please check back later or contact us if you need immediate assistance.</p>
+      </div>
+    </div>
+    
+    <!-- Back Link -->
+    <div class="tgb-back-link">
+      <a href="/">← Back to Homepage</a>
+    </div>
+    
+  </div>
+  
+  <script src="js/tgb-api.js"></script>
+  <script>
+    async function lookupInvoice() {
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      
+      if (!orderId) {
+        showError('Please enter your Order ID');
+        return;
+      }
+      
+      document.getElementById('loading').classList.add('show');
+      document.getElementById('result').classList.remove('show');
+      document.getElementById('noInvoiceResult').classList.remove('show');
+      document.getElementById('error').classList.remove('show');
+      
+      try {
+        const response = await TGB_API.getInvoice(orderId);
+        
+        document.getElementById('loading').classList.remove('show');
+        
+        if (response.success) {
+          displayInvoice(response.invoice);
+        } else {
+          showError(response.error);
+        }
+      } catch (err) {
+        document.getElementById('loading').classList.remove('show');
+        showError('Unable to connect. Please try again later.');
+        console.error('Invoice lookup error:', err);
+      }
+    }
+    
+    function displayInvoice(invoice) {
+      if (invoice.hasInvoice && invoice.invoiceLink) {
+        // Show invoice result
+        document.getElementById('resultOrderId').textContent = invoice.orderId;
+        document.getElementById('resultStatus').innerHTML = `<span class="tgb-badge ${invoice.invoiceStatus === 'SENT' ? 'completed' : 'pending'}">${invoice.invoiceStatus}</span>`;
+        document.getElementById('invoiceBtn').href = invoice.invoiceLink;
+        document.getElementById('result').classList.add('show');
+      } else {
+        // Show no invoice result
+        document.getElementById('noInvoiceOrderId').textContent = invoice.orderId;
+        document.getElementById('noInvoiceResult').classList.add('show');
+      }
+    }
+    
+    function showError(message) {
+      document.getElementById('error').textContent = message;
+      document.getElementById('error').classList.add('show');
+    }
+    
+    document.getElementById('orderIdInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') lookupInvoice();
+    });
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const links = document.querySelector('.tgb-nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '70px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'var(--tgb-deep-green)';
+        links.style.padding = '20px';
+        links.style.borderBottom = '1px solid rgba(212, 175, 55, 0.3)';
+      }
+    }
+  </script>
+</body>
+</html>

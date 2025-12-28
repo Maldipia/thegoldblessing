@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://thegoldblessing.com/track.html">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="TGB_LOGO.png">
+  
+  <!-- Primary Meta Tags -->
+  <title>Track Your Order | The Gold Blessing</title>
+  <meta name="title" content="Track Your Order | The Gold Blessing">
+  <meta name="description" content="Track your gold jewelry order from The Gold Blessing. Enter your Order ID to check payment status, shipping updates, and delivery information.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegoldblessing.com/track.html">
+  <meta property="og:title" content="Track Your Order | The Gold Blessing">
+  <meta property="og:description" content="Track your gold jewelry order status and shipping information.">
+  <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- TGB System Styles -->
+  <link rel="stylesheet" href="css/tgb-system.css">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="tgb-nav">
+    <div class="tgb-nav-content">
+      <a href="/" class="tgb-nav-logo">
+        <img src="TGB_LOGO.png" alt="The Gold Blessing">
+        <span>THE GOLD BLESSING</span>
+      </a>
+      <div class="tgb-nav-links">
+        <a href="/">Home</a>
+        <a href="/track.html" class="active">Track Order</a>
+        <a href="/layaway.html">LayAway</a>
+      </div>
+      <div class="tgb-mobile-menu" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="tgb-page">
+    
+    <!-- Header -->
+    <div class="tgb-header">
+      <h1>Track Your Order</h1>
+      <p>Enter your Order ID to check your order status</p>
+    </div>
+    
+    <!-- Search Box -->
+    <div class="tgb-search-box">
+      <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
+      <button onclick="trackOrder()">Track Order</button>
+    </div>
+    
+    <!-- Loading -->
+    <div class="tgb-loading" id="loading">
+      <div class="tgb-spinner"></div>
+      <p>Searching for your order...</p>
+    </div>
+    
+    <!-- Error -->
+    <div class="tgb-error" id="error"></div>
+    
+    <!-- Result -->
+    <div class="tgb-result" id="result">
+      
+      <!-- Status Stepper -->
+      <div class="tgb-stepper" id="stepper">
+        <div class="tgb-step" data-step="0">
+          <div class="circle">1</div>
+          <span>Order Placed</span>
+        </div>
+        <div class="tgb-step" data-step="1">
+          <div class="circle">2</div>
+          <span>Payment Verified</span>
+        </div>
+        <div class="tgb-step" data-step="2">
+          <div class="circle">3</div>
+          <span>Shipped</span>
+        </div>
+        <div class="tgb-step" data-step="3">
+          <div class="circle">4</div>
+          <span>Delivered</span>
+        </div>
+      </div>
+      
+      <!-- Order Info -->
+      <div class="tgb-info-grid">
+        <div class="tgb-info-item">
+          <label>Order ID</label>
+          <value id="resultOrderId">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Order Date</label>
+          <value id="resultDate">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Receiver</label>
+          <value id="resultReceiver">-</value>
+        </div>
+        <div class="tgb-info-item">
+          <label>Status</label>
+          <value id="resultStatus">-</value>
+        </div>
+        <div class="tgb-info-item full">
+          <label>Delivery Address</label>
+          <value id="resultAddress">-</value>
+        </div>
+        <div class="tgb-info-item" id="trackingSection" style="display:none;">
+          <label>Tracking Number</label>
+          <value id="resultTracking">-</value>
+        </div>
+        <div class="tgb-info-item" id="paymentMethodSection">
+          <label>Payment Method</label>
+          <value id="resultPaymentMethod">-</value>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div style="text-align: center; margin-top: 25px;">
+        <a href="#" id="trackingBtn" class="tgb-btn" target="_blank" style="display:none;">Track with LBC</a>
+        <a href="#" id="invoiceBtn" class="tgb-btn tgb-btn-secondary" target="_blank" style="display:none;">View Invoice</a>
+      </div>
+      
+    </div>
+    
+    <!-- Back Link -->
+    <div class="tgb-back-link">
+      <a href="/">← Back to Homepage</a>
+    </div>
+    
+  </div>
+  
+  <script src="js/tgb-api.js"></script>
+  <script>
+    async function trackOrder() {
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      
+      if (!orderId) {
+        showError('Please enter your Order ID');
+        return;
+      }
+      
+      // Show loading
+      document.getElementById('loading').classList.add('show');
+      document.getElementById('result').classList.remove('show');
+      document.getElementById('error').classList.remove('show');
+      
+      try {
+        const response = await TGB_API.trackOrder(orderId);
+        
+        document.getElementById('loading').classList.remove('show');
+        
+        if (response.success) {
+          displayOrder(response.order);
+        } else {
+          showError(response.error);
+        }
+      } catch (err) {
+        document.getElementById('loading').classList.remove('show');
+        showError('Unable to connect. Please try again later.');
+        console.error('Track order error:', err);
+      }
+    }
+    
+    function displayOrder(order) {
+      // Update stepper
+      const steps = document.querySelectorAll('.tgb-step');
+      steps.forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index < order.statusStep) {
+          step.classList.add('completed');
+        } else if (index === order.statusStep) {
+          step.classList.add('active');
+        }
+      });
+      
+      // Update info
+      document.getElementById('resultOrderId').textContent = order.orderId;
+      document.getElementById('resultDate').textContent = order.date;
+      document.getElementById('resultReceiver').textContent = order.receiver;
+      document.getElementById('resultPaymentMethod').textContent = order.paymentMethod;
+      
+      // Status badge
+      const statusClass = order.status.toLowerCase().replace(/\s+/g, '-');
+      document.getElementById('resultStatus').innerHTML = `<span class="tgb-badge ${statusClass}">${order.status}</span>`;
+      
+      // Address
+      document.getElementById('resultAddress').textContent = `${order.address}, ${order.city}, ${order.region}`;
+      
+      // Tracking
+      if (order.trackingNumber) {
+        document.getElementById('trackingSection').style.display = 'block';
+        document.getElementById('resultTracking').textContent = order.trackingNumber;
+        document.getElementById('trackingBtn').style.display = 'inline-block';
+        document.getElementById('trackingBtn').href = order.trackingUrl;
+      } else {
+        document.getElementById('trackingSection').style.display = 'none';
+        document.getElementById('trackingBtn').style.display = 'none';
+      }
+      
+      // Invoice
+      if (order.invoiceLink) {
+        document.getElementById('invoiceBtn').style.display = 'inline-block';
+        document.getElementById('invoiceBtn').href = order.invoiceLink;
+      } else {
+        document.getElementById('invoiceBtn').style.display = 'none';
+      }
+      
+      // Show result
+      document.getElementById('result').classList.add('show');
+    }
+    
+    function showError(message) {
+      document.getElementById('error').textContent = message;
+      document.getElementById('error').classList.add('show');
+    }
+    
+    // Enter key support
+    document.getElementById('orderIdInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') trackOrder();
+    });
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      // Simple toggle for mobile - can be enhanced
+      const links = document.querySelector('.tgb-nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '70px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'var(--tgb-deep-green)';
+        links.style.padding = '20px';
+        links.style.borderBottom = '1px solid rgba(212, 175, 55, 0.3)';
+      }
+    }
+  </script>
+</body>
+</html>
