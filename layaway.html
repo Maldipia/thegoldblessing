@@ -145,8 +145,48 @@
     
   </div>
   
-  <script src="js/tgb-api.js"></script>
   <script>
+    // NEW API URL with JSONP support
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwwSmHcQM_x6wXywNmqCJgHgT6E20HZ2LIw0EB3SJVxAnInZ8IEFEnwdFtPN-6FmzgZkg/exec';
+    
+    // JSONP callback counter
+    let callbackCounter = 0;
+    
+    // JSONP request function
+    function jsonpRequest(url) {
+      return new Promise((resolve, reject) => {
+        const callbackName = 'tgbCallback_' + (++callbackCounter) + '_' + Date.now();
+        const script = document.createElement('script');
+        
+        const timeout = setTimeout(() => {
+          cleanup();
+          reject(new Error('Request timeout'));
+        }, 30000);
+        
+        function cleanup() {
+          clearTimeout(timeout);
+          delete window[callbackName];
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
+        
+        window[callbackName] = function(data) {
+          cleanup();
+          resolve(data);
+        };
+        
+        const separator = url.includes('?') ? '&' : '?';
+        script.src = url + separator + 'callback=' + callbackName;
+        script.onerror = function() {
+          cleanup();
+          reject(new Error('Script load error'));
+        };
+        
+        document.head.appendChild(script);
+      });
+    }
+    
     async function checkLayaway() {
       const orderId = document.getElementById('orderIdInput').value.trim();
       
@@ -159,15 +199,17 @@
       document.getElementById('result').classList.remove('show');
       document.getElementById('error').classList.remove('show');
       
+      const url = `${API_URL}?action=layaway&orderId=${encodeURIComponent(orderId)}`;
+      
       try {
-        const response = await TGB_API.getLayaway(orderId);
+        const response = await jsonpRequest(url);
         
         document.getElementById('loading').classList.remove('show');
         
         if (response.success) {
           displayLayaway(response.layaway);
         } else {
-          showError(response.error);
+          showError(response.error || 'LayAway order not found');
         }
       } catch (err) {
         document.getElementById('loading').classList.remove('show');
@@ -201,7 +243,7 @@
       document.getElementById('resultOrderId').textContent = layaway.orderId;
       document.getElementById('resultPlan').textContent = layaway.template === 'LA20' ? 'Option B (20% DP)' : 'Option A (50% DP)';
       document.getElementById('resultDownpayment').textContent = formatCurrency(layaway.downpaymentAmount);
-      document.getElementById('resultServiceFee').textContent = formatCurrency(layaway.serviceFeeAmount) + ` (${layaway.serviceFeePercent}%)`;
+      document.getElementById('resultServiceFee').textContent = formatCurrency(layaway.serviceFeeAmount || 0) + ` (${layaway.serviceFeePercent || 0}%)`;
       document.getElementById('resultDueDate').textContent = layaway.dueDate;
       
       // Days remaining with color
@@ -216,7 +258,7 @@
         daysEl.textContent = layaway.daysRemaining + ' days';
       }
       
-      document.getElementById('resultTotalDue').textContent = formatCurrency(layaway.totalWithService);
+      document.getElementById('resultTotalDue').textContent = formatCurrency(layaway.totalWithService || layaway.balance);
       
       // Show payment reminder if not completed and days remaining <= 14
       const reminder = document.getElementById('paymentReminder');

@@ -1,10 +1,49 @@
 /**
  * TGB API Connection
  * Connects GitHub Pages frontend to Google Apps Script backend
+ * Uses JSONP for CORS compatibility
  */
 
-// Your deployed Web App URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbxeTknwX4L8ZjJbHEh-Y9FWiSa1cRmrtzS2mPUkT22p_OQz9CxybMaasw4ipy6vP9ZG/exec';
+// NEW API URL with JSONP support
+const API_URL = 'https://script.google.com/macros/s/AKfycbwwSmHcQM_x6wXywNmqCJgHgT6E20HZ2LIw0EB3SJVxAnInZ8IEFEnwdFtPN-6FmzgZkg/exec';
+
+// JSONP callback counter
+let tgbCallbackCounter = 0;
+
+// JSONP request function
+function tgbJsonpRequest(url) {
+  return new Promise((resolve, reject) => {
+    const callbackName = 'tgbApiCallback_' + (++tgbCallbackCounter) + '_' + Date.now();
+    const script = document.createElement('script');
+    
+    const timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error('Request timeout'));
+    }, 30000);
+    
+    function cleanup() {
+      clearTimeout(timeout);
+      delete window[callbackName];
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    }
+    
+    window[callbackName] = function(data) {
+      cleanup();
+      resolve(data);
+    };
+    
+    const separator = url.includes('?') ? '&' : '?';
+    script.src = url + separator + 'callback=' + callbackName;
+    script.onerror = function() {
+      cleanup();
+      reject(new Error('Script load error'));
+    };
+    
+    document.head.appendChild(script);
+  });
+}
 
 const TGB_API = {
   
@@ -12,102 +51,40 @@ const TGB_API = {
    * Track an order
    */
   async trackOrder(orderId) {
-    try {
-      const url = `${API_URL}?action=track&orderId=${encodeURIComponent(orderId)}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Track order error:', error);
-      throw error;
-    }
+    const url = `${API_URL}?action=track&orderId=${encodeURIComponent(orderId)}`;
+    return await tgbJsonpRequest(url);
   },
   
   /**
    * Get LayAway status
    */
   async getLayaway(orderId) {
-    try {
-      const url = `${API_URL}?action=layaway&orderId=${encodeURIComponent(orderId)}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('LayAway error:', error);
-      throw error;
-    }
+    const url = `${API_URL}?action=layaway&orderId=${encodeURIComponent(orderId)}`;
+    return await tgbJsonpRequest(url);
   },
   
   /**
    * Get invoice
    */
   async getInvoice(orderId) {
-    try {
-      const url = `${API_URL}?action=invoice&orderId=${encodeURIComponent(orderId)}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Invoice error:', error);
-      throw error;
-    }
+    const url = `${API_URL}?action=invoice&orderId=${encodeURIComponent(orderId)}`;
+    return await tgbJsonpRequest(url);
   },
   
   /**
    * Get dashboard data
    */
   async getDashboard() {
-    try {
-      const url = `${API_URL}?action=dashboard`;
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Dashboard error:', error);
-      throw error;
-    }
+    const url = `${API_URL}?action=dashboard`;
+    return await tgbJsonpRequest(url);
   },
   
   /**
    * Get orders list
    */
   async getOrders(params = {}) {
-    try {
-      const queryString = new URLSearchParams(params).toString();
-      const url = `${API_URL}?action=orders&${queryString}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Orders error:', error);
-      throw error;
-    }
-  },
-  
-  /**
-   * Create new order
-   */
-  async createOrder(orderData) {
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        redirect: 'follow',
-        body: JSON.stringify({ action: 'createOrder', ...orderData })
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Create order error:', error);
-      throw error;
-    }
+    const queryString = new URLSearchParams(params).toString();
+    const url = `${API_URL}?action=orders&${queryString}`;
+    return await tgbJsonpRequest(url);
   }
 };
