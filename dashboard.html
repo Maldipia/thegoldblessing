@@ -23,11 +23,7 @@
       --info: #60a5fa;
     }
     
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: 'Poppins', sans-serif;
@@ -36,7 +32,112 @@
       color: var(--white);
     }
     
-    /* Sidebar */
+    /* ==================== LOGIN OVERLAY ==================== */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .login-overlay.hidden {
+      display: none;
+    }
+    
+    .login-box {
+      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.9) 100%);
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+    
+    .login-logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 auto 25px;
+    }
+    
+    .login-box h2 {
+      font-size: 24px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    
+    .login-box p {
+      color: var(--gray);
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    
+    .login-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 8px;
+    }
+    
+    .login-input:focus {
+      border-color: var(--gold);
+    }
+    
+    .login-input::placeholder {
+      letter-spacing: normal;
+      color: var(--gray);
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--dark);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+    
+    .login-error {
+      color: var(--danger);
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+    
+    .login-error.show {
+      display: block;
+    }
+    
+    /* ==================== SIDEBAR ==================== */
     .sidebar {
       position: fixed;
       left: 0;
@@ -48,6 +149,7 @@
       padding: 20px;
       border-right: 1px solid rgba(212, 175, 55, 0.2);
       z-index: 100;
+      overflow-y: auto;
     }
     
     .logo {
@@ -83,13 +185,9 @@
       color: var(--gray);
     }
     
-    .nav-menu {
-      list-style: none;
-    }
+    .nav-menu { list-style: none; }
     
-    .nav-item {
-      margin-bottom: 8px;
-    }
+    .nav-item { margin-bottom: 8px; }
     
     .nav-link {
       display: flex;
@@ -113,13 +211,29 @@
       border-left: 3px solid var(--gold);
     }
     
-    .nav-icon {
-      font-size: 18px;
-      width: 24px;
-      text-align: center;
+    .nav-icon { font-size: 18px; width: 24px; text-align: center; }
+    
+    .logout-btn {
+      margin-top: 30px;
+      padding: 14px 16px;
+      background: rgba(248, 113, 113, 0.15);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: 10px;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      transition: all 0.3s;
     }
     
-    /* Main Content */
+    .logout-btn:hover {
+      background: rgba(248, 113, 113, 0.25);
+    }
+    
+    /* ==================== MAIN CONTENT ==================== */
     .main-content {
       margin-left: 260px;
       padding: 30px;
@@ -132,6 +246,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
     .header-title h1 {
@@ -148,26 +264,38 @@
     
     .header-actions {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       align-items: center;
+      flex-wrap: wrap;
     }
     
-    .refresh-btn {
+    .action-btn {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: var(--dark);
-      border: none;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--white);
       border-radius: 10px;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 14px;
     }
     
-    .refresh-btn:hover {
+    .action-btn:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold);
+    }
+    
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--dark);
+      border: none;
+    }
+    
+    .action-btn.primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
     }
@@ -177,7 +305,98 @@
       font-size: 12px;
     }
     
-    /* Stats Cards */
+    /* ==================== REVENUE SECTION ==================== */
+    .revenue-section {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      margin-bottom: 30px;
+    }
+    
+    .revenue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .revenue-header h2 {
+      font-size: 20px;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .period-selector {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .period-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      color: var(--gray);
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.3s;
+    }
+    
+    .period-btn.active, .period-btn:hover {
+      background: var(--gold);
+      color: var(--dark);
+      border-color: var(--gold);
+    }
+    
+    .revenue-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    
+    .revenue-card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .revenue-card .label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    
+    .revenue-card .value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    
+    .revenue-card .value.gold {
+      color: var(--gold);
+    }
+    
+    .revenue-card .trend {
+      font-size: 12px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    
+    .revenue-card .trend.up { color: var(--success); }
+    .revenue-card .trend.down { color: var(--danger); }
+    
+    /* ==================== STATS CARDS ==================== */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -232,26 +451,7 @@
       font-size: 14px;
     }
     
-    .stat-change {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
-    
-    .stat-change.up {
-      background: rgba(74, 222, 128, 0.2);
-      color: var(--success);
-    }
-    
-    .stat-change.down {
-      background: rgba(248, 113, 113, 0.2);
-      color: var(--danger);
-    }
-    
-    /* Charts Section */
+    /* ==================== CHARTS ==================== */
     .charts-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -284,7 +484,7 @@
       height: 300px;
     }
     
-    /* Orders Table */
+    /* ==================== ORDERS TABLE ==================== */
     .orders-section {
       background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
       border-radius: 16px;
@@ -323,21 +523,19 @@
       outline: none;
     }
     
-    .filter-select option {
-      background: var(--dark-card);
-    }
+    .filter-select option { background: var(--dark-card); }
     
-    .search-input {
-      min-width: 250px;
-    }
+    .search-input { min-width: 250px; }
+    .search-input::placeholder { color: var(--gray); }
     
-    .search-input::placeholder {
-      color: var(--gray);
+    .table-wrapper {
+      overflow-x: auto;
     }
     
     .orders-table {
       width: 100%;
       border-collapse: collapse;
+      min-width: 600px;
     }
     
     .orders-table th {
@@ -392,11 +590,6 @@
       color: var(--info);
     }
     
-    .status-badge.cancelled {
-      background: rgba(248, 113, 113, 0.2);
-      color: var(--danger);
-    }
-    
     .method-badge {
       padding: 4px 10px;
       border-radius: 6px;
@@ -413,6 +606,8 @@
       margin-top: 20px;
       padding-top: 20px;
       border-top: 1px solid rgba(212, 175, 55, 0.1);
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
     .pagination-info {
@@ -423,6 +618,7 @@
     .pagination-buttons {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
     
     .page-btn {
@@ -475,9 +671,9 @@
       to { transform: rotate(360deg); }
     }
     
-    /* Responsive */
+    /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1200px) {
-      .stats-grid {
+      .stats-grid, .revenue-grid {
         grid-template-columns: repeat(2, 1fr);
       }
       .charts-grid {
@@ -492,64 +688,32 @@
       .main-content {
         margin-left: 0;
       }
-      .stats-grid {
+      .stats-grid, .revenue-grid {
         grid-template-columns: 1fr;
       }
-    }
-    
-    /* Quick Actions */
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-    
-    .action-card {
-      background: linear-gradient(135deg, var(--dark-card) 0%, rgba(15, 52, 96, 0.8) 100%);
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .action-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--gold);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
-    }
-    
-    .action-icon {
-      width: 45px;
-      height: 45px;
-      border-radius: 10px;
-      background: rgba(212, 175, 55, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-    
-    .action-text h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    
-    .action-text p {
-      font-size: 12px;
-      color: var(--gray);
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
+  <!-- ==================== LOGIN OVERLAY ==================== -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+      <div class="login-logo">👑</div>
+      <h2>Admin Dashboard</h2>
+      <p>Enter password to access</p>
+      <form onsubmit="checkPassword(event)">
+        <input type="password" class="login-input" id="passwordInput" placeholder="Enter Password" autofocus>
+        <button type="submit" class="login-btn">🔓 Unlock Dashboard</button>
+      </form>
+      <p class="login-error" id="loginError">❌ Incorrect password. Try again.</p>
+    </div>
+  </div>
+  
+  <!-- ==================== SIDEBAR ==================== -->
   <aside class="sidebar">
     <div class="logo">
       <div class="logo-icon">👑</div>
@@ -597,9 +761,14 @@
         </a>
       </li>
     </ul>
+    
+    <button class="logout-btn" onclick="logout()">
+      <span class="nav-icon">🚪</span>
+      Logout
+    </button>
   </aside>
   
-  <!-- Main Content -->
+  <!-- ==================== MAIN CONTENT ==================== -->
   <main class="main-content">
     <!-- Header -->
     <header class="header">
@@ -609,11 +778,49 @@
       </div>
       <div class="header-actions">
         <span class="last-updated" id="lastUpdated">Last updated: --</span>
-        <button class="refresh-btn" onclick="loadDashboard()">
+        <button class="action-btn" onclick="exportToExcel()">
+          📥 Export Excel
+        </button>
+        <button class="action-btn primary" onclick="loadDashboard()">
           🔄 Refresh
         </button>
       </div>
     </header>
+    
+    <!-- ==================== REVENUE ANALYTICS ==================== -->
+    <section class="revenue-section">
+      <div class="revenue-header">
+        <h2>💰 Revenue Analytics</h2>
+        <div class="period-selector">
+          <button class="period-btn" onclick="setPeriod('today', this)">Today</button>
+          <button class="period-btn active" onclick="setPeriod('week', this)">This Week</button>
+          <button class="period-btn" onclick="setPeriod('month', this)">This Month</button>
+          <button class="period-btn" onclick="setPeriod('all', this)">All Time</button>
+        </div>
+      </div>
+      <div class="revenue-grid">
+        <div class="revenue-card">
+          <div class="label">Total Revenue</div>
+          <div class="value gold" id="totalRevenue">₱0</div>
+          <div class="trend up" id="revenueTrend">📈 Sales this period</div>
+        </div>
+        <div class="revenue-card">
+          <div class="label">Orders</div>
+          <div class="value" id="periodOrders">0</div>
+          <div class="trend">📦 This period</div>
+        </div>
+        <div class="revenue-card">
+          <div class="label">Average Order</div>
+          <div class="value" id="avgOrder">₱0</div>
+          <div class="trend">💳 Per transaction</div>
+        </div>
+        <div class="revenue-card">
+          <div class="label">Pending Collection</div>
+          <div class="value" id="pendingAmount">₱0</div>
+          <div class="trend">⏳ Awaiting payment</div>
+        </div>
+      </div>
+    </section>
     
     <!-- Stats Cards -->
     <div class="stats-grid" id="statsGrid">
@@ -639,31 +846,6 @@
       </div>
     </div>
     
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-      <a href="track.html" class="action-card">
-        <div class="action-icon">🔍</div>
-        <div class="action-text">
-          <h3>Track Order</h3>
-          <p>Look up any order status</p>
-        </div>
-      </a>
-      <a href="layaway.html" class="action-card">
-        <div class="action-icon">💳</div>
-        <div class="action-text">
-          <h3>LayAway Status</h3>
-          <p>Check payment balances</p>
-        </div>
-      </a>
-      <a href="https://docs.google.com/spreadsheets/d/1YnkcqUy0osdaZbt2LGXQDWLpKiWdC0W0JB6Zfe02Oe0" target="_blank" class="action-card">
-        <div class="action-icon">📋</div>
-        <div class="action-text">
-          <h3>Open Spreadsheet</h3>
-          <p>Edit orders directly</p>
-        </div>
-      </a>
-    </div>
-    
     <!-- Charts -->
     <div class="charts-grid">
       <div class="chart-card">
@@ -687,7 +869,7 @@
     <!-- Orders Table -->
     <div class="orders-section" id="orders-section">
       <div class="orders-header">
-        <h3 class="orders-title">📦 Recent Orders</h3>
+        <h3 class="orders-title">📦 All Orders</h3>
         <div class="orders-filters">
           <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search order ID or customer...">
           <select class="filter-select" id="sheetFilter">
@@ -705,13 +887,16 @@
             <option value="PROCESSING">Processing</option>
             <option value="COMPLETED">Completed</option>
           </select>
+          <button class="action-btn" onclick="exportToExcel()">📥 Export</button>
         </div>
       </div>
       
-      <div id="ordersTableContainer">
-        <div class="loading">
-          <div class="spinner"></div>
-          <p>Loading orders...</p>
+      <div class="table-wrapper">
+        <div id="ordersTableContainer">
+          <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading orders...</p>
+          </div>
         </div>
       </div>
       
@@ -723,16 +908,50 @@
   </main>
   
   <script>
-    // API Configuration
+    // ==================== CONFIGURATION ====================
     const API_URL = '/api/tgb';
+    const ADMIN_PASSWORD = 'tgb2025'; // ⚠️ CHANGE THIS PASSWORD!
     
-    // State
+    // ==================== STATE ====================
     let currentPage = 1;
     let totalPages = 1;
+    let allOrders = [];
     let paymentChart = null;
     let statusChart = null;
+    let currentPeriod = 'week';
     
-    // Load Dashboard Data
+    // ==================== PASSWORD PROTECTION ====================
+    function checkPassword(e) {
+      e.preventDefault();
+      const password = document.getElementById('passwordInput').value;
+      
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('loginOverlay').classList.add('hidden');
+        sessionStorage.setItem('tgb_auth', 'true');
+        loadDashboard();
+        loadOrders();
+      } else {
+        document.getElementById('loginError').classList.add('show');
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordInput').focus();
+      }
+    }
+    
+    function logout() {
+      sessionStorage.removeItem('tgb_auth');
+      document.getElementById('loginOverlay').classList.remove('hidden');
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('loginError').classList.remove('show');
+    }
+    
+    // Check if already authenticated
+    if (sessionStorage.getItem('tgb_auth') === 'true') {
+      document.getElementById('loginOverlay').classList.add('hidden');
+      loadDashboard();
+      loadOrders();
+    }
+    
+    // ==================== DASHBOARD DATA ====================
     async function loadDashboard() {
       try {
         const response = await fetch(`${API_URL}?action=dashboard`);
@@ -742,7 +961,7 @@
           updateStats(data.metrics);
           updatePaymentChart(data.paymentMethods);
           updateStatusChart(data.metrics);
-          updateRecentOrders(data.recentOrders);
+          updateRevenueAnalytics(data);
           document.getElementById('lastUpdated').textContent = 
             'Last updated: ' + new Date().toLocaleTimeString();
         }
@@ -751,7 +970,6 @@
       }
     }
     
-    // Update Stats Cards
     function updateStats(metrics) {
       animateValue('totalOrders', metrics.totalOrders);
       animateValue('pendingOrders', metrics.pendingOrders);
@@ -759,7 +977,6 @@
       document.getElementById('completionRate').textContent = metrics.completionRate + '%';
     }
     
-    // Animate number counting
     function animateValue(id, value) {
       const el = document.getElementById(id);
       const duration = 1000;
@@ -778,7 +995,33 @@
       }, 16);
     }
     
-    // Update Payment Methods Chart
+    // ==================== REVENUE ANALYTICS ====================
+    function updateRevenueAnalytics(data) {
+      // Revenue estimation based on order counts
+      // Adjust avgOrderValue based on your actual average
+      const avgOrderValue = 2500; 
+      const totalOrders = data.metrics.totalOrders;
+      const completedOrders = data.metrics.completedOrders;
+      const pendingOrders = data.metrics.pendingOrders;
+      
+      const totalRevenue = completedOrders * avgOrderValue;
+      const pendingAmount = pendingOrders * avgOrderValue;
+      const avgOrder = completedOrders > 0 ? Math.round(totalRevenue / completedOrders) : 0;
+      
+      document.getElementById('totalRevenue').textContent = '₱' + totalRevenue.toLocaleString();
+      document.getElementById('periodOrders').textContent = totalOrders.toLocaleString();
+      document.getElementById('avgOrder').textContent = '₱' + avgOrder.toLocaleString();
+      document.getElementById('pendingAmount').textContent = '₱' + pendingAmount.toLocaleString();
+    }
+    
+    function setPeriod(period, btn) {
+      currentPeriod = period;
+      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadDashboard();
+    }
+    
+    // ==================== CHARTS ====================
     function updatePaymentChart(paymentMethods) {
       const ctx = document.getElementById('paymentChart').getContext('2d');
       
@@ -808,9 +1051,7 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
             y: {
               beginAtZero: true,
@@ -826,7 +1067,6 @@
       });
     }
     
-    // Update Status Chart
     function updateStatusChart(metrics) {
       const ctx = document.getElementById('statusChart').getContext('2d');
       
@@ -838,14 +1078,8 @@
           labels: ['Completed', 'Pending'],
           datasets: [{
             data: [metrics.completedOrders, metrics.pendingOrders],
-            backgroundColor: [
-              'rgba(74, 222, 128, 0.8)',
-              'rgba(251, 191, 36, 0.8)'
-            ],
-            borderColor: [
-              'rgba(74, 222, 128, 1)',
-              'rgba(251, 191, 36, 1)'
-            ],
+            backgroundColor: ['rgba(74, 222, 128, 0.8)', 'rgba(251, 191, 36, 0.8)'],
+            borderColor: ['rgba(74, 222, 128, 1)', 'rgba(251, 191, 36, 1)'],
             borderWidth: 2
           }]
         },
@@ -863,8 +1097,46 @@
       });
     }
     
-    // Update Recent Orders Table
-    function updateRecentOrders(orders) {
+    // ==================== ORDERS TABLE ====================
+    async function loadOrders() {
+      const sheet = document.getElementById('sheetFilter').value;
+      const status = document.getElementById('statusFilter').value;
+      const search = document.getElementById('searchInput').value;
+      
+      const container = document.getElementById('ordersTableContainer');
+      container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading orders...</p></div>';
+      
+      try {
+        let url = `${API_URL}?action=orders&page=${currentPage}&limit=20`;
+        if (sheet !== 'all') url += `&sheet=${encodeURIComponent(sheet)}`;
+        if (status !== 'all') url += `&status=${encodeURIComponent(status)}`;
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.success) {
+          allOrders = data.orders;
+          let orders = data.orders;
+          
+          // Client-side search filter
+          if (search) {
+            const searchLower = search.toLowerCase();
+            orders = orders.filter(o => 
+              o.orderId.toLowerCase().includes(searchLower) ||
+              o.customer.toLowerCase().includes(searchLower)
+            );
+          }
+          
+          renderOrdersTable(orders);
+          updatePagination(data.pagination);
+        }
+      } catch (error) {
+        console.error('Orders error:', error);
+        container.innerHTML = '<div class="loading"><p>Error loading orders</p></div>';
+      }
+    }
+    
+    function renderOrdersTable(orders) {
       const container = document.getElementById('ordersTableContainer');
       
       if (!orders || orders.length === 0) {
@@ -889,7 +1161,7 @@
       orders.forEach(order => {
         const statusClass = getStatusClass(order.status);
         html += `
-          <tr>
+          <tr onclick="window.open('track.html?id=${order.orderId}', '_blank')" style="cursor: pointer;">
             <td><span class="order-id">${order.orderId}</span></td>
             <td>${order.date}</td>
             <td>${order.customer}</td>
@@ -903,55 +1175,14 @@
       container.innerHTML = html;
     }
     
-    // Get status class
     function getStatusClass(status) {
       if (!status) return 'pending';
       const s = status.toUpperCase();
       if (s.includes('PAID') || s.includes('COMPLETE')) return 'completed';
       if (s.includes('PROCESSING')) return 'processing';
-      if (s.includes('CANCEL')) return 'cancelled';
       return 'pending';
     }
     
-    // Load Orders with Filters
-    async function loadOrders() {
-      const sheet = document.getElementById('sheetFilter').value;
-      const status = document.getElementById('statusFilter').value;
-      const search = document.getElementById('searchInput').value;
-      
-      const container = document.getElementById('ordersTableContainer');
-      container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading orders...</p></div>';
-      
-      try {
-        let url = `${API_URL}?action=orders&page=${currentPage}&limit=20`;
-        if (sheet !== 'all') url += `&sheet=${encodeURIComponent(sheet)}`;
-        if (status !== 'all') url += `&status=${encodeURIComponent(status)}`;
-        
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.success) {
-          let orders = data.orders;
-          
-          // Client-side search filter
-          if (search) {
-            const searchLower = search.toLowerCase();
-            orders = orders.filter(o => 
-              o.orderId.toLowerCase().includes(searchLower) ||
-              o.customer.toLowerCase().includes(searchLower)
-            );
-          }
-          
-          updateRecentOrders(orders);
-          updatePagination(data.pagination);
-        }
-      } catch (error) {
-        console.error('Orders error:', error);
-        container.innerHTML = '<div class="loading"><p>Error loading orders</p></div>';
-      }
-    }
-    
-    // Update Pagination
     function updatePagination(pagination) {
       if (!pagination) return;
       
@@ -978,19 +1209,48 @@
       paginationEl.style.display = 'flex';
     }
     
-    // Go to page
     function goToPage(page) {
       if (page < 1 || page > totalPages) return;
       currentPage = page;
       loadOrders();
     }
     
-    // Event Listeners
+    // ==================== EXPORT TO EXCEL ====================
+    function exportToExcel() {
+      if (!allOrders || allOrders.length === 0) {
+        alert('No orders to export. Please wait for data to load.');
+        return;
+      }
+      
+      // Create CSV content
+      let csv = 'Order ID,Date,Customer,Payment Method,Status\n';
+      
+      allOrders.forEach(order => {
+        csv += `"${order.orderId}","${order.date}","${order.customer}","${order.method}","${order.status}"\n`;
+      });
+      
+      // Create download link
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', `TGB_Orders_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Show success message
+      alert('✅ Orders exported successfully!\n\nFile: TGB_Orders_' + new Date().toISOString().split('T')[0] + '.csv\n\nOpen with Excel or Google Sheets');
+    }
+    
+    // ==================== EVENT LISTENERS ====================
     document.getElementById('searchInput').addEventListener('input', debounce(loadOrders, 500));
     document.getElementById('sheetFilter').addEventListener('change', () => { currentPage = 1; loadOrders(); });
     document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; loadOrders(); });
     
-    // Debounce function
     function debounce(func, wait) {
       let timeout;
       return function(...args) {
@@ -999,12 +1259,12 @@
       };
     }
     
-    // Initial Load
-    loadDashboard();
-    loadOrders();
-    
     // Auto-refresh every 5 minutes
-    setInterval(loadDashboard, 300000);
+    setInterval(() => {
+      if (sessionStorage.getItem('tgb_auth') === 'true') {
+        loadDashboard();
+      }
+    }, 300000);
   </script>
 </body>
 </html>
