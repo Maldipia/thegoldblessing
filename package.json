@@ -1,0 +1,8 @@
+{
+  "name": "thegoldblessing",
+  "version": "1.0.0",
+  "description": "TGB Order Tracking Website with Fast API",
+  "dependencies": {
+    "googleapis": "^126.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/tgb",
+      "methods": ["GET", "POST", "OPTIONS"],
+      "dest": "/api/tgb.js"
+    }
+  ]
+}
