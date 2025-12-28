@@ -4,53 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - The Gold Blessing</title>
-  <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
-      --emerald: #047857;
-      --emerald-light: #10b981;
-      --emerald-dark: #065f46;
-      --emerald-glow: rgba(16, 185, 129, 0.3);
-      --gold: #d4af37;
-      --gold-light: #f4e4bc;
-      --gold-dark: #b8960c;
-      --white: #ffffff;
-      --off-white: #f8faf9;
-      --gray: #6b7280;
-      --gray-light: #e5e7eb;
-      --dark: #1f2937;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --info: #3b82f6;
+      --emerald: #046A38;
+      --emerald-light: #0A8F4F;
+      --emerald-dark: #034D29;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --gold-dark: #B8960C;
+      --white: #FFFFFF;
+      --off-white: #F8F9FA;
+      --gray-light: #E9ECEF;
+      --gray: #6C757D;
+      --gray-dark: #343A40;
+      --success: #28A745;
+      --warning: #FFC107;
+      --danger: #DC3545;
+      --info: #17A2B8;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%);
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
       min-height: 100vh;
-      color: var(--dark);
+      color: var(--gray-dark);
     }
     
     /* LOGIN OVERLAY */
     .login-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
     }
-    
     .login-overlay.hidden { display: none; }
     
     .login-box {
@@ -59,95 +53,61 @@
       padding: 50px 40px;
       border: 3px solid var(--gold);
       text-align: center;
-      max-width: 420px;
+      max-width: 400px;
       width: 90%;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     }
     
-    .login-logo-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--gold);
-      margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-    }
+    .login-logo { width: 100px; height: 100px; margin: 0 auto 20px; }
+    .login-logo img { width: 100%; height: 100%; object-fit: contain; }
     
     .login-box h2 {
       font-family: 'Playfair Display', serif;
       font-size: 28px;
-      color: var(--dark);
+      color: var(--emerald);
       margin-bottom: 8px;
     }
     
-    .login-box p {
-      color: var(--gray);
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
+    .login-box p { color: var(--gray); font-size: 14px; margin-bottom: 30px; }
     
     .login-input {
       width: 100%;
-      padding: 18px 24px;
+      padding: 16px 20px;
       background: var(--off-white);
       border: 2px solid var(--gray-light);
-      border-radius: 16px;
-      color: var(--dark);
+      border-radius: 12px;
+      color: var(--gray-dark);
       font-size: 18px;
-      font-family: 'Poppins', sans-serif;
       outline: none;
       margin-bottom: 20px;
       text-align: center;
-      letter-spacing: 8px;
-      transition: all 0.3s ease;
+      letter-spacing: 12px;
+      font-weight: 600;
     }
-    
-    .login-input:focus {
-      border-color: var(--emerald);
-      box-shadow: 0 0 0 4px var(--emerald-glow);
-    }
-    
-    .login-input::placeholder {
-      letter-spacing: normal;
-      color: var(--gray);
-    }
+    .login-input:focus { border-color: var(--gold); }
+    .login-input::placeholder { letter-spacing: normal; color: var(--gray); font-weight: 400; }
     
     .login-btn {
       width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
       color: var(--white);
       border: none;
-      border-radius: 16px;
+      border-radius: 12px;
       font-size: 16px;
       font-weight: 600;
-      font-family: 'Poppins', sans-serif;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px var(--emerald-glow);
+      transition: all 0.3s;
     }
+    .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
     
-    .login-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px var(--emerald-glow);
-    }
-    
-    .login-error {
-      color: var(--danger);
-      font-size: 14px;
-      margin-top: 15px;
-      display: none;
-      font-weight: 500;
-    }
-    
+    .login-error { color: var(--danger); font-size: 14px; margin-top: 15px; display: none; }
     .login-error.show { display: block; }
     
     /* SIDEBAR */
     .sidebar {
       position: fixed;
-      left: 0;
-      top: 0;
+      left: 0; top: 0;
       width: 280px;
       height: 100vh;
       background: var(--white);
@@ -155,44 +115,34 @@
       border-right: 3px solid var(--gold);
       z-index: 100;
       overflow-y: auto;
-      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
     }
     
-    .sidebar-logo {
+    .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
       padding: 15px 10px;
       margin-bottom: 30px;
-      border-bottom: 2px solid var(--gray-light);
+      border-bottom: 2px solid var(--gold);
       text-decoration: none;
     }
     
-    .sidebar-logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--gold);
-    }
+    .logo-icon { width: 50px; height: 50px; }
+    .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
     
-    .sidebar-logo-text {
+    .logo-text {
       font-family: 'Playfair Display', serif;
       font-size: 18px;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--emerald);
     }
-    
-    .sidebar-logo-text span {
+    .logo-text span {
       display: block;
       font-family: 'Poppins', sans-serif;
       font-size: 11px;
       font-weight: 400;
       color: var(--gray);
-      -webkit-text-fill-color: var(--gray);
     }
     
     .nav-menu { list-style: none; }
@@ -202,51 +152,38 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 18px;
-      color: var(--gray);
+      padding: 14px 16px;
+      color: var(--gray-dark);
       text-decoration: none;
       border-radius: 12px;
       transition: all 0.3s ease;
       font-size: 14px;
       font-weight: 500;
     }
-    
-    .nav-link:hover {
-      background: rgba(4, 120, 87, 0.1);
-      color: var(--emerald);
-    }
-    
+    .nav-link:hover { background: var(--off-white); color: var(--emerald); }
     .nav-link.active {
       background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
       color: var(--white);
-      box-shadow: 0 4px 15px var(--emerald-glow);
     }
-    
-    .nav-icon { font-size: 18px; width: 24px; text-align: center; }
+    .nav-icon { font-size: 20px; width: 28px; text-align: center; }
     
     .logout-btn {
       margin-top: 30px;
-      padding: 14px 18px;
-      background: linear-gradient(135deg, #fef2f2, #fee2e2);
-      border: 2px solid #fecaca;
+      padding: 14px 16px;
+      background: var(--off-white);
+      border: 2px solid var(--danger);
       border-radius: 12px;
       color: var(--danger);
       cursor: pointer;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 12px;
       width: 100%;
-      transition: all 0.3s ease;
-      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
     }
-    
-    .logout-btn:hover {
-      background: var(--danger);
-      color: var(--white);
-      border-color: var(--danger);
-    }
+    .logout-btn:hover { background: var(--danger); color: var(--white); }
     
     /* MAIN CONTENT */
     .main-content {
@@ -255,7 +192,7 @@
       min-height: 100vh;
     }
     
-    .page-header {
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -264,37 +201,127 @@
       gap: 15px;
     }
     
-    .page-header h1 {
+    .header-title h1 {
       font-family: 'Playfair Display', serif;
       font-size: 32px;
       font-weight: 700;
-      color: var(--dark);
+      color: var(--white);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
+    .header-title p { color: var(--gold-light); font-size: 14px; margin-top: 4px; }
     
-    .page-header h1 span { color: var(--emerald); }
+    .header-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     
-    .header-actions { display: flex; gap: 15px; }
-    
-    .refresh-btn {
-      padding: 12px 24px;
-      background: var(--white);
-      color: var(--emerald);
-      border: 2px solid var(--emerald);
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Poppins', sans-serif;
+    .action-btn {
       display: flex;
       align-items: center;
       gap: 8px;
+      padding: 12px 20px;
+      background: var(--white);
+      border: 2px solid var(--gold);
+      color: var(--emerald);
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    .action-btn:hover {
+      background: var(--gold);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--white);
+      border: none;
+    }
+    .action-btn.export {
+      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
+      color: var(--white);
+      border: none;
+    }
+    .last-updated { color: var(--gold-light); font-size: 12px; }
+    
+    /* REVENUE ANALYTICS */
+    .revenue-section {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
     }
     
-    .refresh-btn:hover {
-      background: var(--emerald);
-      color: var(--white);
+    .revenue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
+    
+    .revenue-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .period-selector { display: flex; gap: 8px; flex-wrap: wrap; }
+    
+    .period-btn {
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .period-btn.active, .period-btn:hover {
+      background: var(--white);
+      color: var(--gold-dark);
+      border-color: var(--white);
+    }
+    
+    .revenue-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    
+    .revenue-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .revenue-card .icon { font-size: 32px; margin-bottom: 10px; }
+    .revenue-card .label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .revenue-card .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--emerald);
+    }
+    .revenue-card .value.gold { color: var(--gold-dark); }
+    .revenue-card .trend { font-size: 12px; margin-top: 8px; color: var(--gray); }
+    .revenue-card .trend.up { color: var(--success); }
     
     /* STATS CARDS */
     .stats-grid {
@@ -306,82 +333,42 @@
     
     .stat-card {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 25px;
-      border: 2px solid var(--gray-light);
+      border-left: 5px solid var(--gold);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
-    
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--emerald), var(--gold));
-    }
-    
     .stat-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-      border-color: var(--emerald);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     }
     
     .stat-icon {
-      width: 50px;
-      height: 50px;
+      width: 55px;
+      height: 55px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 26px;
       margin-bottom: 15px;
     }
-    
-    .stat-icon.emerald { background: linear-gradient(135deg, #ecfdf5, #d1fae5); }
-    .stat-icon.gold { background: linear-gradient(135deg, #fffbeb, #fef3c7); }
-    .stat-icon.blue { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
-    .stat-icon.purple { background: linear-gradient(135deg, #f5f3ff, #ede9fe); }
-    
-    .stat-label {
-      font-size: 13px;
-      color: var(--gray);
-      margin-bottom: 8px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+    .stat-icon.emerald { background: rgba(4, 106, 56, 0.15); }
+    .stat-icon.gold { background: rgba(212, 175, 55, 0.2); }
+    .stat-icon.blue { background: rgba(23, 162, 184, 0.15); }
+    .stat-icon.green { background: rgba(40, 167, 69, 0.15); }
     
     .stat-value {
       font-family: 'Playfair Display', serif;
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
-      color: var(--dark);
-    }
-    
-    .stat-change {
-      font-size: 12px;
-      margin-top: 10px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      display: inline-block;
-      font-weight: 600;
-    }
-    
-    .stat-change.up {
-      background: #ecfdf5;
       color: var(--emerald);
+      margin-bottom: 5px;
     }
+    .stat-label { color: var(--gray); font-size: 14px; font-weight: 500; }
     
-    .stat-change.down {
-      background: #fef2f2;
-      color: var(--danger);
-    }
-    
-    /* CHARTS SECTION */
+    /* CHARTS */
     .charts-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -391,31 +378,34 @@
     
     .chart-card {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 25px;
-      border: 2px solid var(--gray-light);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     }
     
-    .chart-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      color: var(--dark);
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
       padding-bottom: 15px;
       border-bottom: 2px solid var(--gray-light);
     }
     
-    .chart-container {
-      position: relative;
-      height: 300px;
+    .chart-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--emerald);
     }
+    .chart-container { position: relative; height: 300px; }
     
-    /* RECENT ORDERS */
+    /* ORDERS TABLE */
     .orders-section {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 25px;
-      border: 2px solid var(--gray-light);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     }
     
     .orders-header {
@@ -425,107 +415,122 @@
       margin-bottom: 20px;
       padding-bottom: 15px;
       border-bottom: 2px solid var(--gray-light);
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
-    .orders-header h3 {
+    .orders-title {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
-      color: var(--dark);
-    }
-    
-    .view-all-btn {
-      padding: 8px 20px;
-      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
-      color: var(--white);
-      border: none;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    
-    .view-all-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px var(--emerald-glow);
-    }
-    
-    .orders-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    
-    .orders-table th {
-      text-align: left;
-      padding: 15px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--gray);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      background: var(--off-white);
-      border-radius: 8px;
-    }
-    
-    .orders-table td {
-      padding: 18px 15px;
-      font-size: 14px;
-      border-bottom: 1px solid var(--gray-light);
-    }
-    
-    .orders-table tr:hover td {
-      background: var(--off-white);
-    }
-    
-    .order-id {
       font-weight: 600;
       color: var(--emerald);
     }
+    
+    .orders-filters { display: flex; gap: 12px; flex-wrap: wrap; }
+    
+    .filter-select, .search-input {
+      padding: 10px 16px;
+      background: var(--off-white);
+      border: 2px solid var(--gray-light);
+      border-radius: 8px;
+      color: var(--gray-dark);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    .filter-select:focus, .search-input:focus { border-color: var(--gold); }
+    .search-input { min-width: 250px; }
+    .search-input::placeholder { color: var(--gray); }
+    
+    .table-wrapper { overflow-x: auto; }
+    
+    .orders-table { width: 100%; border-collapse: collapse; min-width: 700px; }
+    
+    .orders-table th {
+      text-align: left;
+      padding: 14px 16px;
+      background: var(--off-white);
+      color: var(--emerald);
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid var(--gold);
+    }
+    
+    .orders-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+      color: var(--gray-dark);
+    }
+    
+    .orders-table tbody tr { transition: all 0.3s ease; cursor: pointer; }
+    .orders-table tbody tr:hover { background: rgba(4, 106, 56, 0.05); }
+    
+    .order-id { font-weight: 600; color: var(--emerald); }
     
     .status-badge {
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
-      text-transform: uppercase;
+    }
+    .status-badge.pending { background: rgba(255, 193, 7, 0.2); color: #856404; }
+    .status-badge.paid, .status-badge.completed { background: rgba(40, 167, 69, 0.2); color: #155724; }
+    .status-badge.processing { background: rgba(23, 162, 184, 0.2); color: #0c5460; }
+    
+    .method-badge {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--gold-dark);
     }
     
-    .status-badge.completed {
-      background: #ecfdf5;
-      color: var(--emerald);
-    }
-    
-    .status-badge.pending {
-      background: #fffbeb;
-      color: #d97706;
-    }
-    
-    .status-badge.processing {
-      background: #eff6ff;
-      color: #2563eb;
-    }
-    
-    .status-badge.cancelled {
-      background: #fef2f2;
-      color: var(--danger);
-    }
-    
-    /* LOADING */
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.9);
+    /* Pagination */
+    .pagination {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid var(--gray-light);
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .pagination-info { color: var(--gray); font-size: 14px; }
+    .pagination-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+    
+    .page-btn {
+      padding: 10px 16px;
+      background: var(--off-white);
+      border: 2px solid var(--gray-light);
+      border-radius: 8px;
+      color: var(--gray-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .page-btn:hover:not(:disabled) {
+      background: var(--emerald);
+      color: var(--white);
+      border-color: var(--emerald);
+    }
+    .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .page-btn.active { background: var(--emerald); color: var(--white); border-color: var(--emerald); }
+    
+    /* Loading */
+    .loading {
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 9998;
+      padding: 60px;
+      color: var(--gray);
     }
-    
-    .loading-overlay.hidden { display: none; }
     
     .spinner {
       width: 50px;
@@ -534,340 +539,388 @@
       border-top-color: var(--emerald);
       border-radius: 50%;
       animation: spin 1s linear infinite;
+      margin-bottom: 16px;
     }
-    
     @keyframes spin { to { transform: rotate(360deg); } }
     
-    /* RESPONSIVE */
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--emerald);
+      color: var(--white);
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    
+    /* Responsive */
     @media (max-width: 1200px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid, .revenue-grid { grid-template-columns: repeat(2, 1fr); }
       .charts-grid { grid-template-columns: 1fr; }
     }
-    
     @media (max-width: 768px) {
-      .sidebar { display: none; }
+      .sidebar { transform: translateX(-100%); }
       .main-content { margin-left: 0; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .orders-table { display: block; overflow-x: auto; }
+      .stats-grid, .revenue-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- LOGIN OVERLAY -->
+  <!-- LOGIN -->
   <div class="login-overlay" id="loginOverlay">
     <div class="login-box">
-      <img src="logo.png" alt="The Gold Blessing" class="login-logo-img">
+      <div class="login-logo"><img src="logo.png" alt="The Gold Blessing"></div>
       <h2>Admin Dashboard</h2>
-      <p>Enter your PIN to access the dashboard</p>
-      <form onsubmit="login(event)">
-        <input type="password" class="login-input" id="pinInput" placeholder="Enter PIN" maxlength="6" required>
+      <p>Enter your PIN to access</p>
+      <form onsubmit="checkPassword(event)">
+        <input type="password" class="login-input" id="passwordInput" placeholder="••••" maxlength="6" autofocus>
         <button type="submit" class="login-btn">🔐 Access Dashboard</button>
       </form>
-      <p class="login-error" id="loginError">Invalid PIN. Please try again.</p>
+      <p class="login-error" id="loginError">❌ Invalid PIN. Please try again.</p>
     </div>
-  </div>
-  
-  <!-- LOADING OVERLAY -->
-  <div class="loading-overlay hidden" id="loadingOverlay">
-    <div class="spinner"></div>
   </div>
   
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <a href="index.html" class="sidebar-logo">
-      <img src="logo.png" alt="The Gold Blessing" class="sidebar-logo-img">
-      <div class="sidebar-logo-text">
-        The Gold Blessing
-        <span>Admin Dashboard</span>
-      </div>
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><img src="logo.png" alt="TGB"></div>
+      <div class="logo-text">The Gold Blessing<span>Admin Dashboard</span></div>
     </a>
-    
-    <nav>
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a href="dashboard.html" class="nav-link active">
-            <span class="nav-icon">📊</span>
-            Dashboard
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="track.html" class="nav-link">
-            <span class="nav-icon">📦</span>
-            Track Orders
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="layaway.html" class="nav-link">
-            <span class="nav-icon">💳</span>
-            LayAway
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="invoice.html" class="nav-link">
-            <span class="nav-icon">🧾</span>
-            Invoices
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="index.html" class="nav-link">
-            <span class="nav-icon">🏠</span>
-            Home
-          </a>
-        </li>
-      </ul>
-    </nav>
-    
-    <button class="logout-btn" onclick="logout()">
-      <span>🚪</span>
-      Logout
-    </button>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="dashboard.html" class="nav-link active"><span class="nav-icon">📊</span>Dashboard</a></li>
+      <li class="nav-item"><a href="track.html" class="nav-link"><span class="nav-icon">📦</span>Track Orders</a></li>
+      <li class="nav-item"><a href="layaway.html" class="nav-link"><span class="nav-icon">💳</span>LayAway</a></li>
+      <li class="nav-item"><a href="invoice.html" class="nav-link"><span class="nav-icon">🧾</span>Invoices</a></li>
+      <li class="nav-item"><a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>Home</a></li>
+      <li class="nav-item"><a href="inventory.html" class="nav-link"><span class="nav-icon">📦</span>Inventory</a></li>
+      <li class="nav-item"><a href="https://docs.google.com/spreadsheets/d/1YnkcqUy0osdaZbt2LGXQDWLpKiWdC0W0JB6Zfe02Oe0" target="_blank" class="nav-link"><span class="nav-icon">📋</span>Orders Sheet</a></li>
+      <li class="nav-item"><a href="https://docs.google.com/spreadsheets/d/1R4GOtQQimCZIqOVx0yeK83UmLmBMERU0Z7w4efpbxMQ" target="_blank" class="nav-link"><span class="nav-icon">📊</span>Inventory Sheet</a></li>
+    </ul>
+    <button class="logout-btn" onclick="logout()"><span class="nav-icon">🚪</span>Logout</button>
   </aside>
   
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="main-content">
-    <div class="page-header">
-      <h1>Welcome to <span>Dashboard</span></h1>
+    <header class="header">
+      <div class="header-title">
+        <h1>📊 Dashboard Overview</h1>
+        <p>Welcome back! Here's your business summary.</p>
+      </div>
       <div class="header-actions">
-        <button class="refresh-btn" onclick="refreshData()">
-          🔄 Refresh Data
-        </button>
+        <span class="last-updated" id="lastUpdated">Last updated: --</span>
+        <button class="action-btn export" onclick="exportToExcel()">📥 Export to Excel</button>
+        <button class="action-btn primary" onclick="loadDashboard()">🔄 Refresh Data</button>
       </div>
-    </div>
+    </header>
     
-    <!-- STATS CARDS -->
+    <!-- REVENUE ANALYTICS -->
+    <section class="revenue-section">
+      <div class="revenue-header">
+        <h2>💰 Revenue Analytics</h2>
+        <div class="period-selector">
+          <button class="period-btn" onclick="setPeriod('today', this)">Today</button>
+          <button class="period-btn active" onclick="setPeriod('week', this)">This Week</button>
+          <button class="period-btn" onclick="setPeriod('month', this)">This Month</button>
+          <button class="period-btn" onclick="setPeriod('all', this)">All Time</button>
+        </div>
+      </div>
+      <div class="revenue-grid">
+        <div class="revenue-card">
+          <div class="icon">💵</div>
+          <div class="label">Total Revenue</div>
+          <div class="value gold" id="totalRevenue">₱0</div>
+          <div class="trend up">📈 This period</div>
+        </div>
+        <div class="revenue-card">
+          <div class="icon">📦</div>
+          <div class="label">Orders</div>
+          <div class="value" id="periodOrders">0</div>
+          <div class="trend">Total this period</div>
+        </div>
+        <div class="revenue-card">
+          <div class="icon">💳</div>
+          <div class="label">Average Order</div>
+          <div class="value" id="avgOrder">₱0</div>
+          <div class="trend">Per transaction</div>
+        </div>
+        <div class="revenue-card">
+          <div class="icon">⏳</div>
+          <div class="label">Pending Collection</div>
+          <div class="value" id="pendingAmount">₱0</div>
+          <div class="trend">Awaiting payment</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- STATS -->
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon emerald">📦</div>
-        <div class="stat-label">Total Orders</div>
-        <div class="stat-value" id="totalOrders">--</div>
-        <div class="stat-change up">↑ All time</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon gold">💰</div>
-        <div class="stat-label">Total Revenue</div>
-        <div class="stat-value" id="totalRevenue">--</div>
-        <div class="stat-change up">↑ This month</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon blue">💳</div>
-        <div class="stat-label">Active LayAway</div>
-        <div class="stat-value" id="activeLayaway">--</div>
-        <div class="stat-change up">Active plans</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon purple">✅</div>
-        <div class="stat-label">Completed</div>
-        <div class="stat-value" id="completedOrders">--</div>
-        <div class="stat-change up">↑ This week</div>
-      </div>
+      <div class="stat-card"><div class="stat-icon emerald">📦</div><div class="stat-value" id="totalOrders">--</div><div class="stat-label">Total Orders</div></div>
+      <div class="stat-card"><div class="stat-icon gold">⏳</div><div class="stat-value" id="pendingOrders">--</div><div class="stat-label">Pending Orders</div></div>
+      <div class="stat-card"><div class="stat-icon green">✅</div><div class="stat-value" id="completedOrders">--</div><div class="stat-label">Completed Orders</div></div>
+      <div class="stat-card"><div class="stat-icon blue">📈</div><div class="stat-value" id="completionRate">--</div><div class="stat-label">Completion Rate</div></div>
     </div>
     
     <!-- CHARTS -->
     <div class="charts-grid">
       <div class="chart-card">
-        <h3>📈 Sales Overview</h3>
-        <div class="chart-container">
-          <canvas id="salesChart"></canvas>
-        </div>
+        <div class="chart-header"><h3 class="chart-title">📈 Sales Overview</h3></div>
+        <div class="chart-container"><canvas id="paymentChart"></canvas></div>
       </div>
       <div class="chart-card">
-        <h3>📊 Payment Methods</h3>
-        <div class="chart-container">
-          <canvas id="paymentChart"></canvas>
-        </div>
+        <div class="chart-header"><h3 class="chart-title">📊 Order Status</h3></div>
+        <div class="chart-container"><canvas id="statusChart"></canvas></div>
       </div>
     </div>
     
-    <!-- RECENT ORDERS -->
+    <!-- ORDERS TABLE -->
     <div class="orders-section">
       <div class="orders-header">
-        <h3>📋 Recent Orders</h3>
-        <a href="track.html" class="view-all-btn">View All</a>
+        <h3 class="orders-title">📋 Recent Orders</h3>
+        <div class="orders-filters">
+          <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search order ID or customer...">
+          <select class="filter-select" id="sheetFilter">
+            <option value="all">All Payment Methods</option>
+            <option value="STRAIGHT PAYMENT">Straight Payment</option>
+            <option value="COD">COD</option>
+            <option value="COP">COP</option>
+            <option value="LAY AWAY">LayAway</option>
+            <option value="WALK IN">Walk In</option>
+          </select>
+          <select class="filter-select" id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="PENDING">Pending</option>
+            <option value="PAID">Paid</option>
+            <option value="PROCESSING">Processing</option>
+            <option value="COMPLETED">Completed</option>
+          </select>
+          <button class="action-btn export" onclick="exportToExcel()">📥 Export</button>
+        </div>
       </div>
-      <table class="orders-table">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Amount</th>
-            <th>Payment</th>
-            <th>Status</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody id="ordersTableBody">
-          <tr>
-            <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
-              Loading orders...
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <div id="ordersTableContainer">
+          <div class="loading"><div class="spinner"></div><p>Loading orders...</p></div>
+        </div>
+      </div>
+      <div class="pagination" id="pagination" style="display: none;">
+        <span class="pagination-info" id="paginationInfo">Showing 1-20 of 100</span>
+        <div class="pagination-buttons" id="paginationButtons"></div>
+      </div>
     </div>
   </main>
-
-  <script src="js/tgb-api.js"></script>
+  
+  <div class="toast" id="toast"><span>✅</span><span id="toastMessage">Success!</span></div>
+  
   <script>
-    const ADMIN_PIN = '123456';
-    let salesChart, paymentChart;
+    const API_URL = '/api/tgb';
+    const ADMIN_PIN = '1234'; // ⚠️ CHANGE THIS PIN!
     
-    // Check login status
-    function checkLogin() {
-      const isLoggedIn = sessionStorage.getItem('tgb_admin_logged_in');
-      if (isLoggedIn === 'true') {
-        document.getElementById('loginOverlay').classList.add('hidden');
-        loadDashboardData();
-      }
-    }
+    let currentPage = 1, totalPages = 1, allOrders = [];
+    let paymentChart = null, statusChart = null, currentPeriod = 'week';
     
-    function login(e) {
+    function checkPassword(e) {
       e.preventDefault();
-      const pin = document.getElementById('pinInput').value;
-      
-      if (pin === ADMIN_PIN) {
-        sessionStorage.setItem('tgb_admin_logged_in', 'true');
+      const password = document.getElementById('passwordInput').value;
+      if (password === ADMIN_PIN) {
         document.getElementById('loginOverlay').classList.add('hidden');
-        loadDashboardData();
+        sessionStorage.setItem('tgb_auth', 'true');
+        loadDashboard();
+        loadOrders();
       } else {
         document.getElementById('loginError').classList.add('show');
-        document.getElementById('pinInput').value = '';
+        document.getElementById('passwordInput').value = '';
       }
     }
     
     function logout() {
-      sessionStorage.removeItem('tgb_admin_logged_in');
+      sessionStorage.removeItem('tgb_auth');
       document.getElementById('loginOverlay').classList.remove('hidden');
-      document.getElementById('pinInput').value = '';
+      document.getElementById('passwordInput').value = '';
       document.getElementById('loginError').classList.remove('show');
     }
     
-    async function loadDashboardData() {
-      document.getElementById('loadingOverlay').classList.remove('hidden');
-      
+    if (sessionStorage.getItem('tgb_auth') === 'true') {
+      document.getElementById('loginOverlay').classList.add('hidden');
+      loadDashboard();
+      loadOrders();
+    }
+    
+    function showToast(msg) {
+      document.getElementById('toastMessage').textContent = msg;
+      document.getElementById('toast').classList.add('show');
+      setTimeout(() => document.getElementById('toast').classList.remove('show'), 3000);
+    }
+    
+    async function loadDashboard() {
       try {
-        const data = await TGB_API.getDashboard();
-        
-        if (data.success && data.dashboard) {
-          updateStats(data.dashboard);
-          updateCharts(data.dashboard);
-          updateRecentOrders(data.dashboard.recentOrders || []);
+        const res = await fetch(`${API_URL}?action=dashboard`);
+        const data = await res.json();
+        if (data.success) {
+          updateStats(data.metrics);
+          updatePaymentChart(data.paymentMethods);
+          updateStatusChart(data.metrics);
+          updateRevenueAnalytics(data);
+          document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
         }
-      } catch (error) {
-        console.error('Dashboard error:', error);
-      } finally {
-        document.getElementById('loadingOverlay').classList.add('hidden');
-      }
+      } catch (e) { console.error('Dashboard error:', e); }
     }
     
-    function updateStats(dashboard) {
-      document.getElementById('totalOrders').textContent = dashboard.totalOrders || 0;
-      document.getElementById('totalRevenue').textContent = formatCurrency(dashboard.totalRevenue || 0);
-      document.getElementById('activeLayaway').textContent = dashboard.activeLayaway || 0;
-      document.getElementById('completedOrders').textContent = dashboard.completedOrders || 0;
+    function updateStats(m) {
+      animateValue('totalOrders', m.totalOrders);
+      animateValue('pendingOrders', m.pendingOrders);
+      animateValue('completedOrders', m.completedOrders);
+      document.getElementById('completionRate').textContent = m.completionRate + '%';
     }
     
-    function updateCharts(dashboard) {
-      // Sales Chart
-      const salesCtx = document.getElementById('salesChart').getContext('2d');
-      if (salesChart) salesChart.destroy();
-      
-      salesChart = new Chart(salesCtx, {
-        type: 'line',
+    function animateValue(id, value) {
+      const el = document.getElementById(id);
+      let current = parseInt(el.textContent) || 0;
+      const increment = (value - current) / 60;
+      const timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= value) || (increment < 0 && current <= value)) {
+          el.textContent = value.toLocaleString();
+          clearInterval(timer);
+        } else el.textContent = Math.floor(current).toLocaleString();
+      }, 16);
+    }
+    
+    function updateRevenueAnalytics(data) {
+      const avgOrderValue = 2500;
+      const total = data.metrics.totalOrders;
+      const completed = data.metrics.completedOrders;
+      const pending = data.metrics.pendingOrders;
+      document.getElementById('totalRevenue').textContent = '₱' + (completed * avgOrderValue).toLocaleString();
+      document.getElementById('periodOrders').textContent = total.toLocaleString();
+      document.getElementById('avgOrder').textContent = '₱' + avgOrderValue.toLocaleString();
+      document.getElementById('pendingAmount').textContent = '₱' + (pending * avgOrderValue).toLocaleString();
+    }
+    
+    function setPeriod(period, btn) {
+      currentPeriod = period;
+      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadDashboard();
+    }
+    
+    function updatePaymentChart(pm) {
+      const ctx = document.getElementById('paymentChart').getContext('2d');
+      if (paymentChart) paymentChart.destroy();
+      paymentChart = new Chart(ctx, {
+        type: 'bar',
         data: {
-          labels: dashboard.salesLabels || ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          labels: pm.labels,
           datasets: [{
-            label: 'Sales',
-            data: dashboard.salesData || [12, 19, 15, 25, 22, 30],
-            borderColor: '#047857',
-            backgroundColor: 'rgba(4, 120, 87, 0.1)',
-            fill: true,
-            tension: 0.4,
-            borderWidth: 3
+            label: 'Orders',
+            data: pm.values,
+            backgroundColor: ['rgba(4,106,56,0.8)','rgba(212,175,55,0.8)','rgba(23,162,184,0.8)','rgba(40,167,69,0.8)','rgba(108,117,125,0.8)'],
+            borderColor: ['#046A38','#D4AF37','#17A2B8','#28A745','#6C757D'],
+            borderWidth: 2,
+            borderRadius: 8
           }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: true, grid: { color: '#e5e7eb' } },
-            x: { grid: { display: false } }
-          }
-        }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
       });
-      
-      // Payment Chart
-      const paymentCtx = document.getElementById('paymentChart').getContext('2d');
-      if (paymentChart) paymentChart.destroy();
-      
-      paymentChart = new Chart(paymentCtx, {
+    }
+    
+    function updateStatusChart(m) {
+      const ctx = document.getElementById('statusChart').getContext('2d');
+      if (statusChart) statusChart.destroy();
+      statusChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Straight', 'COD', 'COP', 'LayAway', 'Walk-in'],
-          datasets: [{
-            data: dashboard.paymentData || [30, 25, 20, 15, 10],
-            backgroundColor: ['#047857', '#d4af37', '#3b82f6', '#8b5cf6', '#f59e0b'],
-            borderWidth: 0
-          }]
+          labels: ['Completed', 'Pending'],
+          datasets: [{ data: [m.completedOrders, m.pendingOrders], backgroundColor: ['rgba(40,167,69,0.8)','rgba(255,193,7,0.8)'], borderWidth: 2 }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: { padding: 15, usePointStyle: true }
-            }
-          }
-        }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '65%' }
       });
     }
     
-    function updateRecentOrders(orders) {
-      const tbody = document.getElementById('ordersTableBody');
-      
-      if (!orders || orders.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
-              No recent orders found
-            </td>
-          </tr>
-        `;
-        return;
-      }
-      
-      tbody.innerHTML = orders.slice(0, 10).map(order => `
-        <tr>
-          <td class="order-id">${order.orderId || '--'}</td>
-          <td>${order.receiver || '--'}</td>
-          <td>${formatCurrency(order.totalAmount || 0)}</td>
-          <td>${order.paymentMethod || '--'}</td>
-          <td><span class="status-badge ${getStatusClass(order.status)}">${order.status || 'Pending'}</span></td>
-          <td>${order.date || '--'}</td>
-        </tr>
-      `).join('');
+    async function loadOrders() {
+      const container = document.getElementById('ordersTableContainer');
+      container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading orders...</p></div>';
+      try {
+        let url = `${API_URL}?action=orders&page=${currentPage}&limit=20`;
+        const sheet = document.getElementById('sheetFilter').value;
+        const status = document.getElementById('statusFilter').value;
+        if (sheet !== 'all') url += `&sheet=${encodeURIComponent(sheet)}`;
+        if (status !== 'all') url += `&status=${encodeURIComponent(status)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.success) {
+          allOrders = data.orders;
+          let orders = data.orders;
+          const search = document.getElementById('searchInput').value.toLowerCase();
+          if (search) orders = orders.filter(o => o.orderId.toLowerCase().includes(search) || o.customer.toLowerCase().includes(search));
+          renderOrdersTable(orders);
+          updatePagination(data.pagination);
+        }
+      } catch (e) { container.innerHTML = '<div class="loading"><p>Error loading orders</p></div>'; }
     }
     
-    function getStatusClass(status) {
-      if (!status) return 'pending';
-      const s = status.toLowerCase();
-      if (s.includes('complete') || s.includes('delivered')) return 'completed';
-      if (s.includes('process') || s.includes('ship')) return 'processing';
-      if (s.includes('cancel')) return 'cancelled';
+    function renderOrdersTable(orders) {
+      const container = document.getElementById('ordersTableContainer');
+      if (!orders || orders.length === 0) { container.innerHTML = '<div class="loading"><p>No orders found</p></div>'; return; }
+      let html = '<table class="orders-table"><thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Payment</th><th>Status</th></tr></thead><tbody>';
+      orders.forEach(o => {
+        const sc = getStatusClass(o.status);
+        html += `<tr onclick="window.open('track.html?id=${o.orderId}','_blank')"><td><span class="order-id">${o.orderId}</span></td><td>${o.date}</td><td>${o.customer}</td><td><span class="method-badge">${o.method}</span></td><td><span class="status-badge ${sc}">${o.status}</span></td></tr>`;
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+    
+    function getStatusClass(s) {
+      if (!s) return 'pending';
+      const u = s.toUpperCase();
+      if (u.includes('PAID') || u.includes('COMPLETE')) return 'completed';
+      if (u.includes('PROCESS')) return 'processing';
       return 'pending';
     }
     
-    function formatCurrency(amount) {
-      return '₱' + Number(amount).toLocaleString('en-PH', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    function updatePagination(p) {
+      if (!p) return;
+      totalPages = p.pages;
+      document.getElementById('paginationInfo').textContent = `Showing ${(p.page-1)*p.limit+1}-${Math.min(p.page*p.limit, p.total)} of ${p.total}`;
+      let html = `<button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage<=1?'disabled':''}>← Prev</button>`;
+      for (let i = Math.max(1,currentPage-2); i <= Math.min(totalPages,currentPage+2); i++) html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+      html += `<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage>=totalPages?'disabled':''}>Next →</button>`;
+      document.getElementById('paginationButtons').innerHTML = html;
+      document.getElementById('pagination').style.display = 'flex';
     }
     
-    function refreshData() {
-      loadDashboardData();
+    function goToPage(page) { if (page < 1 || page > totalPages) return; currentPage = page; loadOrders(); }
+    
+    // EXPORT TO EXCEL
+    function exportToExcel() {
+      if (!allOrders || allOrders.length === 0) { showToast('⚠️ No orders to export'); return; }
+      let csv = '\uFEFF' + 'Order ID,Date,Customer,Payment Method,Status\n';
+      allOrders.forEach(o => csv += `"${o.orderId}","${o.date}","${o.customer}","${o.method}","${o.status}"\n`);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `TGB_Orders_${new Date().toISOString().split('T')[0]}.csv`;
+      link.click();
+      showToast(`✅ Exported ${allOrders.length} orders!`);
     }
     
-    // Initialize
-    checkLogin();
+    document.getElementById('searchInput').addEventListener('input', debounce(loadOrders, 500));
+    document.getElementById('sheetFilter').addEventListener('change', () => { currentPage = 1; loadOrders(); });
+    document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; loadOrders(); });
+    
+    function debounce(fn, wait) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); }; }
+    
+    setInterval(() => { if (sessionStorage.getItem('tgb_auth') === 'true') loadDashboard(); }, 300000);
   </script>
 </body>
 </html>
