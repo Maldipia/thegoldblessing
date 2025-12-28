@@ -64,7 +64,7 @@
     <!-- Search Box -->
     <div class="tgb-search-box">
       <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
-      <button onclick="checkLayaway()">Check Status</button>
+      <button onclick="checkLayaway()">CHECK STATUS</button>
     </div>
     
     <!-- Loading -->
@@ -145,77 +145,39 @@
     
   </div>
   
+  <!-- Load TGB API -->
+  <script src="js/tgb-api.js"></script>
+  
   <script>
-    // NEW API URL with JSONP support
-    const API_URL = 'https://script.google.com/macros/s/AKfycby29izb0YFk3xf5U2ZWeJeKqmCQuJdUGV0IaSmPo3VyihIWhSXtk1Yo7Mw5JeWgPWty1A/exec';
-    
-    // JSONP callback counter
-    let callbackCounter = 0;
-    
-    // JSONP request function
-    function jsonpRequest(url) {
-      return new Promise((resolve, reject) => {
-        const callbackName = 'tgbCallback_' + (++callbackCounter) + '_' + Date.now();
-        const script = document.createElement('script');
-        
-        const timeout = setTimeout(() => {
-          cleanup();
-          reject(new Error('Request timeout'));
-        }, 30000);
-        
-        function cleanup() {
-          clearTimeout(timeout);
-          delete window[callbackName];
-          if (script.parentNode) {
-            script.parentNode.removeChild(script);
-          }
-        }
-        
-        window[callbackName] = function(data) {
-          cleanup();
-          resolve(data);
-        };
-        
-        const separator = url.includes('?') ? '&' : '?';
-        script.src = url + separator + 'callback=' + callbackName;
-        script.onerror = function() {
-          cleanup();
-          reject(new Error('Script load error'));
-        };
-        
-        document.head.appendChild(script);
-      });
-    }
-    
-    async function checkLayaway() {
-      const orderId = document.getElementById('orderIdInput').value.trim();
+    function checkLayaway() {
+      var orderId = document.getElementById('orderIdInput').value.trim();
       
       if (!orderId) {
         showError('Please enter your Order ID');
         return;
       }
       
+      // Show loading
       document.getElementById('loading').classList.add('show');
       document.getElementById('result').classList.remove('show');
       document.getElementById('error').classList.remove('show');
       
-      const url = `${API_URL}?action=layaway&orderId=${encodeURIComponent(orderId)}`;
-      
-      try {
-        const response = await jsonpRequest(url);
-        
-        document.getElementById('loading').classList.remove('show');
-        
-        if (response.success) {
-          displayLayaway(response.layaway);
-        } else {
-          showError(response.error || 'LayAway order not found');
-        }
-      } catch (err) {
-        document.getElementById('loading').classList.remove('show');
-        showError('Unable to connect. Please try again later.');
-        console.error('LayAway check error:', err);
-      }
+      // Call API using TGB_API object
+      TGB_API.getLayaway(orderId)
+        .then(function(response) {
+          document.getElementById('loading').classList.remove('show');
+          
+          if (response.success) {
+            displayLayaway(response.layaway);
+          } else {
+            showError(response.error || 'LayAway order not found');
+          }
+        })
+        .catch(function(err) {
+          document.getElementById('loading').classList.remove('show');
+          showError('Unable to connect. Please try again later.');
+          console.error('LayAway check error:', err);
+        });
     }
     
     function displayLayaway(layaway) {
@@ -223,8 +185,8 @@
       document.getElementById('resultBalance').textContent = formatCurrency(layaway.balance);
       
       // Status badge
-      let badgeClass = 'active';
-      let badgeText = layaway.status;
+      var badgeClass = 'active';
+      var badgeText = layaway.status || 'ACTIVE';
       if (layaway.isOverdue) {
         badgeClass = 'overdue';
         badgeText = 'OVERDUE';
@@ -232,28 +194,28 @@
         badgeClass = 'completed';
         badgeText = 'COMPLETED';
       }
-      document.getElementById('statusBadge').innerHTML = `<span class="tgb-badge ${badgeClass}">${badgeText}</span>`;
+      document.getElementById('statusBadge').innerHTML = '<span class="tgb-badge ' + badgeClass + '">' + badgeText + '</span>';
       
       // Progress
-      const percent = layaway.percentPaid || 0;
+      var percent = layaway.percentPaid || 0;
       document.getElementById('percentPaid').textContent = percent + '%';
       document.getElementById('progressFill').style.width = percent + '%';
       
       // Info
-      document.getElementById('resultOrderId').textContent = layaway.orderId;
+      document.getElementById('resultOrderId').textContent = layaway.orderId || '-';
       document.getElementById('resultPlan').textContent = layaway.template === 'LA20' ? 'Option B (20% DP)' : 'Option A (50% DP)';
       document.getElementById('resultDownpayment').textContent = formatCurrency(layaway.downpaymentAmount);
-      document.getElementById('resultServiceFee').textContent = formatCurrency(layaway.serviceFeeAmount || 0) + ` (${layaway.serviceFeePercent || 0}%)`;
-      document.getElementById('resultDueDate').textContent = layaway.dueDate;
+      document.getElementById('resultServiceFee').textContent = formatCurrency(layaway.serviceFeeAmount || 0) + ' (' + (layaway.serviceFeePercent || 0) + '%)';
+      document.getElementById('resultDueDate').textContent = layaway.dueDate || '-';
       
       // Days remaining with color
-      const daysEl = document.getElementById('resultDaysRemaining');
-      if (layaway.daysRemaining === null) {
+      var daysEl = document.getElementById('resultDaysRemaining');
+      if (layaway.daysRemaining === null || layaway.daysRemaining === undefined) {
         daysEl.textContent = 'N/A';
       } else if (layaway.daysRemaining < 0) {
-        daysEl.innerHTML = `<span style="color: var(--error)">${Math.abs(layaway.daysRemaining)} days OVERDUE</span>`;
+        daysEl.innerHTML = '<span style="color: var(--error)">' + Math.abs(layaway.daysRemaining) + ' days OVERDUE</span>';
       } else if (layaway.daysRemaining <= 7) {
-        daysEl.innerHTML = `<span style="color: var(--warning)">${layaway.daysRemaining} days</span>`;
+        daysEl.innerHTML = '<span style="color: var(--warning)">' + layaway.daysRemaining + ' days</span>';
       } else {
         daysEl.textContent = layaway.daysRemaining + ' days';
       }
@@ -261,13 +223,14 @@
       document.getElementById('resultTotalDue').textContent = formatCurrency(layaway.totalWithService || layaway.balance);
       
       // Show payment reminder if not completed and days remaining <= 14
-      const reminder = document.getElementById('paymentReminder');
+      var reminder = document.getElementById('paymentReminder');
       if (layaway.daysRemaining !== null && layaway.daysRemaining <= 14 && layaway.status !== 'COMPLETED') {
         reminder.style.display = 'block';
       } else {
         reminder.style.display = 'none';
       }
       
+      // Show result
       document.getElementById('result').classList.add('show');
     }
     
@@ -280,13 +243,14 @@
       document.getElementById('error').classList.add('show');
     }
     
+    // Enter key support
     document.getElementById('orderIdInput').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') checkLayaway();
     });
     
     // Mobile menu toggle
     function toggleMobileMenu() {
-      const links = document.querySelector('.tgb-nav-links');
+      var links = document.querySelector('.tgb-nav-links');
       if (links.style.display === 'flex') {
         links.style.display = 'none';
       } else {

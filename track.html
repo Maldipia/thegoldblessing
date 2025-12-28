@@ -64,7 +64,7 @@
     <!-- Search Box -->
     <div class="tgb-search-box">
       <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., TGB-1234567890)" autocomplete="off">
-      <button onclick="trackOrder()">Track Order</button>
+      <button onclick="trackOrder()">TRACK ORDER</button>
     </div>
     
     <!-- Loading -->
@@ -79,27 +79,27 @@
     <!-- Result -->
     <div class="tgb-result" id="result">
       
-      <!-- Status Stepper -->
-      <div class="tgb-stepper" id="stepper">
-        <div class="tgb-step" data-step="0">
-          <div class="circle">1</div>
-          <span>Order Placed</span>
+      <!-- Status Timeline -->
+      <div class="tgb-timeline">
+        <div class="tgb-timeline-step" id="step0">
+          <div class="step-icon">1</div>
+          <div class="step-label">Pending Payment</div>
         </div>
-        <div class="tgb-step" data-step="1">
-          <div class="circle">2</div>
-          <span>Payment Verified</span>
+        <div class="tgb-timeline-step" id="step1">
+          <div class="step-icon">2</div>
+          <div class="step-label">Processing</div>
         </div>
-        <div class="tgb-step" data-step="2">
-          <div class="circle">3</div>
-          <span>Shipped</span>
+        <div class="tgb-timeline-step" id="step2">
+          <div class="step-icon">3</div>
+          <div class="step-label">Shipped</div>
         </div>
-        <div class="tgb-step" data-step="3">
-          <div class="circle">4</div>
-          <span>Delivered</span>
+        <div class="tgb-timeline-step" id="step3">
+          <div class="step-icon">4</div>
+          <div class="step-label">Delivered</div>
         </div>
       </div>
       
-      <!-- Order Info -->
+      <!-- Order Info Grid -->
       <div class="tgb-info-grid">
         <div class="tgb-info-item">
           <label>Order ID</label>
@@ -114,27 +114,46 @@
           <value id="resultReceiver">-</value>
         </div>
         <div class="tgb-info-item">
-          <label>Status</label>
-          <value id="resultStatus">-</value>
+          <label>Contact</label>
+          <value id="resultContact">-</value>
         </div>
-        <div class="tgb-info-item full">
-          <label>Delivery Address</label>
-          <value id="resultAddress">-</value>
+        <div class="tgb-info-item">
+          <label>City</label>
+          <value id="resultCity">-</value>
         </div>
-        <div class="tgb-info-item" id="trackingSection" style="display:none;">
-          <label>Tracking Number</label>
-          <value id="resultTracking">-</value>
+        <div class="tgb-info-item">
+          <label>Region</label>
+          <value id="resultRegion">-</value>
         </div>
-        <div class="tgb-info-item" id="paymentMethodSection">
+        <div class="tgb-info-item">
           <label>Payment Method</label>
           <value id="resultPaymentMethod">-</value>
         </div>
+        <div class="tgb-info-item">
+          <label>Payment Status</label>
+          <value id="resultPaymentStatus">-</value>
+        </div>
       </div>
       
-      <!-- Action Buttons -->
-      <div style="text-align: center; margin-top: 25px;">
-        <a href="#" id="trackingBtn" class="tgb-btn" target="_blank" style="display:none;">Track with LBC</a>
-        <a href="#" id="invoiceBtn" class="tgb-btn tgb-btn-secondary" target="_blank" style="display:none;">View Invoice</a>
+      <!-- Tracking Section -->
+      <div id="trackingSection" style="display: none; margin-top: 25px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.3);">
+        <h3 style="color: var(--tgb-gold); margin-bottom: 15px; font-family: 'Playfair Display', serif;">Shipping Information</h3>
+        <div class="tgb-info-grid">
+          <div class="tgb-info-item">
+            <label>Tracking Number</label>
+            <value id="resultTrackingNumber">-</value>
+          </div>
+          <div class="tgb-info-item">
+            <label>Courier</label>
+            <value>LBC Express</value>
+          </div>
+        </div>
+        <a id="trackingLink" href="#" target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 25px; background: var(--tgb-gold); color: var(--tgb-deep-green); text-decoration: none; border-radius: 5px; font-weight: 600;">Track with LBC</a>
+      </div>
+      
+      <!-- Invoice Section -->
+      <div id="invoiceSection" style="display: none; margin-top: 20px; text-align: center;">
+        <a id="invoiceLink" href="#" target="_blank" style="color: var(--tgb-gold); text-decoration: underline;">View Invoice</a>
       </div>
       
     </div>
@@ -146,50 +165,12 @@
     
   </div>
   
+  <!-- Load TGB API -->
+  <script src="js/tgb-api.js"></script>
+  
   <script>
-    // NEW API URL with JSONP support
-    const API_URL = 'https://script.google.com/macros/s/AKfycby29izb0YFk3xf5U2ZWeJeKqmCQuJdUGV0IaSmPo3VyihIWhSXtk1Yo7Mw5JeWgPWty1A/exec';
-    
-    // JSONP callback counter
-    let callbackCounter = 0;
-    
-    // JSONP request function
-    function jsonpRequest(url) {
-      return new Promise((resolve, reject) => {
-        const callbackName = 'tgbCallback_' + (++callbackCounter) + '_' + Date.now();
-        const script = document.createElement('script');
-        
-        const timeout = setTimeout(() => {
-          cleanup();
-          reject(new Error('Request timeout'));
-        }, 30000);
-        
-        function cleanup() {
-          clearTimeout(timeout);
-          delete window[callbackName];
-          if (script.parentNode) {
-            script.parentNode.removeChild(script);
-          }
-        }
-        
-        window[callbackName] = function(data) {
-          cleanup();
-          resolve(data);
-        };
-        
-        const separator = url.includes('?') ? '&' : '?';
-        script.src = url + separator + 'callback=' + callbackName;
-        script.onerror = function() {
-          cleanup();
-          reject(new Error('Script load error'));
-        };
-        
-        document.head.appendChild(script);
-      });
-    }
-    
-    async function trackOrder() {
-      const orderId = document.getElementById('orderIdInput').value.trim();
+    function trackOrder() {
+      var orderId = document.getElementById('orderIdInput').value.trim();
       
       if (!orderId) {
         showError('Please enter your Order ID');
@@ -201,67 +182,64 @@
       document.getElementById('result').classList.remove('show');
       document.getElementById('error').classList.remove('show');
       
-      const url = `${API_URL}?action=track&orderId=${encodeURIComponent(orderId)}`;
-      
-      try {
-        // Use JSONP to bypass CORS
-        const response = await jsonpRequest(url);
-        document.getElementById('loading').classList.remove('show');
-        
-        if (response.success) {
-          displayOrder(response.order);
-        } else {
-          showError(response.error || 'Order not found');
-        }
-      } catch (err) {
-        document.getElementById('loading').classList.remove('show');
-        showError('Unable to connect. Please try again later.');
-        console.error('Track order error:', err);
-      }
+      // Call API using TGB_API object
+      TGB_API.trackOrder(orderId)
+        .then(function(response) {
+          document.getElementById('loading').classList.remove('show');
+          
+          if (response.success) {
+            displayOrder(response.order);
+          } else {
+            showError(response.error || 'Order not found');
+          }
+        })
+        .catch(function(err) {
+          document.getElementById('loading').classList.remove('show');
+          showError('Unable to connect. Please try again later.');
+          console.error('Track error:', err);
+        });
     }
     
     function displayOrder(order) {
-      // Update stepper
-      const steps = document.querySelectorAll('.tgb-step');
-      steps.forEach((step, index) => {
-        step.classList.remove('active', 'completed');
-        if (index < order.statusStep) {
-          step.classList.add('completed');
-        } else if (index === order.statusStep) {
-          step.classList.add('active');
+      // Update timeline
+      var step = order.statusStep || 0;
+      for (var i = 0; i <= 3; i++) {
+        var stepEl = document.getElementById('step' + i);
+        stepEl.classList.remove('active', 'completed');
+        if (i < step) {
+          stepEl.classList.add('completed');
+        } else if (i === step) {
+          stepEl.classList.add('active');
         }
-      });
-      
-      // Update info
-      document.getElementById('resultOrderId').textContent = order.orderId;
-      document.getElementById('resultDate').textContent = order.date;
-      document.getElementById('resultReceiver').textContent = order.receiver;
-      document.getElementById('resultPaymentMethod').textContent = order.paymentMethod;
-      
-      // Status badge
-      const statusClass = order.status.toLowerCase().replace(/\s+/g, '-');
-      document.getElementById('resultStatus').innerHTML = `<span class="tgb-badge ${statusClass}">${order.status}</span>`;
-      
-      // Address
-      document.getElementById('resultAddress').textContent = `${order.address}, ${order.city}, ${order.region}`;
-      
-      // Tracking
-      if (order.trackingNumber) {
-        document.getElementById('trackingSection').style.display = 'block';
-        document.getElementById('resultTracking').textContent = order.trackingNumber;
-        document.getElementById('trackingBtn').style.display = 'inline-block';
-        document.getElementById('trackingBtn').href = order.trackingUrl;
-      } else {
-        document.getElementById('trackingSection').style.display = 'none';
-        document.getElementById('trackingBtn').style.display = 'none';
       }
       
-      // Invoice
-      if (order.invoiceLink) {
-        document.getElementById('invoiceBtn').style.display = 'inline-block';
-        document.getElementById('invoiceBtn').href = order.invoiceLink;
+      // Update info
+      document.getElementById('resultOrderId').textContent = order.orderId || '-';
+      document.getElementById('resultDate').textContent = order.date || '-';
+      document.getElementById('resultReceiver').textContent = order.receiver || '-';
+      document.getElementById('resultContact').textContent = order.contactNumber || '-';
+      document.getElementById('resultCity').textContent = order.city || '-';
+      document.getElementById('resultRegion').textContent = order.region || '-';
+      document.getElementById('resultPaymentMethod').textContent = order.paymentMethod || '-';
+      document.getElementById('resultPaymentStatus').textContent = order.paymentStatus || '-';
+      
+      // Tracking section
+      var trackingSection = document.getElementById('trackingSection');
+      if (order.trackingNumber) {
+        document.getElementById('resultTrackingNumber').textContent = order.trackingNumber;
+        document.getElementById('trackingLink').href = order.trackingUrl || 'https://www.lbc.com.ph/tracking?tracking_no=' + order.trackingNumber;
+        trackingSection.style.display = 'block';
       } else {
-        document.getElementById('invoiceBtn').style.display = 'none';
+        trackingSection.style.display = 'none';
+      }
+      
+      // Invoice section
+      var invoiceSection = document.getElementById('invoiceSection');
+      if (order.invoiceLink) {
+        document.getElementById('invoiceLink').href = order.invoiceLink;
+        invoiceSection.style.display = 'block';
+      } else {
+        invoiceSection.style.display = 'none';
       }
       
       // Show result
@@ -280,7 +258,7 @@
     
     // Mobile menu toggle
     function toggleMobileMenu() {
-      const links = document.querySelector('.tgb-nav-links');
+      var links = document.querySelector('.tgb-nav-links');
       if (links.style.display === 'flex') {
         links.style.display = 'none';
       } else {
