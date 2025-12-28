@@ -1,630 +1,1491 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Gold Blessing - Order Management System</title>
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --emerald: #047857;
-      --emerald-light: #10b981;
-      --emerald-dark: #065f46;
-      --emerald-glow: rgba(16, 185, 129, 0.3);
-      --gold: #d4af37;
-      --gold-light: #f4e4bc;
-      --gold-dark: #b8960c;
-      --white: #ffffff;
-      --off-white: #f8faf9;
-      --gray: #6b7280;
-      --gray-light: #e5e7eb;
-      --dark: #1f2937;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://thegoldblessing.com/">
     
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
-      min-height: 100vh;
-      color: var(--white);
-      overflow-x: hidden;
-    }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="TGB_LOGO.png">
     
-    /* Header */
-    .header {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      padding: 12px 50px;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-      border-bottom: 3px solid var(--gold);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
+    <!-- Primary Meta Tags -->
+    <title>The Gold Blessing - Authentic Gold Jewelry | 18K 21K Hong Kong Settings | Amadeo Cavite Since 2016</title>
+    <meta name="title" content="The Gold Blessing - Authentic Gold Jewelry Store | Hong Kong Settings | Amadeo Cavite">
+    <meta name="description" content="Trusted since 2016. 18K gold AND direct factory price of Hong Kong settings, layaway available, COD nationwide. 100% authentic gold guaranteed. Daily live selling 8PM.">
+    <meta name="keywords" content="gold jewelry cavite, ginto amadeo, authentic gold philippines, hong kong settings, layaway jewelry, per gram pricing, the gold blessing, TGB jewelry">
     
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-    
-    .logo:hover { transform: scale(1.02); }
-    
-    .logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--gold);
-      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
-    }
-    
-    .logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .nav-links a {
-      color: var(--gray);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 10px 18px;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-    }
-    
-    .nav-links a:hover {
-      color: var(--emerald);
-      background: rgba(4, 120, 87, 0.1);
-    }
-    
-    .admin-btn {
-      padding: 12px 24px;
-      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
-      color: var(--white);
-      border: none;
-      border-radius: 25px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px var(--emerald-glow);
-    }
-    
-    .admin-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px var(--emerald-glow);
-    }
-    
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 20px 80px;
-      position: relative;
-    }
-    
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    
-    .hero-content {
-      max-width: 800px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .hero-logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--gold);
-      box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
-      margin-bottom: 30px;
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .hero-badge {
-      display: inline-block;
-      padding: 10px 25px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 2px solid var(--gold);
-      border-radius: 30px;
-      color: var(--gold-light);
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 25px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 60px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      color: var(--white);
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .hero h1 span {
-      color: var(--gold);
-    }
-    
-    .hero p {
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
-    
-    .hero-buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .btn-primary {
-      padding: 18px 45px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: var(--dark);
-      border: none;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
-    }
-    
-    .btn-secondary {
-      padding: 18px 45px;
-      background: var(--white);
-      color: var(--emerald);
-      border: 3px solid var(--white);
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .btn-secondary:hover {
-      background: transparent;
-      color: var(--white);
-      border-color: var(--white);
-    }
-    
-    /* Features Section */
-    .features {
-      padding: 100px 20px;
-      background: var(--white);
-    }
-    
-    .features-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    
-    .section-title h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 15px;
-    }
-    
-    .section-title h2 span {
-      color: var(--emerald);
-    }
-    
-    .section-title p {
-      color: var(--gray);
-      font-size: 18px;
-    }
-    
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-    
-    .feature-card {
-      background: var(--white);
-      border-radius: 24px;
-      padding: 45px 35px;
-      border: 3px solid var(--gray-light);
-      text-align: center;
-      transition: all 0.4s ease;
-      text-decoration: none;
-      display: block;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, var(--emerald), var(--gold));
-      transform: scaleX(0);
-      transition: transform 0.4s ease;
-    }
-    
-    .feature-card:hover::before {
-      transform: scaleX(1);
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--emerald);
-      box-shadow: 0 25px 60px rgba(4, 120, 87, 0.15);
-    }
-    
-    .feature-icon {
-      width: 90px;
-      height: 90px;
-      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      margin: 0 auto 25px;
-      transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover .feature-icon {
-      transform: scale(1.1);
-      background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
-    }
-    
-    .feature-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 15px;
-    }
-    
-    .feature-card p {
-      color: var(--gray);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-    
-    /* Quick Track Section */
-    .quick-track {
-      padding: 100px 20px;
-      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 100%);
-      position: relative;
-    }
-    
-    .quick-track::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    
-    .quick-track-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .quick-track h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 15px;
-    }
-    
-    .quick-track h2 span {
-      color: var(--gold);
-    }
-    
-    .quick-track p {
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 35px;
-      font-size: 18px;
-    }
-    
-    .track-form {
-      display: flex;
-      gap: 15px;
-      max-width: 550px;
-      margin: 0 auto;
-      background: var(--white);
-      padding: 10px;
-      border-radius: 20px;
-      border: 3px solid var(--gold);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    }
-    
-    .track-input {
-      flex: 1;
-      padding: 18px 24px;
-      background: var(--off-white);
-      border: 2px solid var(--gray-light);
-      border-radius: 14px;
-      color: var(--dark);
-      font-size: 16px;
-      font-family: 'Poppins', sans-serif;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-    
-    .track-input:focus {
-      border-color: var(--emerald);
-      box-shadow: 0 0 0 4px var(--emerald-glow);
-    }
-    
-    .track-input::placeholder {
-      color: var(--gray);
-    }
-    
-    .track-btn {
-      padding: 18px 40px;
-      background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-light) 100%);
-      color: var(--white);
-      border: none;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px var(--emerald-glow);
-    }
-    
-    .track-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px var(--emerald-glow);
-    }
-    
-    /* Footer */
-    .footer {
-      padding: 50px 20px;
-      text-align: center;
-      background: var(--white);
-      border-top: 3px solid var(--gold);
-    }
-    
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    
-    .footer-logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--gold);
-    }
-    
-    .footer-logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--gold-dark);
-    }
-    
-    .footer p {
-      color: var(--gray);
-      font-size: 14px;
-    }
-    
-    .footer a {
-      color: var(--emerald);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    
-    /* Responsive */
-    @media (max-width: 900px) {
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .hero h1 {
-        font-size: 40px;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .header {
-        padding: 12px 20px;
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thegoldblessing.com/">
+    <meta property="og:title" content="The Gold Blessing - Authentic Gold Jewelry Philippines">
+    <meta property="og:description" content="18K gold AND direct factory price of Hong Kong settings, layaway available, COD nationwide.">
+    <meta property="og:image" content="https://thegoldblessing.com/TGB_LOGO.png">
+
+    <!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-478KRML772"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-478KRML772');
+</script>
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "JewelryStore",
+      "name": "The Gold Blessing",
+      "image": "https://thegoldblessing.com/TGB_LOGO.png",
+      "@id": "https://thegoldblessing.com",
+      "url": "https://thegoldblessing.com",
+      "telephone": "+639674000040",
+      "priceRange": "₱₱₱",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Daang Luma, Brgy. Loma",
+        "addressLocality": "Amadeo",
+        "addressRegion": "Cavite",
+        "addressCountry": "PH"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "09:00",
+        "closes": "19:00"
+      },{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "10:00",
+        "closes": "17:00"
+      }],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "150"
       }
     }
+    </script>
     
-    @media (max-width: 600px) {
-      .track-form {
-        flex-direction: column;
-        padding: 15px;
-      }
-      
-      .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .btn-primary, .btn-secondary {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Luxury Color Palette */
+        :root {
+            --luxury-teal: #1a4a4a;
+            --dark-teal: #0f3333;
+            --deep-teal: #0a2626;
+            --gold: #d4af37;
+            --gold-light: #f4e4b1;
+            --gold-bright: #ffd700;
+            --gold-dark: #b8941f;
+            --white: #ffffff;
+            --cream: #faf8f3;
+            --black: #000000;
+            --gray: #888888;
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--white);
+            background: var(--deep-teal);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Gold Dust Rain Effect */
+        .gold-dust-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .gold-particle {
+            position: absolute;
+            background: radial-gradient(circle, #ffd700 0%, #d4af37 50%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-teal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 2s forwards;
+            animation-delay: 1s;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .loader-diamond {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            transform: rotate(45deg);
+            animation: pulse-diamond 1.5s infinite;
+        }
+        
+        @keyframes pulse-diamond {
+            0%, 100% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(1.2); }
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-teal) 100%);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            background: rgba(10, 38, 38, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover img {
+            transform: rotate(360deg);
+        }
+        
+        .logo-text {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: var(--gold-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu span {
+            width: 25px;
+            height: 2px;
+            background: var(--gold);
+            transition: 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark-teal) 0%, var(--luxury-teal) 50%, var(--deep-teal) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .hero .tagline {
+            font-size: 20px;
+            color: var(--gold-light);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .trust-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            padding: 12px 25px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Hero CTAs */
+        .hero-cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .hero-cta {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-cta-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--deep-teal);
+        }
+
+        .hero-cta-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Why Choose Section */
+        .why-choose-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-teal) 100%);
+        }
+
+        .why-choose-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-choose-item {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid var(--gold);
+            padding: 25px 30px;
+            margin-bottom: 25px;
+        }
+
+        .why-choose-item h3 {
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .why-choose-item p {
+            color: var(--gold-light);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .why-choose-item ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .why-choose-item ul li {
+            color: var(--gold-light);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .why-choose-item ul li::before {
+            content: '*';
+            position: absolute;
+            left: 10px;
+            color: var(--gold);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
+        }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 48px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .luxury-divider {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 30px auto;
+        }
+        
+        /* Products Grid */
+        .products-section {
+            padding: 100px 0;
+            background: var(--deep-teal);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, var(--dark-teal) 0%, var(--luxury-teal) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            overflow: hidden;
+            transition: all 0.5s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+        
+        .product-image {
+            height: 300px;
+            background: linear-gradient(135deg, var(--luxury-teal) 0%, var(--dark-teal) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+        
+        .product-info {
+            padding: 30px;
+            background: rgba(10, 38, 38, 0.5);
+        }
+        
+        .product-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--deep-teal);
+            padding: 5px 15px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 30px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-category {
+            margin-bottom: 40px;
+        }
+        
+        .faq-category h3 {
+            color: var(--gold);
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(212, 175, 55, 0.05);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 20px 25px;
+            background: transparent;
+            border: none;
+            color: var(--gold-light);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .faq-arrow {
+            transition: transform 0.3s;
+            color: var(--gold);
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 0 25px 20px 25px;
+            color: var(--gold-light);
+            line-height: 1.8;
+        }
+
+        /* Policies Section */
+        .policies-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);
+        }
+
+        .policy-card {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid var(--gold);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .cod-notice {
+            background: var(--gold);
+            color: var(--deep-teal);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .layaway-calculator-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--deep-teal);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background: var(--deep-teal);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Social Grid */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 60px auto;
+        }
+        
+        .social-card {
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-teal);
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+        
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--deep-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            animation: pulse-fab 2s infinite;
+            z-index: 999;
+        }
+        
+        @keyframes pulse-fab {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--deep-teal);
+                flex-direction: column;
+                padding: 20px;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-cta {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .products-grid,
+            .testimonials-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="header-inner">
-      <a href="index.html" class="logo">
-        <img src="logo.png" alt="The Gold Blessing" class="logo-img">
-        <span class="logo-text">The Gold Blessing</span>
-      </a>
-      <nav class="nav-links">
-        <a href="track.html">Track Order</a>
-        <a href="layaway.html">LayAway</a>
-        <a href="invoice.html">Invoice</a>
-      </nav>
-      <a href="dashboard.html" class="admin-btn">📊 Dashboard</a>
+    <!-- Gold Dust Rain Effect -->
+    <div class="gold-dust-container" id="goldDust"></div>
+    
+    <!-- Loading Animation -->
+    <div class="loader">
+        <div class="loader-diamond"></div>
     </div>
-  </header>
-  
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <img src="logo.png" alt="The Gold Blessing" class="hero-logo">
-      <span class="hero-badge">✨ Order Management System</span>
-      <h1>The <span>Gold</span> Blessing</h1>
-      <p>Track your orders, check LayAway balances, and manage your purchases all in one place. Fast, secure, and always available.</p>
-      <div class="hero-buttons">
-        <a href="track.html" class="btn-primary">
-          🔍 Track My Order
-        </a>
-        <a href="dashboard.html" class="btn-secondary">
-          📊 View Dashboard
-        </a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Features Section -->
-  <section class="features">
-    <div class="features-inner">
-      <div class="section-title">
-        <h2>What You Can <span>Do</span></h2>
-        <p>Everything you need to manage your orders</p>
-      </div>
-      <div class="features-grid">
-        <a href="track.html" class="feature-card">
-          <div class="feature-icon">📦</div>
-          <h3>Track Orders</h3>
-          <p>Real-time tracking of your order status from processing to delivery.</p>
-        </a>
-        <a href="layaway.html" class="feature-card">
-          <div class="feature-icon">💳</div>
-          <h3>LayAway Status</h3>
-          <p>Check your payment progress, remaining balance, and due dates.</p>
-        </a>
-        <a href="invoice.html" class="feature-card">
-          <div class="feature-icon">🧾</div>
-          <h3>Get Invoice</h3>
-          <p>Download or view your order invoice anytime you need it.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Quick Track Section -->
-  <section class="quick-track">
-    <div class="quick-track-inner">
-      <h2>Quick <span>Track</span></h2>
-      <p>Enter your Order ID below to instantly check your order status</p>
-      <form class="track-form" onsubmit="quickTrack(event)">
-        <input type="text" class="track-input" id="quickOrderId" placeholder="Enter Order ID (e.g., TGB-6888662240)" required>
-        <button type="submit" class="track-btn">🔍 Track</button>
-      </form>
-    </div>
-  </section>
-  
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-logo">
-      <img src="logo.png" alt="The Gold Blessing" class="footer-logo-img">
-      <span class="footer-logo-text">The Gold Blessing</span>
-    </div>
-    <p>© 2025 <a href="#">The Gold Blessing</a>. All rights reserved.</p>
-  </footer>
-  
-  <script>
-    function quickTrack(e) {
-      e.preventDefault();
-      const orderId = document.getElementById('quickOrderId').value.trim();
-      if (orderId) {
-        window.location.href = 'track.html?id=' + encodeURIComponent(orderId);
-      }
-    }
-  </script>
+    
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#home" class="logo">
+                    <img src="TGB_LOGO.png" alt="The Gold Blessing">
+                    <span class="logo-text">THE GOLD BLESSING</span>
+                </a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#why-choose">Why TGB</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#policies">Policies</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="track.html" style="color: var(--gold);">Track Order</a></li>
+                    <li><a href="layaway.html" style="color: var(--gold);">LayAway</a></li>
+                </ul>
+                <div class="mobile-menu" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>THE GOLD BLESSING</h1>
+                <p class="tagline">AUTHENTIC GOLD JEWELRY • SINCE 2016</p>
+                
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <span>✓</span>
+                        <span>100% Authentic Gold</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span>🛡️</span>
+                        <span>LAY-AWAY w/ refund</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span>💎</span>
+                        <span>Since 2016</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta-group">
+                    <a href="https://m.me/thegoldblessingofficial" class="hero-cta hero-cta-primary" target="_blank">
+                        <span>💬</span>
+                        <span>Message Us</span>
+                    </a>
+                    <a href="https://invite.viber.com/?g2=AQBScctTY4Ml8FUx0R%2FtF0GZjmwk%2BHDh1MHCEPtJ6eySeFG%2BEw2LZxnPrIs2Fg8t" class="hero-cta hero-cta-secondary" target="_blank">
+                        <span>📱</span>
+                        <span>Join our Viber Channel</span>
+                    </a>
+                    <a href="https://maldipia.github.io/TGBLayAway/" class="layaway-calculator-btn" target="_blank">
+                        <span>🧮</span>
+                        <span>Try Our Layaway Calculator</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose The Gold Blessing Section -->
+    <section id="why-choose" class="why-choose-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>💎 Why Choose The Gold Blessing?</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="why-choose-content scroll-reveal">
+                <div class="why-choose-item">
+                    <h3>Authenticity Guaranteed</h3>
+                    <p>Every piece is 100% genuine gold and tested before release. No compromises, no fakes.</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Transparent Pricing</h3>
+                    <p>Priced per gram based on the daily gold market rate + minimal craftsmanship. You pay only for true gold content.</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Flexible Layaway</h3>
+                    <p>Reserve with a small deposit and pay at your pace (just avoid 3 months with no payments). Use our <strong>Layaway Calculator</strong> for real-time balances and computations.</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Automated Convenience</h3>
+                    <p>Fast, worry-free transactions powered by our systems:</p>
+                    <ul>
+                        <li>Instant <strong>live invoices</strong> via email</li>
+                        <li><strong>Automated payment</strong> verification</li>
+                        <li><strong>Tracking emails</strong> with ETA</li>
+                        <li>Online tools for <strong>layaway balance</strong> checks</li>
+                    </ul>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Open, Honest Reviews</h3>
+                    <p>We keep our reviews public for full transparency—because we believe in our service.</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Nationwide, Insured Shipping</h3>
+                    <p>LBC shipping with tracking (insurance available).</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Cash on Delivery (COD)</h3>
+                    <p>We collect the <strong>shipping fee first</strong>; the <strong>balance is paid upon delivery</strong>.</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Promos & Perks</h3>
+                    <p>Straight-payment buyers are automatically entered into our monthly raffle (staycations, shawls, and more).</p>
+                </div>
+                
+                <div class="why-choose-item">
+                    <h3>Customer-Centered Service</h3>
+                    <p>Based in <strong>Amadeo, Cavite</strong>—reach us via <strong>Messenger</strong>, <strong>Viber</strong>, or a quick call. Friendly team, fast responses, modern automation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>OUR STORY</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div style="max-width: 900px; margin: 0 auto; text-align: center;" class="scroll-reveal">
+                <p style="color: var(--gold-light); font-size: 20px; line-height: 1.8; margin-bottom: 40px;">
+                    Since 2016, The Gold Blessing has been Amadeo Cavite's trusted source for authentic gold jewelry with transparent per-gram pricing, making luxury accessible to every Filipino family.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Collections -->
+    <section id="collections" class="products-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>PREMIUM COLLECTIONS</h2>
+                <div class="luxury-divider"></div>
+                <p style="color: var(--gold-light); font-size: 18px;">Hong Kong Settings • Direct Factory Prices</p>
+            </div>
+
+            
+            <div class="products-grid">
+                <div class="product-card scroll-reveal">
+                    <div class="product-image" style="padding: 0; overflow: hidden;">
+                        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="EngRing.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge">18K Gold</span>
+                        <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 10px;">Rings</h3>
+                        <p style="color: var(--gold-light); font-size: 18px;">/gram</p>
+                    </div>
+                </div>
+                
+                <div class="product-card scroll-reveal">
+                    <div class="product-image" style="padding: 0; overflow: hidden;">
+                        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="HKset.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge">HK Setting</span>
+                        <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 10px;">Diamond+HKsettings</h3>
+                        <p style="color: var(--gold-light); font-size: 18px;">Premium Quality</p>
+                    </div>
+                </div>
+                
+                <div class="product-card scroll-reveal">
+                    <div class="product-image" style="padding: 0; overflow: hidden;">
+                        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="TGBearrings.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge">18K Gold</span>
+                        <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 10px;">Earrings</h3>
+                        <p style="color: var(--gold-light); font-size: 18px;">Elegant Designs</p>
+                    </div>
+                </div>
+                
+                <div class="product-card scroll-reveal">
+                    <div class="product-image" style="padding: 0; overflow: hidden;">
+                        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="18kbracelets.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge">18K Gold</span>
+                        <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 10px;">Bracelets</h3>
+                        <p style="color: var(--gold-light); font-size: 18px;">Luxury Collection</p>
+                    </div>
+                </div>
+                
+                <div class="product-card scroll-reveal">
+                    <div class="product-image" style="padding: 0; overflow: hidden;">
+                        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="pendant.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge">BEAUTIFUL PIECES</span>
+                        <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 10px;">CHAINS&PENDANTS</h3>
+                        <p style="color: var(--gold-light); font-size: 18px;">Unique Pieces</p>
+                    </div>
+                </div>
+                
+                <div class="product-card scroll-reveal">
+                    <div class="product-image" style="padding: 0; overflow: hidden;">
+                        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="wdbd.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge">18K Gold</span>
+                        <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 10px;">Gold accesories</h3>
+                        <p style="color: var(--gold-light); font-size: 18px;">fav</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>FEATURED CUSTOMER REVIEWS</h2>
+                <div class="luxury-divider"></div>
+                <p style="color: var(--gold-light); font-size: 18px;">Authentic Reviews from Verified Customers</p>
+                <div style="margin-top: 20px;">
+                    <a href="https://www.facebook.com/thegoldblessingofficial/reviews" target="_blank" style="color: var(--gold); text-decoration: none;">
+                        View All Reviews on Facebook →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card scroll-reveal">
+                    <div style="color: var(--gold); margin-bottom: 15px; font-size: 18px;">⭐⭐⭐⭐⭐</div>
+                    <p style="color: var(--gold-light); font-style: italic; margin-bottom: 20px; line-height: 1.8;">
+                        "Arrived today. Sooo beautiful. Till next time."
+                    </p>
+                    <div style="color: var(--gold); font-weight: 600; font-size: 16px;">Mary Jane Barte</div>
+                    <div style="color: var(--gold-light); font-size: 12px; margin-top: 5px;">Facebook Review • November 21, 2024</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--gold);">✓ Verified Purchase</div>
+                </div>
+                
+                <div class="testimonial-card scroll-reveal">
+                    <div style="color: var(--gold); margin-bottom: 15px; font-size: 18px;">⭐⭐⭐⭐⭐</div>
+                    <p style="color: var(--gold-light); font-style: italic; margin-bottom: 20px; line-height: 1.8;">
+                        "Highly recommended. Authentic, trustworthy, and very accommodating! SoleBlessing and GoldBlessing are 100% legit."
+                    </p>
+                    <div style="color: var(--gold); font-weight: 600; font-size: 16px;">Hazel Tabares-Marcelino</div>
+                    <div style="color: var(--gold-light); font-size: 12px; margin-top: 5px;">Facebook Review • November 17, 2024</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--gold);">✓ Verified Purchase</div>
+                </div>
+                
+                <div class="testimonial-card scroll-reveal">
+                    <div style="color: var(--gold); margin-bottom: 15px; font-size: 18px;">⭐⭐⭐⭐⭐</div>
+                    <p style="color: var(--gold-light); font-style: italic; margin-bottom: 20px; line-height: 1.8;">
+                        "Legit, highly recommended. Love all the designs and cheapest so far. Gold is gold! Thank you so much TGB!"
+                    </p>
+                    <div style="color: var(--gold); font-weight: 600; font-size: 16px;">Michelle Nofre Delos Reyes</div>
+                    <div style="color: var(--gold-light); font-size: 12px; margin-top: 5px;">Facebook Review • November 16, 2024</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--gold);">✓ Verified Purchase</div>
+                </div>
+                
+                <div class="testimonial-card scroll-reveal">
+                    <div style="color: var(--gold); margin-bottom: 15px; font-size: 18px;">⭐⭐⭐⭐⭐</div>
+                    <p style="color: var(--gold-light); font-style: italic; margin-bottom: 20px; line-height: 1.8;">
+                        "From Gold Blessing to JFY to The Gold Blessing… they have the most unique designs, quality superb, 100% legit."
+                    </p>
+                    <div style="color: var(--gold); font-weight: 600; font-size: 16px;">Mhaler Bumanglag Cresencia</div>
+                    <div style="color: var(--gold-light); font-size: 12px; margin-top: 5px;">Facebook Review • June 29, 2024</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--gold);">✓ Verified Purchase • Repeat Customer</div>
+                </div>
+                
+                <div class="testimonial-card scroll-reveal">
+                    <div style="color: var(--gold); margin-bottom: 15px; font-size: 18px;">⭐⭐⭐⭐⭐</div>
+                    <p style="color: var(--gold-light); font-style: italic; margin-bottom: 20px; line-height: 1.8;">
+                        "I recommend this page. This is the legit Gold Blessing — tried and tested. Miss P and admins are very accommodating."
+                    </p>
+                    <div style="color: var(--gold); font-weight: 600; font-size: 16px;">Avery Leigh</div>
+                    <div style="color: var(--gold-light); font-size: 12px; margin-top: 5px;">Facebook Review • June 20, 2024</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--gold);">✓ Verified Purchase</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>FREQUENTLY ASKED QUESTIONS</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="faq-container">
+                <!-- General -->
+                <div class="faq-category scroll-reveal">
+                    <h3>General</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What makes The Gold Blessing different?</span>
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We sell authentic gold jewelry by the gram with transparent pricing, flexible layaway options, and exciting monthly raffles for straight-payment buyers. Every piece is tested and guaranteed real gold.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do you price your jewelry?</span>
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            All items are priced per gram, based on the current market rate plus minimal craftsmanship. Whether you're buying a chain or a ring, you pay fairly for the actual gold content.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Is your gold authentic?</span>
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes. Every piece is 100% genuine gold and tested before release.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Layaway -->
+                <div class="faq-category scroll-reveal">
+                    <h3>Layaway</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Do you offer layaway?</span>
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes! Reserve jewelry with a small deposit and pay at your pace. Minimum installment: 500. Use our Layaway Calculator for instant balance checks.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Shipping -->
+                <div class="faq-category scroll-reveal">
+                    <h3>Shipping & Delivery</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Do you ship orders?</span>
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes, nationwide via LBC (insured with tracking). Metro Manila: 3-5 days. Provincial: 5-7 days.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="faq-category scroll-reveal">
+                    <h3>Contact & Support</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How can I contact you?</span>
+                            <span class="faq-arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Call: 0967-400-0040<br>
+                            Email: thegoldblessingofficial@gmail.com<br>
+                            Messenger, Viber, Facebook & Instagram: @thegoldblessing
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section id="policies" class="policies-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>STORE POLICIES</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="scroll-reveal">
+                <div class="policy-card">
+                    <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">Shipping Policy</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        <ul style="list-style: none; padding-left: 20px; margin-top: 15px;">
+                            <li style="margin-bottom: 10px;">✓ Nationwide shipping via LBC (insured with tracking)</li>
+                            <li style="margin-bottom: 10px;">✓ Metro Manila: 3-5 business days</li>
+                            <li style="margin-bottom: 10px;">✓ Provincial areas: 5-7 business days</li>
+                            <li style="margin-bottom: 10px;">✓ All packages are sealed, insured, and tracked</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">Payment Options</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        <ul style="list-style: none; padding-left: 20px; margin-top: 15px;">
+                            <li style="margin-bottom: 10px;">✓ Cash on Delivery (COD) available nationwide</li>
+                            <li style="margin-bottom: 10px;">✓ GCash, BDO, BPI, PayMaya accepted</li>
+                            <li style="margin-bottom: 10px;">✓ Layaway plan with flexible terms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>CONTACT US</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="contact-grid scroll-reveal">
+                <div class="contact-card">
+                    <div style="font-size: 48px; margin-bottom: 20px; color: var(--gold);">📞</div>
+                    <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 15px;">Call Us</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        <a href="tel:09674000040" style="color: var(--gold); text-decoration: none;">0967-400-0040</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div style="font-size: 48px; margin-bottom: 20px; color: var(--gold);">💬</div>
+                    <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 15px;">Message Us</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        <a href="https://m.me/thegoldblessingofficial" target="_blank" style="color: var(--gold); text-decoration: none;">Messenger</a><br>
+                        <a href="https://invite.viber.com/?g2=AQBScctTY4Ml8FUx0R%2FtF0GZjmwk%2BHDh1MHCEPtJ6eySeFG%2BEw2LZxnPrIs2Fg8t" target="_blank" style="color: var(--gold); text-decoration: none;">Viber</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div style="font-size: 48px; margin-bottom: 20px; color: var(--gold);">📧</div>
+                    <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 15px;">Email</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        <a href="mailto:thegoldblessingofficial@gmail.com" style="color: var(--gold); text-decoration: none;">thegoldblessingofficial@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div style="font-size: 48px; margin-bottom: 20px; color: var(--gold);">📍</div>
+                    <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 15px;">Visit Us</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        Daang Luma, Brgy. Loma<br>
+                        Amadeo, Cavite
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div style="font-size: 48px; margin-bottom: 20px; color: var(--gold);">⏰</div>
+                    <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 15px;">Store Hours</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        Mon-Sat: 9AM - 7PM<br>
+                        Sunday: 10AM - 5PM
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div style="font-size: 48px; margin-bottom: 20px; color: var(--gold);">🔴</div>
+                    <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 15px;">Live Selling</h3>
+                    <div style="color: var(--gold-light); line-height: 1.8;">
+                        Daily at 8:00 PM<br>
+                        <a href="https://facebook.com/thegoldblessingofficial" target="_blank" style="color: var(--gold); text-decoration: none;">Facebook Live</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-section" style="padding: 100px 0; background: linear-gradient(180deg, var(--dark-teal) 0%, var(--deep-teal) 100%);">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>CONNECT WITH US</h2>
+                <div class="luxury-divider"></div>
+            </div>
+            
+            <div class="social-grid">
+                <a href="https://www.facebook.com/thegoldblessingofficial" target="_blank" class="social-card scroll-reveal">
+                    <div style="font-size: 40px; margin-bottom: 15px;">📘</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Facebook</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">@thegoldblessingofficial</div>
+                </a>
+                
+                <a href="https://www.instagram.com/the_gold_blessing" target="_blank" class="social-card scroll-reveal">
+                    <div style="font-size: 40px; margin-bottom: 15px;">📷</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Instagram</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">@the_gold_blessing</div>
+                </a>
+                
+                <a href="https://www.tiktok.com/@goldblessingofficial" target="_blank" class="social-card scroll-reveal">
+                    <div style="font-size: 40px; margin-bottom: 15px;">🎵</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">TikTok</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">@goldblessingofficial</div>
+                </a>
+                
+                <a href="https://messenger.com/channel/thegoldblessingofficial" target="_blank" class="social-card scroll-reveal">
+                    <div style="font-size: 40px; margin-bottom: 15px;">💬</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Messenger</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">Join Channel</div>
+                </a>
+                
+                <a href="https://invite.viber.com/?g2=AQBScctTY4Ml8FUx0R%2FtF0GZjmwk%2BHDh1MHCEPtJ6eySeFG%2BEw2LZxnPrIs2Fg8t" target="_blank" class="social-card scroll-reveal">
+                    <div style="font-size: 40px; margin-bottom: 15px;">📱</div>
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Viber</div>
+                    <div style="font-size: 12px; color: var(--gold-light);">Join Channel</div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 30px;">
+                <img src="TGB_LOGO.png" alt="The Gold Blessing" style="width: 80px; height: 80px; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));">
+            </div>
+            
+            <div>
+                <h4 style="color: var(--gold); font-size: 24px; margin-bottom: 20px;">THE GOLD BLESSING</h4>
+                <p style="color: var(--gold-light); margin: 10px 0; font-size: 16px;">📍 Brgy. Loma, Amadeo, Cavite</p>
+                <p style="color: var(--gold-light); margin: 10px 0; font-size: 16px;">📞 0967-400-0040</p>
+                <p style="color: var(--gold-light); margin: 10px 0; font-size: 16px;">📧 thegoldblessingofficial@gmail.com</p>
+            </div>
+            
+            <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 14px;">
+    © 2025 The Gold Blessing | All Rights Reserved. Established 2016.<br>
+    Authentic Gold Jewelry • Amadeo, Cavite<br>
+    <a href="/privacy-policy.html" style="color: var(--gold-light); text-decoration: none; font-size: 12px; margin-top: 10px; display: inline-block;">Privacy Policy</a>
+</div>
+        </div>
+    </footer>
+    
+    <!-- Floating Call Button -->
+    <a href="tel:09674000040" class="fab">📞</a>
+    
+    <!-- JavaScript -->
+    <script>
+        // Gold Dust Rain Effect
+        function createGoldDust() {
+            const container = document.getElementById('goldDust');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'gold-particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                
+                const duration = Math.random() * 7 + 8;
+                particle.style.animationDuration = duration + 's';
+                
+                const delay = Math.random() * 10;
+                particle.style.animationDelay = delay + 's';
+                
+                if (Math.random() > 0.5) {
+                    particle.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.8)';
+                }
+                
+                container.appendChild(particle);
+            }
+        }
+
+        window.addEventListener('load', createGoldDust);
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+        
+        // FAQ toggle
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('.faq-arrow');
+            
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) {
+                    item.style.display = 'none';
+                    item.previousElementSibling.querySelector('.faq-arrow').style.transform = 'rotate(0)';
+                }
+            });
+            
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                arrow.style.transform = 'rotate(0)';
+            } else {
+                answer.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Track button clicks with GA4
+        function trackEvent(action, category, label, value) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    'event_category': category,
+                    'event_label': label,
+                    'value': value
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track phone clicks
+            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    trackEvent('contact_click', 'Contact', 'Phone Call', 1);
+                });
+            });
+
+            // Track Viber clicks
+            document.querySelectorAll('a[href*="viber"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    trackEvent('contact_click', 'Contact', 'Viber', 1);
+                });
+            });
+
+            // Track Messenger clicks
+            document.querySelectorAll('a[href*="m.me"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    trackEvent('contact_click', 'Contact', 'Messenger', 1);
+                });
+            });
+
+            // Track Layaway Calculator clicks
+            document.querySelectorAll('a[href*="calculator"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    trackEvent('tool_use', 'Tools', 'Layaway Calculator', 1);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
