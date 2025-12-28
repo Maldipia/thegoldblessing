@@ -17,7 +17,7 @@
 // CONFIGURATION - UPDATE THIS URL WITH YOUR DEPLOYMENT
 // ═══════════════════════════════════════════════════════════════════════════════
 
-var API_URL = 'https://script.google.com/macros/s/AKfycby29izb0YFk3xf5U2ZWeJeKqmCQuJdUGV0IaSmPo3VyihIWhSXtk1Yo7Mw5JeWgPWty1A/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbyCy-gYN0QM3wyFjkzCAQbbFDbStmKMObkUtPHLh1tgTcVobpH1P-nXdtQlJKOeptEm/exec';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // JSONP REQUEST FUNCTION - BYPASSES CORS
