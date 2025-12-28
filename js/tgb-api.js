@@ -1,44 +1,51 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * TGB API Connection - JSONP Version (CORS Fix)
+ * TGB API - FINAL VERSION WITH JSONP (CORS FIX)
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * This file connects the frontend to Google Apps Script backend using JSONP
- * JSONP bypasses CORS restrictions that block regular fetch() calls
+ * This file connects the GitHub Pages frontend to Google Apps Script backend
+ * Uses JSONP to bypass CORS restrictions
+ * 
+ * SETUP:
+ * 1. Update API_URL below with your deployed Web App URL
+ * 2. Upload this file to: js/tgb-api.js in your GitHub repository
  * 
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// CONFIGURATION - WORKING API URL
+// CONFIGURATION - UPDATE THIS URL WITH YOUR DEPLOYMENT
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const API_URL = 'https://script.google.com/macros/s/AKfycby29izb0YFk3xf5U2ZWeJeKqmCQuJdUGV0IaSmPo3VyihIWhSXtk1Yo7Mw5JeWgPWty1A/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycby29izb0YFk3xf5U2ZWeJeKqmCQuJdUGV0IaSmPo3VyihIWhSXtk1Yo7Mw5JeWgPWty1A/exec';
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// JSONP HELPER FUNCTION
+// JSONP REQUEST FUNCTION - BYPASSES CORS
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /**
- * Make a JSONP request (bypasses CORS)
+ * Make a JSONP request
+ * JSONP works by injecting a <script> tag, which is not subject to CORS
+ * 
  * @param {string} url - The API URL with parameters
  * @returns {Promise} - Resolves with the response data
  */
 function jsonpRequest(url) {
   return new Promise(function(resolve, reject) {
-    // Create unique callback name
-    var callbackName = 'jsonp_callback_' + Date.now() + '_' + Math.round(Math.random() * 100000);
+    // Create unique callback name to avoid collisions
+    var callbackName = 'tgb_callback_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
     
-    // Set timeout for request (15 seconds)
-    var timeout = setTimeout(function() {
+    // Set timeout (15 seconds)
+    var timeoutId = setTimeout(function() {
       cleanup();
-      reject(new Error('Request timeout'));
+      reject(new Error('Request timed out'));
     }, 15000);
     
-    // Cleanup function
+    // Cleanup function to remove script and callback
     function cleanup() {
-      clearTimeout(timeout);
+      clearTimeout(timeoutId);
       delete window[callbackName];
+      var script = document.getElementById(callbackName);
       if (script && script.parentNode) {
         script.parentNode.removeChild(script);
       }
@@ -50,70 +57,84 @@ function jsonpRequest(url) {
       resolve(data);
     };
     
-    // Create script element
+    // Create and inject script element
     var script = document.createElement('script');
+    script.id = callbackName;
     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
     
-    // Handle errors
+    // Handle script load errors
     script.onerror = function() {
       cleanup();
-      reject(new Error('JSONP request failed'));
+      reject(new Error('Failed to load script'));
     };
     
-    // Add script to page (this triggers the request)
+    // Add script to document (this triggers the request)
     document.head.appendChild(script);
   });
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// TGB API OBJECT
+// TGB API OBJECT - USE THESE METHODS IN YOUR HTML
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const TGB_API = {
+var TGB_API = {
+  
+  /**
+   * Test API connection
+   * @returns {Promise} - { success: true, message: "TGB API is running", ... }
+   */
+  ping: function() {
+    return jsonpRequest(API_URL + '?action=ping');
+  },
   
   /**
    * Track an order by Order ID
    * @param {string} orderId - The order ID (e.g., TGB-1234567890)
-   * @returns {Promise} - Order details or error
+   * @returns {Promise} - { success: true, order: {...} } or { success: false, error: "..." }
    */
   trackOrder: function(orderId) {
-    var url = API_URL + '?action=track&orderId=' + encodeURIComponent(orderId);
-    return jsonpRequest(url);
+    if (!orderId) {
+      return Promise.reject(new Error('Order ID is required'));
+    }
+    return jsonpRequest(API_URL + '?action=track&orderId=' + encodeURIComponent(orderId));
   },
   
   /**
    * Get LayAway status by Order ID
    * @param {string} orderId - The LayAway order ID
-   * @returns {Promise} - LayAway details or error
+   * @returns {Promise} - { success: true, layaway: {...} } or { success: false, error: "..." }
    */
   getLayaway: function(orderId) {
-    var url = API_URL + '?action=layaway&orderId=' + encodeURIComponent(orderId);
-    return jsonpRequest(url);
+    if (!orderId) {
+      return Promise.reject(new Error('Order ID is required'));
+    }
+    return jsonpRequest(API_URL + '?action=layaway&orderId=' + encodeURIComponent(orderId));
   },
   
   /**
-   * Get invoice link by Order ID
+   * Get invoice by Order ID
    * @param {string} orderId - The order ID
-   * @returns {Promise} - Invoice details or error
+   * @returns {Promise} - { success: true, invoice: {...} } or { success: false, error: "..." }
    */
   getInvoice: function(orderId) {
-    var url = API_URL + '?action=invoice&orderId=' + encodeURIComponent(orderId);
-    return jsonpRequest(url);
+    if (!orderId) {
+      return Promise.reject(new Error('Order ID is required'));
+    }
+    return jsonpRequest(API_URL + '?action=invoice&orderId=' + encodeURIComponent(orderId));
   },
   
   /**
-   * Get dashboard metrics (for admin)
-   * @returns {Promise} - Dashboard data
+   * Get dashboard data (for admin)
+   * @returns {Promise} - { success: true, dashboard: {...} }
    */
   getDashboard: function() {
-    var url = API_URL + '?action=dashboard';
-    return jsonpRequest(url);
+    return jsonpRequest(API_URL + '?action=dashboard');
   },
   
   /**
    * Get orders list with optional filters
-   * @param {object} params - Filter parameters (sheet, status, page, limit)
-   * @returns {Promise} - Orders list
+   * @param {object} params - { sheet, status, page, limit }
+   * @returns {Promise} - { success: true, orders: [...], pagination: {...} }
    */
   getOrders: function(params) {
     params = params || {};
@@ -124,36 +145,50 @@ const TGB_API = {
     if (params.page) queryParts.push('page=' + encodeURIComponent(params.page));
     if (params.limit) queryParts.push('limit=' + encodeURIComponent(params.limit));
     
-    var url = API_URL + '?' + queryParts.join('&');
-    return jsonpRequest(url);
-  },
-  
-  /**
-   * Test API connection
-   * @returns {Promise} - Ping response
-   */
-  ping: function() {
-    var url = API_URL + '?action=ping';
-    return jsonpRequest(url);
+    return jsonpRequest(API_URL + '?' + queryParts.join('&'));
   }
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// TEST FUNCTION (for debugging in browser console)
+// TEST FUNCTION - Run in browser console to verify connection
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /**
  * Test the API connection
- * Run this in browser console: testTGBAPI()
+ * Open browser console (F12) and run: testTGBAPI()
  */
 function testTGBAPI() {
-  console.log('Testing TGB API...');
+  console.log('🔄 Testing TGB API...');
+  console.log('API URL:', API_URL);
   
   TGB_API.ping()
     .then(function(result) {
-      console.log('✅ Ping successful:', result);
+      console.log('✅ API Connection Successful!');
+      console.log('Response:', result);
+      
+      // Also test tracking
+      console.log('🔄 Testing order tracking...');
+      return TGB_API.trackOrder('TGB-6888662240');
+    })
+    .then(function(result) {
+      if (result.success) {
+        console.log('✅ Order Tracking Works!');
+        console.log('Order:', result.order);
+      } else {
+        console.log('⚠️ Order not found (this is OK if test order does not exist)');
+        console.log('Response:', result);
+      }
     })
     .catch(function(error) {
-      console.log('❌ Ping failed:', error);
+      console.log('❌ API Test Failed!');
+      console.log('Error:', error.message);
+      console.log('');
+      console.log('Troubleshooting:');
+      console.log('1. Check that API_URL is correct');
+      console.log('2. Make sure you deployed as "New version"');
+      console.log('3. Make sure access is set to "Anyone"');
     });
 }
+
+// Log that the API is loaded
+console.log('TGB API loaded. Run testTGBAPI() in console to test.');
