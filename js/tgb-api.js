@@ -5,7 +5,7 @@
  */
 
 // NEW API URL with JSONP support
-const API_URL = 'https://script.google.com/macros/s/AKfycbwwSmHcQM_x6wXywNmqCJgHgT6E20HZ2LIw0EB3SJVxAnInZ8lEFEnwdFtPN-6FmzgZkg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycby29izb0YFk3xf5U2ZWeJeKqmCQuJdUGV0IaSmPo3VyihIWhSXtk1Yo7Mw5JeWgPWty1A/exec';
 
 // JSONP callback counter
 let tgbCallbackCounter = 0;
