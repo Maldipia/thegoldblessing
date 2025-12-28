@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TGB API Test</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #1a4a4a; color: white; }
+    input { padding: 10px; width: 300px; font-size: 16px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: gold; border: none; }
+    #result { margin-top: 20px; padding: 20px; background: #0a2626; white-space: pre-wrap; }
+    #status { color: yellow; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>TGB API Test Page</h1>
+  <p>This is a minimal test to check if the API works.</p>
+  
+  <input type="text" id="orderId" value="TGB-6888662240" placeholder="Enter Order ID">
+  <button onclick="testAPI()">TEST API</button>
+  
+  <div id="status"></div>
+  <div id="result"></div>
+
+  <script>
+    var API_URL = 'https://script.google.com/macros/s/AKfycbyCy-gYN0QM3wyFjkzCAQbbFDbStmKMObkUtPHLh1tgTcVobpH1P-nXdtQlJKOeptEm/exec';
+    
+    function log(msg) {
+      document.getElementById('status').innerHTML += msg + '<br>';
+      console.log(msg);
+    }
+    
+    function testAPI() {
+      var orderId = document.getElementById('orderId').value;
+      var startTime = Date.now();
+      
+      log('Starting API call at ' + new Date().toLocaleTimeString());
+      log('Order ID: ' + orderId);
+      
+      // Create callback
+      var callbackName = 'cb_' + Date.now();
+      
+      window[callbackName] = function(data) {
+        var elapsed = Date.now() - startTime;
+        log('Response received in ' + elapsed + 'ms');
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        
+        // Cleanup
+        delete window[callbackName];
+        var script = document.getElementById(callbackName);
+        if (script) script.remove();
+      };
+      
+      // Create script tag
+      var script = document.createElement('script');
+      script.id = callbackName;
+      script.src = API_URL + '?action=track&orderId=' + encodeURIComponent(orderId) + '&callback=' + callbackName;
+      
+      script.onerror = function() {
+        log('ERROR: Script failed to load');
+      };
+      
+      log('Injecting script tag...');
+      document.head.appendChild(script);
+      log('Script tag added, waiting for response...');
+    }
+  </script>
+</body>
+</html>
