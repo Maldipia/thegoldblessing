@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - TGB Admin</title>
+  <link rel="icon" type="image/png" href="TGB_LOGO.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --emerald: #046A38;
+      --emerald-light: #0A8F4F;
+      --emerald-dark: #034D29;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --white: #FFFFFF;
+      --gray: #6C757D;
+      --gray-dark: #343A40;
+      --danger: #DC3545;
+      --success: #28A745;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-container {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 3px solid var(--gold);
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+    .logo { width: 100px; height: 100px; margin: 0 auto 20px; }
+    .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--emerald);
+      margin-bottom: 8px;
+    }
+    .subtitle { color: var(--gray); font-size: 14px; margin-bottom: 30px; }
+    .form-group { margin-bottom: 20px; text-align: left; }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-dark);
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 14px 18px;
+      background: #F8F9FA;
+      border: 2px solid #E9ECEF;
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.3s;
+    }
+    input:focus { border-color: var(--gold); background: var(--white); }
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold) 0%, #B8960C 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
+    .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .error-msg {
+      color: var(--danger);
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+      padding: 12px;
+      background: #FEE2E2;
+      border-radius: 8px;
+      text-align: left;
+    }
+    .error-msg.show { display: block; }
+    .footer-text {
+      margin-top: 25px;
+      font-size: 12px;
+      color: var(--gray);
+    }
+    .footer-text a { color: var(--emerald); text-decoration: none; }
+    .footer-text a:hover { text-decoration: underline; }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--white);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+    .login-btn.loading .spinner { display: block; }
+    .login-btn.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .role-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .role-OWNER { background: #FFD700; color: #000; }
+    .role-SUP { background: var(--emerald); color: white; }
+    .role-ADMIN { background: #17A2B8; color: white; }
+    .role-STAFF { background: #6C757D; color: white; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <img src="TGB_LOGO.png" alt="The Gold Blessing" onerror="this.style.display='none'">
+    </div>
+    <h1>Admin Login</h1>
+    <p class="subtitle">Enter your credentials to access the dashboard</p>
+    
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">
+        <span class="spinner"></span>
+        <span class="btn-text">🔐 Login</span>
+      </button>
+    </form>
+    
+    <p class="error-msg" id="errorMsg"></p>
+    
+    <p class="footer-text">
+      <a href="index.html">← Back to Website</a>
+    </p>
+  </div>
+
+  <script>
+    function showError(message) {
+      const el = document.getElementById('errorMsg');
+      el.textContent = '❌ ' + message;
+      el.classList.add('show');
+    }
+    
+    function hideError() {
+      document.getElementById('errorMsg').classList.remove('show');
+    }
+    
+    function setLoading(loading) {
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = loading;
+      btn.classList.toggle('loading', loading);
+    }
+    
+    async function handleLogin(e) {
+      e.preventDefault();
+      hideError();
+      setLoading(true);
+      
+      const username = document.getElementById('username').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      
+      try {
+        const response = await fetch('/api/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ username, password }),
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Store user info for UI display
+          sessionStorage.setItem('tgb_user', JSON.stringify(data.user));
+          // Redirect to dashboard
+          window.location.href = 'dashboard.html';
+        } else {
+          showError(data.error?.message || 'Login failed');
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('[Login]', error);
+        showError('Connection failed. Please try again.');
+        setLoading(false);
+      }
+    }
+    
+    // Check if already logged in
+    async function checkSession() {
+      try {
+        const response = await fetch('/api/session', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data = await response.json();
+        if (data.success) {
+          sessionStorage.setItem('tgb_user', JSON.stringify(data.user));
+          window.location.href = 'dashboard.html';
+        }
+      } catch (e) {
+        // Not logged in, stay on login page
+      }
+    }
+    
+    // Check on page load
+    checkSession();
+  </script>
+</body>
+</html>

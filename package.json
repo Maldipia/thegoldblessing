@@ -1,8 +1,17 @@
 {
-  "name": "thegoldblessing",
-  "version": "1.0.0",
-  "description": "TGB Order Tracking Website with Fast API",
+  "name": "tgb-secure-dashboard",
+  "version": "2.0.0",
+  "description": "The Gold Blessing - Secure Admin Dashboard with Sheets-based Auth",
+  "main": "api/tgb.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
   "dependencies": {
-    "googleapis": "^126.0.0"
+    "cookie": "^0.6.0",
+    "googleapis": "^130.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
