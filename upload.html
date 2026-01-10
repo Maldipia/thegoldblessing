@@ -655,9 +655,8 @@
         
         const response = await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain' // Required for Apps Script CORS
-          },
+          mode: 'cors',
+          redirect: 'follow',
           body: JSON.stringify({
             orderId: orderId,
             customerName: customerName,
