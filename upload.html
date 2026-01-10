@@ -649,10 +649,14 @@
       submitBtn.classList.add('loading');
       
       try {
-        const response = await fetch('/api/upload-proof', {
+        // Google Apps Script Web App URL
+        // IMPORTANT: Replace this URL with your deployed Apps Script URL
+        const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+        
+        const response = await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain' // Required for Apps Script CORS
           },
           body: JSON.stringify({
             orderId: orderId,
@@ -661,7 +665,7 @@
             notes: notes,
             fileBase64: fileBase64,
             mimeType: selectedFile.type,
-            fileName: selectedFile.name
+            filename: selectedFile.name
           })
         });
         
