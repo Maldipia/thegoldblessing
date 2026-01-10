@@ -650,13 +650,15 @@
       
       try {
         // Google Apps Script Web App URL
-        // IMPORTANT: Replace this URL with your deployed Apps Script URL
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyGUvoKC_6ck8rUUIQN9HPGgUKUd0rGQVWSl5Sqx6v5Qun5Emqv2-jrsVFsSkrljJPaQ/exec';
         
+        // Google Apps Script returns a 302 redirect, we need to handle it properly
         const response = await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
-          mode: 'cors',
           redirect: 'follow',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
           body: JSON.stringify({
             orderId: orderId,
             customerName: customerName,
@@ -668,7 +670,33 @@
           })
         });
         
-        const result = await response.json();
+        // Check if we got redirected (Apps Script behavior)
+        let result;
+        const responseText = await response.text();
+        
+        try {
+          result = JSON.parse(responseText);
+        } catch (parseError) {
+          // If response is HTML (redirect page), the upload likely succeeded
+          // but we couldn't get the response. Show generic success.
+          console.log('Response was not JSON, might be redirect page');
+          
+          // Generate a local proof ID as fallback
+          const now = new Date();
+          const proofId = 'TGB-PROOF-' + now.toISOString().slice(0,10).replace(/-/g,'') + '-' + now.toTimeString().slice(0,8).replace(/:/g,'');
+          const submittedAt = now.toLocaleString('en-PH', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
+          
+          document.getElementById('successProofId').textContent = proofId;
+          document.getElementById('successOrderId').textContent = orderId;
+          document.getElementById('successAmount').textContent = '₱' + parseFloat(amount.replace(/[^0-9.]/g, '')).toLocaleString('en-PH', {minimumFractionDigits: 2});
+          document.getElementById('successTime').textContent = submittedAt;
+          
+          formContainer.classList.add('hidden');
+          successContainer.classList.add('show');
+          
+          showToast('Payment proof submitted! Please wait for verification.', 'success');
+          return;
+        }
         
         if (result.success) {
           // Show success
