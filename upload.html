@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Payment Proof Upload - The Gold Blessing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --gold: #D4AF37;
+      --gold-dark: #B8960C;
+      --gold-light: #E5C76B;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --gray: #6c757d;
+      --gray-light: #f8f9fa;
+      --success: #22c55e;
+      --error: #ef4444;
+      --emerald: #046A38;
+    }
+    
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--emerald) 0%, #034D29 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--black);
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: 32px 24px;
+      border: 3px solid var(--gold);
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      height: 80px;
+      width: 80px;
+      object-fit: contain;
+    }
+    
+    h1 {
+      text-align: center;
+      color: var(--emerald);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: var(--gray);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+    
+    label .required {
+      color: var(--error);
+    }
+    
+    .hint {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    
+    input:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+    
+    input::placeholder,
+    textarea::placeholder {
+      color: #aaa;
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .amount-input {
+      position: relative;
+    }
+    
+    .amount-input .peso {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .amount-input input {
+      padding-left: 36px;
+    }
+    
+    /* File Upload Area */
+    .upload-area {
+      border: 2px dashed #ccc;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: var(--gray-light);
+    }
+    
+    .upload-area:hover,
+    .upload-area.dragover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.05);
+    }
+    
+    .upload-area.has-file {
+      border-color: var(--success);
+      background: rgba(34, 197, 94, 0.05);
+    }
+    
+    .upload-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    
+    .upload-text {
+      font-size: 14px;
+      color: var(--gray);
+    }
+    
+    .upload-text strong {
+      color: var(--gold);
+    }
+    
+    .upload-formats {
+      font-size: 12px;
+      color: #999;
+      margin-top: 8px;
+    }
+    
+    .file-preview {
+      display: none;
+      margin-top: 15px;
+    }
+    
+    .file-preview.show {
+      display: block;
+    }
+    
+    .file-preview img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 8px;
+      border: 2px solid var(--gold);
+    }
+    
+    .file-name {
+      font-size: 12px;
+      color: var(--success);
+      margin-top: 8px;
+      word-break: break-all;
+    }
+    
+    .remove-file {
+      background: var(--error);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    
+    #fileInput {
+      display: none;
+    }
+    
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+    
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .submit-btn.loading {
+      position: relative;
+      color: transparent;
+    }
+    
+    .submit-btn.loading::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      top: 50%;
+      left: 50%;
+      margin-left: -12px;
+      margin-top: -12px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    .footer p {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    
+    /* Success State */
+    .success-container {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    
+    .success-container.show {
+      display: block;
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 40px;
+      color: white;
+    }
+    
+    .success-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--emerald);
+      margin-bottom: 10px;
+    }
+    
+    .success-details {
+      background: var(--gray-light);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .success-details .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .success-details .row:last-child {
+      border-bottom: none;
+    }
+    
+    .success-details .label {
+      color: var(--gray);
+      font-size: 13px;
+    }
+    
+    .success-details .value {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--black);
+    }
+    
+    .success-note {
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: var(--gray);
+      margin: 20px 0;
+    }
+    
+    .success-note strong {
+      color: var(--gold-dark);
+    }
+    
+    .another-btn {
+      background: var(--emerald);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    /* Error Toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--error);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s;
+      max-width: 90%;
+      text-align: center;
+    }
+    
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    
+    .toast.success {
+      background: var(--success);
+    }
+    
+    /* Form container */
+    .form-container {
+      display: block;
+    }
+    
+    .form-container.hidden {
+      display: none;
+    }
+    
+    /* Back link */
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .back-link:hover {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="The Gold Blessing">
+    </div>
+    
+    <h1>💳 Payment Proof Submission</h1>
+    <p class="subtitle">Upload your payment screenshot for verification</p>
+    
+    <!-- Form Container -->
+    <div class="form-container" id="formContainer">
+      <form id="uploadForm">
+        <div class="form-group">
+          <label>Order ID <span class="required">*</span></label>
+          <input type="text" id="orderId" placeholder="e.g., TGB-2026-01-09-001" required>
+          <p class="hint">ℹ️ Found on your invoice or order confirmation</p>
+        </div>
+        
+        <div class="form-group">
+          <label>Your Name <span class="required">*</span></label>
+          <input type="text" id="customerName" placeholder="Juan Dela Cruz" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Amount Paid <span class="required">*</span></label>
+          <div class="amount-input">
+            <span class="peso">₱</span>
+            <input type="text" id="amount" placeholder="18,244.43" required inputmode="decimal">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Payment Screenshot <span class="required">*</span></label>
+          <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📷</div>
+            <p class="upload-text"><strong>Tap to upload</strong> or drag image here</p>
+            <p class="upload-formats">Accepted: JPG, PNG, HEIC (max 10MB)</p>
+          </div>
+          <input type="file" id="fileInput" accept="image/*" capture="environment">
+          <div class="file-preview" id="filePreview">
+            <img id="previewImage" src="" alt="Preview">
+            <p class="file-name" id="fileName"></p>
+            <button type="button" class="remove-file" id="removeFile">✕ Remove</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Notes (Optional)</label>
+          <textarea id="notes" placeholder="e.g., Partial payment for layaway..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn" id="submitBtn">✅ Submit Payment Proof</button>
+      </form>
+      
+      <a href="index.html" class="back-link">← Back to Website</a>
+    </div>
+    
+    <!-- Success Container -->
+    <div class="success-container" id="successContainer">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Payment Proof Submitted!</h2>
+      
+      <div class="success-details">
+        <div class="row">
+          <span class="label">Reference #</span>
+          <span class="value" id="successProofId">-</span>
+        </div>
+        <div class="row">
+          <span class="label">Order ID</span>
+          <span class="value" id="successOrderId">-</span>
+        </div>
+        <div class="row">
+          <span class="label">Amount</span>
+          <span class="value" id="successAmount">-</span>
+        </div>
+        <div class="row">
+          <span class="label">Submitted</span>
+          <span class="value" id="successTime">-</span>
+        </div>
+      </div>
+      
+      <div class="success-note">
+        📋 <strong>Screenshot this for your records</strong><br>
+        Our team will verify your payment within 24 hours. You'll receive a confirmation message once verified.
+      </div>
+      
+      <button class="another-btn" id="anotherBtn">📤 Submit Another Payment</button>
+    </div>
+    
+    <div class="footer">
+      <p>🔒 Your payment proof is securely uploaded to our system</p>
+      <p style="margin-top: 8px;">Need help? <a href="https://m.me/thegoldblessing" target="_blank">Contact us on Messenger</a></p>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    // Elements
+    const form = document.getElementById('uploadForm');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+    const previewImage = document.getElementById('previewImage');
+    const fileName = document.getElementById('fileName');
+    const removeFileBtn = document.getElementById('removeFile');
+    const submitBtn = document.getElementById('submitBtn');
+    const formContainer = document.getElementById('formContainer');
+    const successContainer = document.getElementById('successContainer');
+    const anotherBtn = document.getElementById('anotherBtn');
+    const toast = document.getElementById('toast');
+    
+    let selectedFile = null;
+    let fileBase64 = null;
+    
+    // Upload area click
+    uploadArea.addEventListener('click', () => fileInput.click());
+    
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFile(files[0]);
+      }
+    });
+    
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+    
+    // Handle file selection
+    function handleFile(file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        showToast('Please upload an image file (JPG, PNG, HEIC)', 'error');
+        return;
+      }
+      
+      // Validate file size (10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        showToast('File size must be less than 10MB', 'error');
+        return;
+      }
+      
+      selectedFile = file;
+      
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        fileBase64 = e.target.result.split(',')[1]; // Remove data:image/...;base64, prefix
+        fileName.textContent = file.name;
+        filePreview.classList.add('show');
+        uploadArea.classList.add('has-file');
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    // Remove file
+    removeFileBtn.addEventListener('click', () => {
+      selectedFile = null;
+      fileBase64 = null;
+      fileInput.value = '';
+      filePreview.classList.remove('show');
+      uploadArea.classList.remove('has-file');
+    });
+    
+    // Format amount input
+    const amountInput = document.getElementById('amount');
+    amountInput.addEventListener('blur', () => {
+      let value = amountInput.value.replace(/[^0-9.]/g, '');
+      if (value) {
+        const num = parseFloat(value);
+        if (!isNaN(num)) {
+          amountInput.value = num.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+      }
+    });
+    
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const orderId = document.getElementById('orderId').value.trim();
+      const customerName = document.getElementById('customerName').value.trim();
+      const amount = document.getElementById('amount').value.trim();
+      const notes = document.getElementById('notes').value.trim();
+      
+      // Validate
+      if (!orderId) {
+        showToast('Please enter your Order ID', 'error');
+        return;
+      }
+      
+      if (!customerName || customerName.length < 2) {
+        showToast('Please enter your name', 'error');
+        return;
+      }
+      
+      if (!amount) {
+        showToast('Please enter the amount paid', 'error');
+        return;
+      }
+      
+      if (!selectedFile || !fileBase64) {
+        showToast('Please upload a payment screenshot', 'error');
+        return;
+      }
+      
+      // Show loading
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      
+      try {
+        const response = await fetch('/api/upload-proof', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            orderId: orderId,
+            customerName: customerName,
+            amount: amount,
+            notes: notes,
+            fileBase64: fileBase64,
+            mimeType: selectedFile.type,
+            fileName: selectedFile.name
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Show success
+          document.getElementById('successProofId').textContent = result.proofId;
+          document.getElementById('successOrderId').textContent = result.orderId;
+          document.getElementById('successAmount').textContent = result.amount;
+          document.getElementById('successTime').textContent = result.submittedAt;
+          
+          formContainer.classList.add('hidden');
+          successContainer.classList.add('show');
+          
+          showToast('Payment proof submitted successfully!', 'success');
+        } else {
+          showToast(result.error || 'Upload failed. Please try again.', 'error');
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        showToast('Network error. Please check your connection and try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+      }
+    });
+    
+    // Submit another
+    anotherBtn.addEventListener('click', () => {
+      // Reset form
+      form.reset();
+      selectedFile = null;
+      fileBase64 = null;
+      fileInput.value = '';
+      filePreview.classList.remove('show');
+      uploadArea.classList.remove('has-file');
+      
+      // Show form
+      successContainer.classList.remove('show');
+      formContainer.classList.remove('hidden');
+    });
+    
+    // Toast notification
+    function showToast(message, type = 'error') {
+      toast.textContent = message;
+      toast.className = 'toast ' + type;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+    
+    // Offline detection
+    window.addEventListener('offline', () => {
+      showToast('You are offline. Please check your internet connection.', 'error');
+    });
+  </script>
+</body>
+</html>
