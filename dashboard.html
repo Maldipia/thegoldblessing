@@ -944,10 +944,31 @@
       refreshDashboard();
     }
     
+    // Check API session (from login.html)
+    async function checkApiSession() {
+      try {
+        const res = await fetch('/api/session');
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          console.log('[TGB] Valid session found:', data.user.username);
+          sessionStorage.setItem('tgb_auth', 'true');
+          sessionStorage.setItem('tgb_user', JSON.stringify(data.user));
+          return true;
+        }
+      } catch (e) {
+        console.log('[TGB] Session check failed:', e.message);
+      }
+      return false;
+    }
+    
     // INIT
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
       console.log('[TGB] Dashboard initializing...');
-      if (sessionStorage.getItem('tgb_auth') === 'true') {
+      
+      // Check for valid API session first (from login.html)
+      const hasApiSession = await checkApiSession();
+      
+      if (hasApiSession || sessionStorage.getItem('tgb_auth') === 'true') {
         const overlay = document.getElementById('loginOverlay');
         if (overlay) overlay.classList.add('hidden');
         refreshDashboard();
