@@ -1,14 +1,25 @@
 /**
  * TGB Payment Proof Upload API
  * Uploads payment screenshots to Google Drive and logs to spreadsheet
+ * 
+ * Since service accounts can't upload to shared folders, this creates
+ * a folder in the service account's own Drive and shares it with specified emails.
  */
 
 const { google } = require('googleapis');
 
 // Configuration
-const UPLOAD_FOLDER_ID = '1dySr98C9SBfYys9RjMPm2h4LoE_73V4d';
 const LOG_SHEET_ID = '1YnkcqUy0osdaZbt2LGXQDWLpKiWdC0W0JB6Zfe02Oe0'; // TGB ORDER spreadsheet
 const LOG_TAB_NAME = 'UPLOAD_LOG';
+const FOLDER_NAME = 'TGB_Payment_Proofs';
+
+// Emails to share the folder with (add your emails here)
+const SHARE_WITH_EMAILS = [
+  'maldipia@gmail.com',
+  'tygfsb@gmail.com',
+  'legerynpia@soleblessing.com',
+  'soleblessing@gmail.com'
+];
 
 // Get credentials from environment
 function getCredentials() {
@@ -25,11 +36,60 @@ async function getGoogleAuth() {
   const auth = new google.auth.GoogleAuth({
     credentials: credentials,
     scopes: [
-      'https://www.googleapis.com/auth/drive.file',
+      'https://www.googleapis.com/auth/drive',
       'https://www.googleapis.com/auth/spreadsheets'
     ]
   });
   return auth;
+}
+
+// Get or create the upload folder in service account's Drive
+async function getOrCreateFolder(auth) {
+  const drive = google.drive({ version: 'v3', auth });
+  
+  // Search for existing folder
+  const searchResponse = await drive.files.list({
+    q: `name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+    fields: 'files(id, name)',
+    spaces: 'drive'
+  });
+  
+  if (searchResponse.data.files && searchResponse.data.files.length > 0) {
+    // Folder exists, return its ID
+    return searchResponse.data.files[0].id;
+  }
+  
+  // Create new folder
+  const createResponse = await drive.files.create({
+    requestBody: {
+      name: FOLDER_NAME,
+      mimeType: 'application/vnd.google-apps.folder'
+    },
+    fields: 'id'
+  });
+  
+  const folderId = createResponse.data.id;
+  
+  // Share folder with specified emails
+  for (const email of SHARE_WITH_EMAILS) {
+    try {
+      await drive.permissions.create({
+        fileId: folderId,
+        requestBody: {
+          type: 'user',
+          role: 'writer',
+          emailAddress: email
+        },
+        sendNotificationEmail: false
+      });
+      console.log(`Shared folder with ${email}`);
+    } catch (shareError) {
+      console.error(`Failed to share with ${email}:`, shareError.message);
+      // Continue even if sharing fails for one email
+    }
+  }
+  
+  return folderId;
 }
 
 // Generate PROOF_ID
@@ -73,6 +133,9 @@ function formatDate(date) {
 async function uploadToDrive(auth, fileBase64, mimeType, filename) {
   const drive = google.drive({ version: 'v3', auth });
   
+  // Get or create the upload folder
+  const folderId = await getOrCreateFolder(auth);
+  
   // Convert base64 to buffer
   const buffer = Buffer.from(fileBase64, 'base64');
   
@@ -91,7 +154,7 @@ async function uploadToDrive(auth, fileBase64, mimeType, filename) {
   const response = await drive.files.create({
     requestBody: {
       name: fullFilename,
-      parents: [UPLOAD_FOLDER_ID]
+      parents: [folderId]
     },
     media: {
       mimeType: mimeType,
@@ -99,6 +162,19 @@ async function uploadToDrive(auth, fileBase64, mimeType, filename) {
     },
     fields: 'id, name, webViewLink'
   });
+  
+  // Make file viewable by anyone with the link
+  try {
+    await drive.permissions.create({
+      fileId: response.data.id,
+      requestBody: {
+        type: 'anyone',
+        role: 'reader'
+      }
+    });
+  } catch (permError) {
+    console.error('Failed to set file permissions:', permError.message);
+  }
   
   return {
     fileId: response.data.id,
